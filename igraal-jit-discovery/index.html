@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iGraal Smart Discovery — UX Flow Definition</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface-2: #1a1a26;
+    --surface-3: #222233;
+    --border: #2a2a3d;
+    --text: #e8e8f0;
+    --text-dim: #8888a0;
+    --text-muted: #555570;
+    --accent: #6366f1;
+    --accent-glow: rgba(99, 102, 241, 0.15);
+    --green: #22c55e;
+    --green-glow: rgba(34, 197, 94, 0.12);
+    --amber: #f59e0b;
+    --amber-glow: rgba(245, 158, 11, 0.12);
+    --rose: #f43f5e;
+    --rose-glow: rgba(244, 63, 94, 0.12);
+    --cyan: #06b6d4;
+    --cyan-glow: rgba(6, 182, 212, 0.12);
+    --violet: #8b5cf6;
+    --violet-glow: rgba(139, 92, 246, 0.12);
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Navigation ── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  nav .logo {
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  nav .nav-links {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+  }
+
+  nav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 12.5px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  nav a:hover { color: var(--text); background: var(--surface-2); }
+
+  /* ── Main Layout ── */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 96px 32px 120px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .hero .badge {
+    display: inline-block;
+    background: var(--accent-glow);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 6px 16px;
+    border-radius: 100px;
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #e8e8f0 0%, #8888a0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero .subtitle {
+    font-size: 18px;
+    color: var(--text-dim);
+    max-width: 620px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+
+  .hero .meta {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .hero .meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* ── Sections ── */
+  section { margin-bottom: 72px; }
+
+  .section-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .section-desc {
+    color: var(--text-dim);
+    font-size: 15px;
+    margin-bottom: 32px;
+    max-width: 700px;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 16px;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .card-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  /* ── Persona Cards ── */
+  .persona {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .persona::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+  }
+
+  .persona.asker::before { background: var(--accent); }
+  .persona.searcher::before { background: var(--green); }
+  .persona.browser::before { background: var(--amber); }
+  .persona.dormant::before { background: var(--rose); }
+  .persona.savvy::before { background: var(--cyan); }
+
+  .persona .emoji { font-size: 32px; margin-bottom: 12px; display: block; }
+  .persona .name { font-weight: 700; font-size: 17px; margin-bottom: 2px; }
+  .persona .archetype { font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .persona .quote { font-style: italic; color: var(--accent); font-size: 14px; margin-bottom: 16px; padding-left: 12px; border-left: 2px solid var(--accent); }
+
+  .persona .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .persona .detail label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 3px;
+  }
+
+  .persona .detail span {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  /* ── Tags ── */
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin: 2px 2px;
+  }
+
+  .tag-accent { background: var(--accent-glow); color: var(--accent); }
+  .tag-green { background: var(--green-glow); color: var(--green); }
+  .tag-amber { background: var(--amber-glow); color: var(--amber); }
+  .tag-rose { background: var(--rose-glow); color: var(--rose); }
+  .tag-cyan { background: var(--cyan-glow); color: var(--cyan); }
+
+  /* ── Flow Diagrams ── */
+  .flow-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+  }
+
+  .flow-title {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* SVG Flow Diagrams */
+  .flow-svg {
+    width: 100%;
+    min-height: 200px;
+  }
+
+  .flow-svg text {
+    font-family: 'Inter', sans-serif;
+    fill: var(--text);
+  }
+
+  .flow-svg .node-rect {
+    rx: 10;
+    ry: 10;
+    stroke-width: 1.5;
+  }
+
+  .flow-svg .arrow {
+    stroke: var(--text-muted);
+    stroke-width: 1.5;
+    fill: none;
+    marker-end: url(#arrowhead);
+  }
+
+  .flow-svg .arrow-label {
+    font-size: 10px;
+    fill: var(--text-muted);
+  }
+
+  /* ── Interaction Mode Cards ── */
+  .mode-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    position: relative;
+  }
+
+  .mode-card .mode-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .mode-card .mode-name {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  .mode-card .mode-subtitle {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+
+  .mode-card .step-list {
+    list-style: none;
+    counter-reset: step;
+  }
+
+  .mode-card .step-list li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 36px;
+    padding-bottom: 16px;
+    border-left: 1px solid var(--border);
+    margin-left: 12px;
+    font-size: 13.5px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .mode-card .step-list li:last-child { border-left: none; padding-bottom: 0; }
+
+  .mode-card .step-list li::before {
+    content: counter(step);
+    position: absolute;
+    left: -12px;
+    top: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--surface-3);
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .mode-card .step-list li strong { color: var(--text); }
+
+  /* ── Edge Case Table ── */
+  .edge-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+
+  .edge-table th {
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .edge-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(42, 42, 61, 0.5);
+    vertical-align: top;
+  }
+
+  .edge-table td:first-child { font-weight: 600; color: var(--text); white-space: nowrap; }
+  .edge-table td:nth-child(2) { color: var(--text-dim); }
+  .edge-table td:nth-child(3) { color: var(--text-dim); }
+
+  .severity-high { color: var(--rose) !important; }
+  .severity-med { color: var(--amber) !important; }
+  .severity-low { color: var(--green) !important; }
+
+  /* ── Emotional Journey ── */
+  .emotion-track {
+    display: flex;
+    gap: 0;
+    margin: 16px 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .emotion-step {
+    flex: 1;
+    padding: 16px 12px;
+    text-align: center;
+    font-size: 12px;
+    position: relative;
+  }
+
+  .emotion-step .emotion-emoji { font-size: 24px; display: block; margin-bottom: 6px; }
+  .emotion-step .emotion-label { font-weight: 600; font-size: 11px; display: block; margin-bottom: 2px; }
+  .emotion-step .emotion-feeling { color: var(--text-dim); font-size: 10px; }
+
+  .emotion-high { background: rgba(34, 197, 94, 0.08); }
+  .emotion-mid { background: rgba(245, 158, 11, 0.08); }
+  .emotion-low { background: rgba(244, 63, 94, 0.08); }
+  .emotion-peak { background: rgba(99, 102, 241, 0.12); }
+
+  /* ── Proactive Engine ── */
+  .trigger-card {
+    background: var(--surface-2);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    margin-bottom: 12px;
+  }
+
+  .trigger-card .trigger-name {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .trigger-card .trigger-desc { font-size: 13px; color: var(--text-dim); margin-bottom: 8px; }
+  .trigger-card .trigger-example { font-size: 12px; color: var(--text-muted); font-style: italic; }
+
+  /* ── JIT Component Spec ── */
+  .component-card {
+    background: var(--surface-2);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    border-left: 3px solid var(--accent);
+  }
+
+  .component-card .comp-name { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+  .component-card .comp-desc { font-size: 12.5px; color: var(--text-dim); margin-bottom: 8px; }
+  .component-card .comp-data { font-size: 11px; color: var(--text-muted); font-family: 'SF Mono', monospace; }
+
+  /* ── Dividers ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 48px 0;
+  }
+
+  /* ── Callout ── */
+  .callout {
+    background: var(--accent-glow);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .callout p { font-size: 14px; color: var(--text-dim); }
+  .callout strong { color: var(--accent); }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 16px; gap: 16px; }
+    main { padding: 80px 16px 80px; }
+    .card-grid, .card-grid-3 { grid-template-columns: 1fr; }
+    .persona .detail-grid { grid-template-columns: 1fr; }
+    .emotion-track { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <span class="logo">🧭 Dopamine × Atolls</span>
+  <div class="nav-links">
+    <a href="#problem">Problem</a>
+    <a href="#personas">Personas</a>
+    <a href="#modes">3 Modes</a>
+    <a href="#flows">Flows</a>
+    <a href="#jit">JIT Engine</a>
+    <a href="#proactive">Proactive Layer</a>
+    <a href="#edges">Edge Cases</a>
+    <a href="#emotions">Emotion Map</a>
+    <a href="#next">Next Steps</a>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main>
+
+  <!-- Hero -->
+  <div class="hero">
+    <span class="badge">UX Flow Definition — v1.0</span>
+    <h1>iGraal Smart Discovery</h1>
+    <p class="subtitle">From passive browsing to intent-driven, AI-composed deal surfaces. Three interaction modes for three user mindsets — one unified JIT output.</p>
+    <div class="meta">
+      <span>📋 Atolls / iGraal</span>
+      <span>🧭 UX Designer — Dopamine</span>
+      <span>📅 March 2026</span>
+    </div>
+  </div>
+
+  <!-- ━━ 1. PROBLEM STATEMENT ━━ -->
+  <section id="problem">
+    <span class="section-label">01 — Problem</span>
+    <h2>The Discovery Gap</h2>
+    <p class="section-desc">iGraal has 10M+ users in France and a vast merchant catalogue. But the current experience is passive — users must know what they want, search for a specific merchant, and hope there's a deal. The app doesn't meet users where they are.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>🔴 The User Problem</h3>
+        <p style="color: var(--text-dim); font-size: 14px; margin-top: 8px;">
+          <strong style="color: var(--rose);">"I want to save money, but I don't want to work for it."</strong><br><br>
+          Users have varying levels of intent — from "I need Nike shoes" to "surprise me with something good." The current merchant-list model serves only high-intent users who already know the brand. Everyone else bounces.
+        </p>
+      </div>
+      <div class="card">
+        <h3>🟡 The Business Problem</h3>
+        <p style="color: var(--text-dim); font-size: 14px; margin-top: 8px;">
+          <strong style="color: var(--amber);">High-value offers go unseen because discovery is merchant-indexed, not need-indexed.</strong><br><br>
+          A user searching for "shoes" won't find a 12% cashback on Zalando unless they already know Zalando is a partner. The platform leaves money on the table for both users and merchants.
+        </p>
+      </div>
+      <div class="card">
+        <h3>🟢 The Opportunity</h3>
+        <p style="color: var(--text-dim); font-size: 14px; margin-top: 8px;">
+          <strong style="color: var(--green);">Move from merchant discovery → intent discovery. Let the app understand what users want and compose the answer in real time.</strong><br><br>
+          Three interaction modes. One JIT-composed output. Every user type — from askers to browsers — gets a relevant, personalized deal surface.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 24px;">
+      <p><strong>Core insight:</strong> Competitors (Honey, Rakuten, ShopBack) are all merchant-indexed. No one has cracked intent-indexed discovery with AI-composed screens yet. iGraal can be first in Europe.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ━━ 2. PERSONAS ━━ -->
+  <section id="personas">
+    <span class="section-label">02 — Personas</span>
+    <h2>Five User Archetypes</h2>
+    <p class="section-desc">Each persona represents a distinct mindset, not just a demographic. The same person can be different personas on different days. The system must recognize which mode they're in.</p>
+
+    <div class="card-grid" style="margin-bottom: 16px;">
+      <!-- Persona 1: The Asker -->
+      <div class="persona asker">
+        <span class="emoji">🗣️</span>
+        <div class="name">Chloé, 28</div>
+        <div class="archetype">The Asker</div>
+        <div class="quote">"I want the best deal on running shoes under €100 — just tell me."</div>
+        <p style="font-size: 13px; color: var(--text-dim);">Comfortable with AI. High intent, specific needs. Wants to ask a question and get a direct answer with options. Values speed and precision over browsing.</p>
+        <div class="detail-grid">
+          <div class="detail"><label>Behavior</label><span>Natural language queries, refines results</span></div>
+          <div class="detail"><label>Frequency</label><span>2-3× per week, purchase-driven</span></div>
+          <div class="detail"><label>Frustration</label><span>Browsing 40 merchants to find one deal</span></div>
+          <div class="detail"><label>Interaction</label><span>🗣️ Conversational</span></div>
+        </div>
+        <div style="margin-top: 12px;">
+          <span class="tag tag-accent">High Intent</span>
+          <span class="tag tag-accent">AI Native</span>
+          <span class="tag tag-accent">Task-Oriented</span>
+        </div>
+      </div>
+
+      <!-- Persona 2: The Searcher -->
+      <div class="persona searcher">
+        <span class="emoji">🔍</span>
+        <div class="name">Thomas, 35</div>
+        <div class="archetype">The Searcher</div>
+        <div class="quote">"Let me type Nike, see results, and decide myself."</div>
+        <p style="font-size: 13px; color: var(--text-dim);">High intent but prefers control. Doesn't want to chat — wants a search bar, smart filters, and structured results. The majority of users. Familiar patterns, low friction.</p>
+        <div class="detail-grid">
+          <div class="detail"><label>Behavior</label><span>Keywords → scan results → tap best one</span></div>
+          <div class="detail"><label>Frequency</label><span>4-5× per week, habitual checker</span></div>
+          <div class="detail"><label>Frustration</label><span>Irrelevant results, no category filtering</span></div>
+          <div class="detail"><label>Interaction</label><span>🔍 Search + Filter</span></div>
+        </div>
+        <div style="margin-top: 12px;">
+          <span class="tag tag-green">High Intent</span>
+          <span class="tag tag-green">Control-Oriented</span>
+          <span class="tag tag-green">Efficiency</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-grid" style="margin-bottom: 16px;">
+      <!-- Persona 3: The Browser -->
+      <div class="persona browser">
+        <span class="emoji">🎁</span>
+        <div class="name">Léa, 24</div>
+        <div class="archetype">The Browser</div>
+        <div class="quote">"I'm bored. Show me something good."</div>
+        <p style="font-size: 13px; color: var(--text-dim);">Opens the app with no specific goal. Wants inspiration, trending deals, curated surprises. Engagement-driven — the dopamine shopper. Discovers deals she didn't know she wanted.</p>
+        <div class="detail-grid">
+          <div class="detail"><label>Behavior</label><span>Scroll feed, tap what catches eye</span></div>
+          <div class="detail"><label>Frequency</label><span>Daily, often during commute/breaks</span></div>
+          <div class="detail"><label>Frustration</label><span>Same deals every day, no personalization</span></div>
+          <div class="detail"><label>Interaction</label><span>🎁 Feed-based browse</span></div>
+        </div>
+        <div style="margin-top: 12px;">
+          <span class="tag tag-amber">Low Intent</span>
+          <span class="tag tag-amber">Discovery-Driven</span>
+          <span class="tag tag-amber">Dopamine</span>
+        </div>
+      </div>
+
+      <!-- Persona 4: The Dormant User -->
+      <div class="persona dormant">
+        <span class="emoji">😴</span>
+        <div class="name">Marc, 42</div>
+        <div class="archetype">The Dormant</div>
+        <div class="quote">"I signed up a year ago. Is this app still useful?"</div>
+        <p style="font-size: 13px; color: var(--text-dim);">Registered but disengaged. Has €3.40 unclaimed cashback. Returns via push notification or email. Needs to be re-convinced of value in 5 seconds or leaves again.</p>
+        <div class="detail-grid">
+          <div class="detail"><label>Behavior</label><span>Returns from notification, quick glance</span></div>
+          <div class="detail"><label>Frequency</label><span>Once per month or less</span></div>
+          <div class="detail"><label>Frustration</label><span>Forgot how app works, feels outdated</span></div>
+          <div class="detail"><label>Interaction</label><span>😴 Re-engagement needed</span></div>
+        </div>
+        <div style="margin-top: 12px;">
+          <span class="tag tag-rose">No Intent</span>
+          <span class="tag tag-rose">At-Risk</span>
+          <span class="tag tag-rose">Reactivation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <!-- Persona 5: The Savvy Maximizer -->
+      <div class="persona savvy">
+        <span class="emoji">🧮</span>
+        <div class="name">Sophie, 31</div>
+        <div class="archetype">The Savvy Maximizer</div>
+        <div class="quote">"How do I stack cashback + promo code + voucher for maximum savings?"</div>
+        <p style="font-size: 13px; color: var(--text-dim);">Power user. Knows the system. Wants to combine offers, find hidden deals, maximize every purchase. Will ask complex questions like "which electronics store has the best cashback right now + a working promo code?"</p>
+        <div class="detail-grid">
+          <div class="detail"><label>Behavior</label><span>Compares, stacks, optimizes before buying</span></div>
+          <div class="detail"><label>Frequency</label><span>Daily, strategic purchases</span></div>
+          <div class="detail"><label>Frustration</label><span>Can't see total savings at a glance</span></div>
+          <div class="detail"><label>Interaction</label><span>🧮 Multi-query, comparison</span></div>
+        </div>
+        <div style="margin-top: 12px;">
+          <span class="tag tag-cyan">Expert Intent</span>
+          <span class="tag tag-cyan">Stacking</span>
+          <span class="tag tag-cyan">Power User</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ━━ 3. THREE INTERACTION MODES ━━ -->
+  <section id="modes">
+    <span class="section-label">03 — Interaction Modes</span>
+    <h2>Three Paths, One Destination</h2>
+    <p class="section-desc">Every mode leads to the same JIT-composed answer screen. The entry differs, the output is unified. Users don't choose a mode — the app detects it from their behavior.</p>
+
+    <div class="card-grid-3">
+      <!-- Mode 1: Ask -->
+      <div class="mode-card" style="border-top: 3px solid var(--accent);">
+        <span class="mode-icon">🗣️</span>
+        <div class="mode-name">Ask Mode</div>
+        <div class="mode-subtitle">Conversational — natural language → AI-composed answer</div>
+        <ol class="step-list">
+          <li><strong>Entry:</strong> User taps the Ask prompt or speaks a question. "Best deal on headphones under €80"</li>
+          <li><strong>Understanding:</strong> AI parses intent → category (electronics), product type (headphones), constraint (< €80), goal (best deal)</li>
+          <li><strong>JIT Assembly:</strong> System composes a screen: top cashback merchants for headphones, active promo codes, price comparison card, savings calculator</li>
+          <li><strong>Refinement:</strong> User can follow up: "What about wireless?" → screen updates in place. No page reload.</li>
+          <li><strong>Action:</strong> User taps "Go to store" → activates cashback → redirected to merchant with tracking</li>
+        </ol>
+        <div style="margin-top: 16px;">
+          <span class="tag tag-accent">Personas: Chloé, Sophie</span>
+        </div>
+      </div>
+
+      <!-- Mode 2: Search -->
+      <div class="mode-card" style="border-top: 3px solid var(--green);">
+        <span class="mode-icon">🔍</span>
+        <div class="mode-name">Search Mode</div>
+        <div class="mode-subtitle">Structured — keyword → smart filtered results → JIT answer</div>
+        <ol class="step-list">
+          <li><strong>Entry:</strong> User taps search bar, types keyword: "Nike" or "electronics" or "travel deals"</li>
+          <li><strong>Smart Categorization:</strong> Results auto-grouped: merchants, active codes, cashback rates, trending deals — not just a flat list</li>
+          <li><strong>JIT Assembly:</strong> System composes structured result screen with filters (category, cashback %, expiry), sort options, highlight cards</li>
+          <li><strong>Progressive Enhancement:</strong> AI suggests: "Looking for Nike? Zalando has 8% cashback + free shipping code" — a nudge, not a takeover</li>
+          <li><strong>Action:</strong> Quick-tap to activate cashback. One step, not three.</li>
+        </ol>
+        <div style="margin-top: 16px;">
+          <span class="tag tag-green">Personas: Thomas, Sophie</span>
+        </div>
+      </div>
+
+      <!-- Mode 3: Browse -->
+      <div class="mode-card" style="border-top: 3px solid var(--amber);">
+        <span class="mode-icon">🎁</span>
+        <div class="mode-name">Browse Mode</div>
+        <div class="mode-subtitle">Proactive — curated feed → personalized deal surfaces</div>
+        <ol class="step-list">
+          <li><strong>Entry:</strong> User opens app with no specific intent. Lands on personalized home feed.</li>
+          <li><strong>Smart Feed:</strong> AI-curated cards based on: purchase history, browsing patterns, seasonality, trending deals, location</li>
+          <li><strong>JIT Assembly:</strong> Each feed card expands into a composed deal surface. "Your weekend travel deals" → flights, hotels, car rental — all with stacked savings</li>
+          <li><strong>Proactive Nudges:</strong> "You bought from Sephora last month — they just increased cashback to 10%" — contextual, timely, relevant</li>
+          <li><strong>Action:</strong> Swipe to save, tap to shop. Low friction, high discovery.</li>
+        </ol>
+        <div style="margin-top: 16px;">
+          <span class="tag tag-amber">Personas: Léa, Marc</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>Design principle:</strong> The three modes aren't tabs or settings. They're behavioral states the app detects. A user who opens the app and immediately starts typing → Search Mode. A user who says "find me..." → Ask Mode. A user who just scrolls → Browse Mode. Seamless transition between modes, no friction.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ━━ 4. FLOW DIAGRAMS ━━ -->
+  <section id="flows">
+    <span class="section-label">04 — Flow Architecture</span>
+    <h2>User Journey Maps</h2>
+    <p class="section-desc">Each flow shows the complete path from entry to action, including decision points, error states, and the JIT composition logic.</p>
+
+    <!-- Master Flow -->
+    <div class="flow-container">
+      <div class="flow-title">🏗️ Master Architecture — How All Modes Converge</div>
+      <svg class="flow-svg" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#555570"/>
+          </marker>
+        </defs>
+
+        <!-- Entry Points Row -->
+        <rect x="40" y="30" width="160" height="50" class="node-rect" fill="rgba(99,102,241,0.12)" stroke="#6366f1"/>
+        <text x="120" y="60" text-anchor="middle" font-size="13" font-weight="600">🗣️ Ask Mode</text>
+
+        <rect x="260" y="30" width="160" height="50" class="node-rect" fill="rgba(34,197,94,0.12)" stroke="#22c55e"/>
+        <text x="340" y="60" text-anchor="middle" font-size="13" font-weight="600">🔍 Search Mode</text>
+
+        <rect x="480" y="30" width="160" height="50" class="node-rect" fill="rgba(245,158,11,0.12)" stroke="#f59e0b"/>
+        <text x="560" y="60" text-anchor="middle" font-size="13" font-weight="600">🎁 Browse Mode</text>
+
+        <rect x="700" y="30" width="160" height="50" class="node-rect" fill="rgba(244,63,94,0.12)" stroke="#f43f5e"/>
+        <text x="780" y="60" text-anchor="middle" font-size="13" font-weight="600">🔔 Push / Deep Link</text>
+
+        <!-- Arrows to Intent Engine -->
+        <line x1="120" y1="80" x2="120" y2="130" class="arrow"/>
+        <line x1="340" y1="80" x2="340" y2="130" class="arrow"/>
+        <line x1="560" y1="80" x2="560" y2="130" class="arrow"/>
+        <line x1="780" y1="80" x2="780" y2="130" class="arrow"/>
+
+        <line x1="120" y1="130" x2="450" y2="130" stroke="#555570" stroke-width="1"/>
+        <line x1="340" y1="130" x2="450" y2="130" stroke="#555570" stroke-width="1"/>
+        <line x1="560" y1="130" x2="450" y2="130" stroke="#555570" stroke-width="1"/>
+        <line x1="780" y1="130" x2="450" y2="130" stroke="#555570" stroke-width="1"/>
+
+        <line x1="450" y1="130" x2="450" y2="155" class="arrow"/>
+
+        <!-- Intent Engine -->
+        <rect x="320" y="155" width="260" height="56" class="node-rect" fill="rgba(139,92,246,0.15)" stroke="#8b5cf6"/>
+        <text x="450" y="177" text-anchor="middle" font-size="14" font-weight="700" fill="#8b5cf6">🧠 Intent Engine</text>
+        <text x="450" y="197" text-anchor="middle" font-size="10" fill="#8888a0">Parse → Classify → Enrich → Route</text>
+
+        <!-- Arrow to Decision Diamond -->
+        <line x1="450" y1="211" x2="450" y2="245" class="arrow"/>
+
+        <!-- Decision: Has Results? -->
+        <polygon points="450,245 520,275 450,305 380,275" fill="rgba(139,92,246,0.08)" stroke="#8b5cf6" stroke-width="1.5"/>
+        <text x="450" y="279" text-anchor="middle" font-size="11" font-weight="600" fill="#8b5cf6">Results?</text>
+
+        <!-- Yes path -->
+        <line x1="520" y1="275" x2="600" y2="275" class="arrow"/>
+        <text x="555" y="268" font-size="10" fill="#22c55e" font-weight="600">Yes</text>
+
+        <!-- JIT Composer -->
+        <rect x="600" y="248" width="240" height="56" class="node-rect" fill="rgba(6,182,212,0.12)" stroke="#06b6d4"/>
+        <text x="720" y="270" text-anchor="middle" font-size="13" font-weight="700" fill="#06b6d4">🔧 JIT Screen Composer</text>
+        <text x="720" y="290" text-anchor="middle" font-size="10" fill="#8888a0">Select components → Rank → Assemble</text>
+
+        <!-- Arrow to JIT Screen -->
+        <line x1="720" y1="304" x2="720" y2="345" class="arrow"/>
+
+        <!-- JIT Screen -->
+        <rect x="590" y="345" width="260" height="56" class="node-rect" fill="rgba(99,102,241,0.15)" stroke="#6366f1" stroke-width="2"/>
+        <text x="720" y="367" text-anchor="middle" font-size="14" font-weight="800" fill="#6366f1">📱 JIT Answer Screen</text>
+        <text x="720" y="387" text-anchor="middle" font-size="10" fill="#8888a0">Dynamic, personalized, composable</text>
+
+        <!-- Arrow to Actions -->
+        <line x1="720" y1="401" x2="720" y2="440" class="arrow"/>
+
+        <!-- Action Row -->
+        <rect x="570" y="440" width="100" height="40" class="node-rect" fill="rgba(34,197,94,0.1)" stroke="#22c55e"/>
+        <text x="620" y="465" text-anchor="middle" font-size="11" font-weight="600" fill="#22c55e">🛒 Shop</text>
+
+        <rect x="680" y="440" width="100" height="40" class="node-rect" fill="rgba(245,158,11,0.1)" stroke="#f59e0b"/>
+        <text x="730" y="465" text-anchor="middle" font-size="11" font-weight="600" fill="#f59e0b">💾 Save</text>
+
+        <rect x="790" y="440" width="100" height="40" class="node-rect" fill="rgba(99,102,241,0.1)" stroke="#6366f1"/>
+        <text x="840" y="465" text-anchor="middle" font-size="11" font-weight="600" fill="#6366f1">🔄 Refine</text>
+
+        <!-- Refine loops back -->
+        <path d="M 890 460 Q 910 460 910 370 Q 910 320 840 304" class="arrow" fill="none"/>
+
+        <!-- No path (from diamond) -->
+        <line x1="380" y1="275" x2="240" y2="275" class="arrow"/>
+        <text x="315" y="268" font-size="10" fill="#f43f5e" font-weight="600">No</text>
+
+        <!-- No Results Handling -->
+        <rect x="80" y="248" width="160" height="56" class="node-rect" fill="rgba(244,63,94,0.1)" stroke="#f43f5e"/>
+        <text x="160" y="270" text-anchor="middle" font-size="12" font-weight="600" fill="#f43f5e">🤷 No Results</text>
+        <text x="160" y="288" text-anchor="middle" font-size="10" fill="#8888a0">Fallback strategy</text>
+
+        <!-- Fallback options -->
+        <line x1="160" y1="304" x2="160" y2="345" class="arrow"/>
+
+        <rect x="40" y="345" width="240" height="70" class="node-rect" fill="rgba(244,63,94,0.06)" stroke="rgba(244,63,94,0.3)"/>
+        <text x="160" y="367" text-anchor="middle" font-size="11" font-weight="600" fill="#f43f5e">Graceful Fallback:</text>
+        <text x="160" y="383" text-anchor="middle" font-size="10" fill="#8888a0">• Suggest related categories</text>
+        <text x="160" y="397" text-anchor="middle" font-size="10" fill="#8888a0">• Show trending deals instead</text>
+        <text x="160" y="411" text-anchor="middle" font-size="10" fill="#8888a0">• "Set alert for this" option</text>
+      </svg>
+    </div>
+
+    <!-- Ask Mode Detail Flow -->
+    <div class="flow-container">
+      <div class="flow-title">🗣️ Ask Mode — Conversational Flow Detail</div>
+      <svg class="flow-svg" viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="ah2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#555570"/>
+          </marker>
+        </defs>
+
+        <!-- Step 1: Entry -->
+        <rect x="30" y="40" width="150" height="60" rx="12" fill="rgba(99,102,241,0.12)" stroke="#6366f1" stroke-width="1.5"/>
+        <text x="105" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#6366f1">App Opens</text>
+        <text x="105" y="82" text-anchor="middle" font-size="10" fill="#8888a0">Ask prompt visible</text>
+
+        <line x1="180" y1="70" x2="220" y2="70" stroke="#555570" stroke-width="1.5" marker-end="url(#ah2)"/>
+
+        <!-- Step 2: Input -->
+        <rect x="220" y="40" width="150" height="60" rx="12" fill="rgba(99,102,241,0.12)" stroke="#6366f1" stroke-width="1.5"/>
+        <text x="295" y="62" text-anchor="middle" font-size="12" font-weight="700" fill="#6366f1">User Types/Speaks</text>
+        <text x="295" y="79" text-anchor="middle" font-size="10" fill="#8888a0">"Best deal on..."</text>
+
+        <line x1="370" y1="70" x2="410" y2="70" stroke="#555570" stroke-width="1.5" marker-end="url(#ah2)"/>
+
+        <!-- Step 3: Processing -->
+        <rect x="410" y="40" width="150" height="60" rx="12" fill="rgba(139,92,246,0.12)" stroke="#8b5cf6" stroke-width="1.5"/>
+        <text x="485" y="62" text-anchor="middle" font-size="12" font-weight="700" fill="#8b5cf6">AI Processes</text>
+        <text x="485" y="79" text-anchor="middle" font-size="10" fill="#8888a0">Skeleton loading</text>
+
+        <line x1="560" y1="70" x2="600" y2="70" stroke="#555570" stroke-width="1.5" marker-end="url(#ah2)"/>
+
+        <!-- Step 4: JIT Screen -->
+        <rect x="600" y="30" width="170" height="80" rx="12" fill="rgba(6,182,212,0.12)" stroke="#06b6d4" stroke-width="2"/>
+        <text x="685" y="58" text-anchor="middle" font-size="13" font-weight="800" fill="#06b6d4">JIT Screen</text>
+        <text x="685" y="75" text-anchor="middle" font-size="10" fill="#8888a0">Components assembled</text>
+        <text x="685" y="90" text-anchor="middle" font-size="10" fill="#8888a0">from intent analysis</text>
+
+        <!-- Refinement Loop -->
+        <rect x="220" y="160" width="550" height="50" rx="12" fill="rgba(99,102,241,0.06)" stroke="rgba(99,102,241,0.3)" stroke-width="1"/>
+        <text x="495" y="182" text-anchor="middle" font-size="12" font-weight="600" fill="#6366f1">🔄 Refinement Loop — "What about wireless?" → Screen updates in-place</text>
+        <text x="495" y="198" text-anchor="middle" font-size="10" fill="#8888a0">Context preserved. No page reload. Conversation memory maintained.</text>
+
+        <path d="M 685 110 L 685 135 L 495 135 L 495 160" stroke="#555570" stroke-width="1" fill="none" marker-end="url(#ah2)"/>
+        <path d="M 495 210 L 495 235 L 685 235 L 685 260" stroke="#555570" stroke-width="1" fill="none" marker-end="url(#ah2)"/>
+
+        <!-- Conversation examples -->
+        <rect x="30" y="260" width="250" height="100" rx="10" fill="var(--surface-2)"/>
+        <text x="50" y="285" font-size="11" font-weight="600" fill="#6366f1">Example conversation:</text>
+        <text x="50" y="305" font-size="10" fill="#8888a0">👤 "Best deal on sneakers"</text>
+        <text x="50" y="322" font-size="10" fill="#8888a0">🤖 → JIT: 3 merchants, 2 codes, comparison</text>
+        <text x="50" y="339" font-size="10" fill="#8888a0">👤 "Under €80, white only"</text>
+        <text x="50" y="356" font-size="10" fill="#8888a0">🤖 → JIT updates: filtered, re-ranked</text>
+
+        <rect x="320" y="260" width="250" height="100" rx="10" fill="var(--surface-2)"/>
+        <text x="340" y="285" font-size="11" font-weight="600" fill="#8b5cf6">Complex query handling:</text>
+        <text x="340" y="305" font-size="10" fill="#8888a0">👤 "Best laptop deal + cashback + code"</text>
+        <text x="340" y="322" font-size="10" fill="#8888a0">🤖 → JIT: stacked savings calculator</text>
+        <text x="340" y="339" font-size="10" fill="#8888a0">     + merchant comparison table</text>
+        <text x="340" y="356" font-size="10" fill="#8888a0">     + "max savings" highlight card</text>
+
+        <rect x="610" y="260" width="250" height="100" rx="10" fill="var(--surface-2)"/>
+        <text x="630" y="285" font-size="11" font-weight="600" fill="#f43f5e">Vague query handling:</text>
+        <text x="630" y="305" font-size="10" fill="#8888a0">👤 "Something for my girlfriend"</text>
+        <text x="630" y="322" font-size="10" fill="#8888a0">🤖 → Clarifying: "What's the occasion?"</text>
+        <text x="630" y="339" font-size="10" fill="#8888a0">     + Quick picks: 🎁 Birthday 💝 Valentine</text>
+        <text x="630" y="356" font-size="10" fill="#8888a0">     + Top gift categories with cashback</text>
+      </svg>
+    </div>
+
+    <!-- Search + Browse abbreviated -->
+    <div class="card-grid">
+      <div class="flow-container">
+        <div class="flow-title">🔍 Search Mode — Key Differentiator</div>
+        <div style="font-size: 13px; color: var(--text-dim); line-height: 1.8;">
+          <p><strong style="color: var(--green);">Current iGraal search:</strong> merchant-indexed → type "Nike" → get Nike page</p>
+          <p><strong style="color: var(--text);">Smart Discovery search:</strong> intent-indexed → type "shoes" → get:</p>
+          <ul style="padding-left: 20px; margin: 12px 0;">
+            <li>🏷️ <strong>Best Cashback</strong> — Zalando 8%, Nike 5%, ASOS 6%</li>
+            <li>🎟️ <strong>Active Codes</strong> — 3 verified codes, auto-applied</li>
+            <li>📊 <strong>Savings Comparison</strong> — "Zalando saves you €12 more than buying direct"</li>
+            <li>🔔 <strong>Price Alert</strong> — "Nike Air Max dropped 15% at 2 stores"</li>
+          </ul>
+          <p style="color: var(--text-muted); font-size: 12px;">The search box becomes a deal engine, not a directory lookup.</p>
+        </div>
+      </div>
+
+      <div class="flow-container">
+        <div class="flow-title">🎁 Browse Mode — Feed Logic</div>
+        <div style="font-size: 13px; color: var(--text-dim); line-height: 1.8;">
+          <p><strong style="color: var(--amber);">Feed composition algorithm:</strong></p>
+          <ul style="padding-left: 20px; margin: 12px 0;">
+            <li>🕐 <strong>Time-sensitive</strong> — deals expiring in < 24h (urgency)</li>
+            <li>🔥 <strong>Trending</strong> — most activated deals today (social proof)</li>
+            <li>👤 <strong>Personal</strong> — based on purchase history + browsing</li>
+            <li>📈 <strong>Cashback Spikes</strong> — merchants who just increased rates</li>
+            <li>🎯 <strong>Seasonal</strong> — contextual: back-to-school, Black Friday, summer travel</li>
+            <li>💡 <strong>Smart Nudges</strong> — "You bought from Fnac last week — 10% cashback is back"</li>
+          </ul>
+          <p style="color: var(--text-muted); font-size: 12px;">Each card in the feed, when tapped, expands to a full JIT-composed deal surface.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ━━ 5. JIT COMPONENT ENGINE ━━ -->
+  <section id="jit">
+    <span class="section-label">05 — JIT Component Engine</span>
+    <h2>How Screens Are Assembled</h2>
+    <p class="section-desc">The JIT engine selects from a palette of composable components based on the intent analysis. No two answer screens need to look the same — they're built from the same blocks but assembled per query.</p>
+
+    <div class="card-grid-3">
+      <div class="component-card">
+        <div class="comp-name">💰 Cashback Merchant Card</div>
+        <div class="comp-desc">Shows merchant logo, cashback %, status (active/pending), and "Shop Now" CTA. Primary building block.</div>
+        <div class="comp-data">data: merchant, rate, status, logo, deeplink</div>
+      </div>
+      <div class="component-card">
+        <div class="comp-name">🎟️ Promo Code Card</div>
+        <div class="comp-desc">Code with copy button, validity date, success rate badge ("92% success"), and conditions.</div>
+        <div class="comp-data">data: code, merchant, expiry, successRate, conditions</div>
+      </div>
+      <div class="component-card">
+        <div class="comp-name">📊 Savings Comparison</div>
+        <div class="comp-desc">Side-by-side comparison of 2-3 merchants for the same product category. Shows total savings breakdown.</div>
+        <div class="comp-data">data: merchants[], rates[], estimatedSavings[]</div>
+      </div>
+      <div class="component-card">
+        <div class="comp-name">🧮 Stacked Savings Calculator</div>
+        <div class="comp-desc">For power users. Shows cashback + promo code + voucher = total savings. Interactive amount input.</div>
+        <div class="comp-data">data: cashback, promoValue, voucherValue, total</div>
+      </div>
+      <div class="component-card">
+        <div class="comp-name">⏰ Urgency Banner</div>
+        <div class="comp-desc">Countdown for expiring deals. "This offer ends in 4h 23m." Drives FOMO without being manipulative.</div>
+        <div class="comp-data">data: expiryTimestamp, dealTitle, merchant</div>
+      </div>
+      <div class="component-card">
+        <div class="comp-name">📈 Cashback Trend Graph</div>
+        <div class="comp-desc">Shows cashback rate history for a merchant. "Rate is at 12-month high" or "Usually higher in December."</div>
+        <div class="comp-data">data: merchant, rateHistory[], currentRate, trend</div>
+      </div>
+      <div class="component-card">
+        <div class="comp-name">🎁 Deal Bundle Card</div>
+        <div class="comp-desc">Groups related offers: "Your complete travel package: flights + hotel + car, total cashback: €47"</div>
+        <div class="comp-data">data: bundleTitle, offers[], totalSavings</div>
+      </div>
+      <div class="component-card">
+        <div class="comp-name">🔔 Alert Setup Card</div>
+        <div class="comp-desc">When no current deal exists: "Set an alert for Nike cashback above 8%." Turns no-result into retention.</div>
+        <div class="comp-data">data: category, threshold, frequency, channel</div>
+      </div>
+      <div class="component-card">
+        <div class="comp-name">💬 Clarification Chip Row</div>
+        <div class="comp-desc">Quick-tap refinement options: "Under €50" / "Free shipping" / "Top-rated" / "Ending soon". Replaces typing.</div>
+        <div class="comp-data">data: options[], selectedFilters[], queryContext</div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 24px;">
+      <p><strong>Assembly logic:</strong> The Intent Engine scores each component for relevance (0-1) based on the parsed query. Components above 0.6 threshold are included. Order is determined by: relevance score × user preference weight × recency. The result is a VStack of components — familiar, scrollable, native-feeling.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ━━ 6. PROACTIVE SUGGESTION ENGINE ━━ -->
+  <section id="proactive">
+    <span class="section-label">06 — Proactive Layer</span>
+    <h2>Don't Wait to Be Asked</h2>
+    <p class="section-desc">The most powerful feature isn't what happens when users ask — it's what the app offers before they ask. These triggers drive engagement, reactivation, and delight.</p>
+
+    <div class="trigger-card">
+      <div class="trigger-name">🔁 Purchase Pattern Recognition <span class="tag tag-green" style="font-size: 10px;">High Impact</span></div>
+      <div class="trigger-desc">Detect recurring purchases (monthly subscriptions, seasonal buys) and surface deals proactively.</div>
+      <div class="trigger-example">"You usually order contact lenses around this time — Optical Center has 7% cashback right now."</div>
+    </div>
+
+    <div class="trigger-card">
+      <div class="trigger-name">📈 Cashback Rate Spike Alert <span class="tag tag-green" style="font-size: 10px;">High Impact</span></div>
+      <div class="trigger-desc">When a merchant the user has shopped at increases their cashback rate significantly.</div>
+      <div class="trigger-example">"Fnac just doubled their cashback to 8% — your average order there would save you €14."</div>
+    </div>
+
+    <div class="trigger-card">
+      <div class="trigger-name">🎯 Contextual Moment Detection <span class="tag tag-amber" style="font-size: 10px;">Medium Impact</span></div>
+      <div class="trigger-desc">Season, events, holidays, weather → surface relevant categories automatically.</div>
+      <div class="trigger-example">"Planning your summer vacation? Here are travel deals with up to 12% cashback."</div>
+    </div>
+
+    <div class="trigger-card">
+      <div class="trigger-name">💤 Dormant User Reactivation <span class="tag tag-rose" style="font-size: 10px;">Critical for Growth</span></div>
+      <div class="trigger-desc">For users who haven't opened the app in 30+ days. Show instant value on return.</div>
+      <div class="trigger-example">"Welcome back, Marc! You have €3.40 pending + here are 3 deals for brands you love."</div>
+    </div>
+
+    <div class="trigger-card">
+      <div class="trigger-name">🏆 Savings Milestone <span class="tag tag-cyan" style="font-size: 10px;">Retention</span></div>
+      <div class="trigger-desc">Celebrate when users hit cashback milestones. Gamification without being cheesy.</div>
+      <div class="trigger-example">"You've saved €100 with iGraal! Here's a bonus: exclusive 15% code for your next purchase."</div>
+    </div>
+
+    <div class="trigger-card">
+      <div class="trigger-name">👥 Social Proof Nudge <span class="tag tag-cyan" style="font-size: 10px;">Retention</span></div>
+      <div class="trigger-desc">Show trending activity from the iGraal community to drive urgency and discovery.</div>
+      <div class="trigger-example">"2,400 people activated Zalando cashback today — sale ends tonight."</div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ━━ 7. EDGE CASES ━━ -->
+  <section id="edges">
+    <span class="section-label">07 — Edge Cases & Error States</span>
+    <h2>The Stuff That Kills You</h2>
+    <p class="section-desc">Every edge case that isn't designed for becomes a production bug, a support ticket, or a churned user. These are the scenarios we must handle.</p>
+
+    <div class="card" style="overflow-x: auto;">
+      <table class="edge-table">
+        <thead>
+          <tr>
+            <th>Scenario</th>
+            <th>User Impact</th>
+            <th>Design Response</th>
+            <th>Severity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🤷 Zero results</td>
+            <td>"Nothing found" kills engagement instantly</td>
+            <td>Never show empty. Offer: related categories, trending deals, alert setup. "No exact match, but here's what's close."</td>
+            <td class="severity-high">High</td>
+          </tr>
+          <tr>
+            <td>🌀 Vague query</td>
+            <td>"Something nice" — AI doesn't know what to show</td>
+            <td>Show clarification chips: category suggestions, trending picks. One guided question max before showing *something*.</td>
+            <td class="severity-high">High</td>
+          </tr>
+          <tr>
+            <td>⏰ Expired deal surfaced</td>
+            <td>User clicks → deal is dead. Trust destroyed.</td>
+            <td>Real-time validation before display. If expired: "This deal ended 2h ago. Here's the next best option." Never show dead deals without labeling.</td>
+            <td class="severity-high">High</td>
+          </tr>
+          <tr>
+            <td>🐌 Slow AI response</td>
+            <td>3+ second wait = user bounces</td>
+            <td>Skeleton loading with progressive reveal. Show cached/fast results first, enrich with AI layer. "Building your personalized results..."</td>
+            <td class="severity-high">High</td>
+          </tr>
+          <tr>
+            <td>🌍 Geo-restricted offers</td>
+            <td>User sees deal but can't use it in their country</td>
+            <td>Filter by user locale before display. If shown: clear geo badge. "Available in France only." Never let them click through to a dead end.</td>
+            <td class="severity-med">Medium</td>
+          </tr>
+          <tr>
+            <td>🆕 First-time user</td>
+            <td>No history = no personalization = generic experience</td>
+            <td>Onboarding: "Pick 3 categories you care about." Then: trending + editorial picks until we learn. Progressive personalization — never cold.</td>
+            <td class="severity-med">Medium</td>
+          </tr>
+          <tr>
+            <td>📱 Offline / poor connection</td>
+            <td>AI features require network</td>
+            <td>Cache last-viewed deals. Show "last updated 2h ago" with refresh option. Search/browse work offline from cache. Ask mode shows "reconnect for smart results."</td>
+            <td class="severity-med">Medium</td>
+          </tr>
+          <tr>
+            <td>🔀 Mode switching mid-flow</td>
+            <td>User asks a question while browsing feed</td>
+            <td>Seamless transition. Context preserved. Ask bar always visible. Browsing → typing → Ask mode, no page change. Return to feed with scroll position saved.</td>
+            <td class="severity-med">Medium</td>
+          </tr>
+          <tr>
+            <td>🗣️ Unparseable query</td>
+            <td>"asdf" or emoji-only or language AI doesn't handle</td>
+            <td>Graceful fallback: show trending deals + "Try asking something like: 'Best deal on electronics'" with example chips.</td>
+            <td class="severity-low">Low</td>
+          </tr>
+          <tr>
+            <td>♿ Accessibility</td>
+            <td>JIT-composed screens must be screen-reader friendly</td>
+            <td>All JIT components must have semantic structure, aria labels, and logical tab order. Dynamic assembly must produce valid DOM hierarchy.</td>
+            <td class="severity-med">Medium</td>
+          </tr>
+          <tr>
+            <td>🔄 Rapid re-queries</td>
+            <td>User types 5 queries in 10 seconds</td>
+            <td>Debounce input (300ms). Cancel in-flight requests. Latest query wins. No stale results overtaking current.</td>
+            <td class="severity-low">Low</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ━━ 8. EMOTIONAL JOURNEY ━━ -->
+  <section id="emotions">
+    <span class="section-label">08 — Emotional Design</span>
+    <h2>How Users Should Feel</h2>
+    <p class="section-desc">The UX isn't just functional — it's emotional. Each moment in the journey should evoke a specific feeling. We design for trust, delight, and empowerment.</p>
+
+    <h3 style="margin-top: 32px; margin-bottom: 16px;">🗣️ The Asker's Emotional Journey</h3>
+    <div class="emotion-track">
+      <div class="emotion-step emotion-mid">
+        <span class="emotion-emoji">🤔</span>
+        <span class="emotion-label">Curious</span>
+        <span class="emotion-feeling">"Will this actually work?"</span>
+      </div>
+      <div class="emotion-step emotion-mid">
+        <span class="emotion-emoji">⏳</span>
+        <span class="emotion-label">Hopeful</span>
+        <span class="emotion-feeling">"It's thinking..."</span>
+      </div>
+      <div class="emotion-step emotion-high">
+        <span class="emotion-emoji">😮</span>
+        <span class="emotion-label">Surprised</span>
+        <span class="emotion-feeling">"Wow, it actually found it"</span>
+      </div>
+      <div class="emotion-step emotion-peak">
+        <span class="emotion-emoji">🎯</span>
+        <span class="emotion-label">Empowered</span>
+        <span class="emotion-feeling">"I know exactly what to do"</span>
+      </div>
+      <div class="emotion-step emotion-peak">
+        <span class="emotion-emoji">🤑</span>
+        <span class="emotion-label">Delighted</span>
+        <span class="emotion-feeling">"I'm saving real money"</span>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 32px; margin-bottom: 16px;">🎁 The Browser's Emotional Journey</h3>
+    <div class="emotion-track">
+      <div class="emotion-step emotion-low">
+        <span class="emotion-emoji">😐</span>
+        <span class="emotion-label">Bored</span>
+        <span class="emotion-feeling">"Nothing to do..."</span>
+      </div>
+      <div class="emotion-step emotion-mid">
+        <span class="emotion-emoji">👀</span>
+        <span class="emotion-label">Intrigued</span>
+        <span class="emotion-feeling">"Ooh, what's this?"</span>
+      </div>
+      <div class="emotion-step emotion-high">
+        <span class="emotion-emoji">😍</span>
+        <span class="emotion-label">Excited</span>
+        <span class="emotion-feeling">"I didn't know this existed!"</span>
+      </div>
+      <div class="emotion-step emotion-peak">
+        <span class="emotion-emoji">🎉</span>
+        <span class="emotion-label">Rewarded</span>
+        <span class="emotion-feeling">"Free money basically"</span>
+      </div>
+      <div class="emotion-step emotion-high">
+        <span class="emotion-emoji">🔁</span>
+        <span class="emotion-label">Habitual</span>
+        <span class="emotion-feeling">"I check this every day now"</span>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 32px; margin-bottom: 16px;">😴 The Dormant User's Reactivation Journey</h3>
+    <div class="emotion-track">
+      <div class="emotion-step emotion-low">
+        <span class="emotion-emoji">🤷</span>
+        <span class="emotion-label">Indifferent</span>
+        <span class="emotion-feeling">"Oh, this app again"</span>
+      </div>
+      <div class="emotion-step emotion-mid">
+        <span class="emotion-emoji">💰</span>
+        <span class="emotion-label">Surprised</span>
+        <span class="emotion-feeling">"Wait, I have money here?"</span>
+      </div>
+      <div class="emotion-step emotion-high">
+        <span class="emotion-emoji">🧐</span>
+        <span class="emotion-label">Re-curious</span>
+        <span class="emotion-feeling">"This looks different now"</span>
+      </div>
+      <div class="emotion-step emotion-peak">
+        <span class="emotion-emoji">✅</span>
+        <span class="emotion-label">Convinced</span>
+        <span class="emotion-feeling">"OK, this is useful again"</span>
+      </div>
+      <div class="emotion-step emotion-high">
+        <span class="emotion-emoji">📱</span>
+        <span class="emotion-label">Re-engaged</span>
+        <span class="emotion-feeling">"Notifications: ON"</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ━━ 9. COMPETITIVE POSITIONING ━━ -->
+  <section id="competitive">
+    <span class="section-label">09 — Competitive Landscape</span>
+    <h2>Why This Wins</h2>
+    <p class="section-desc">No major cashback platform has cracked AI-driven deal discovery yet. They're all still merchant-indexed directories with search bolted on.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>🍯 Honey (PayPal)</h3>
+        <p style="font-size: 13px; color: var(--text-dim); margin-top: 8px;">Browser extension model. Auto-applies codes at checkout. No in-app discovery. No conversation. Reactive only — you must already be on a site. <strong style="color: var(--rose);">Recent trust issues after affiliate fraud scandal.</strong></p>
+        <div style="margin-top: 12px;">
+          <span class="tag tag-rose">No AI discovery</span>
+          <span class="tag tag-rose">Extension-only</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🛍️ Rakuten</h3>
+        <p style="font-size: 13px; color: var(--text-dim); margin-top: 8px;">Merchant directory + cashback activation. Good rates, strong in US/Japan. But discovery is browse-a-list. No intent understanding. No personalized feed. Traditional e-commerce UX.</p>
+        <div style="margin-top: 12px;">
+          <span class="tag tag-amber">Directory model</span>
+          <span class="tag tag-amber">No personalization</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🛒 ShopBack</h3>
+        <p style="font-size: 13px; color: var(--text-dim); margin-top: 8px;">Strong in SEA. Has quests (gamification), ShopBack Pay, GO (offline). Most innovative competitor. But still browse-first, no conversational discovery, no JIT composition.</p>
+        <div style="margin-top: 12px;">
+          <span class="tag tag-amber">Quests = good</span>
+          <span class="tag tag-amber">Still no AI discovery</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 24px;">
+      <p><strong>iGraal's unfair advantage:</strong> 10M users in France. Deep merchant data. Atolls operates across FR/DE/ES/PL. Combined with JIT AI discovery → first mover in European AI-powered cashback. <strong>The window is open — but not for long. ChatGPT's Agentic Commerce Protocol is coming for shopping.</strong></p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ━━ 10. NEXT STEPS ━━ -->
+  <section id="next">
+    <span class="section-label">10 — Next Steps</span>
+    <h2>From Here</h2>
+    <p class="section-desc">This UX definition is the foundation. Here's what needs to happen next, in order.</p>
+
+    <div class="card">
+      <div style="display: grid; gap: 20px;">
+        <div style="display: flex; gap: 16px; align-items: flex-start;">
+          <span style="background: var(--accent-glow); color: var(--accent); font-weight: 800; font-size: 14px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">1</span>
+          <div>
+            <div style="font-weight: 700;">Stakeholder Review & Alignment</div>
+            <div style="font-size: 13px; color: var(--text-dim);">Present this document to Atolls stakeholders. Validate personas, get buy-in on the 3-mode approach. Key question: which mode to build first? (Recommendation: Search Mode — highest user volume, lowest risk.)</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 16px; align-items: flex-start;">
+          <span style="background: var(--green-glow); color: var(--green); font-weight: 800; font-size: 14px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">2</span>
+          <div>
+            <div style="font-weight: 700;">JIT Component Palette Design</div>
+            <div style="font-size: 13px; color: var(--text-dim);">Define the exact visual spec for each JIT component. Size variants, data bindings, loading states, error states. This is the design system work — shared language between design and engineering.</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 16px; align-items: flex-start;">
+          <span style="background: var(--amber-glow); color: var(--amber); font-weight: 800; font-size: 14px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">3</span>
+          <div>
+            <div style="font-weight: 700;">Intent Engine Specification</div>
+            <div style="font-size: 13px; color: var(--text-dim);">Work with engineering to define: how does the AI parse intent? What model? What taxonomy of intents? How fast must it respond? What's the fallback when AI is down? This is the bridge between UX vision and technical reality.</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 16px; align-items: flex-start;">
+          <span style="background: var(--cyan-glow); color: var(--cyan); font-weight: 800; font-size: 14px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">4</span>
+          <div>
+            <div style="font-weight: 700;">Prototype & Test</div>
+            <div style="font-size: 13px; color: var(--text-dim);">Build a clickable prototype of the Search Mode flow with 3-4 JIT screen compositions. Test with 5-8 iGraal users. Validate: do they understand it? Is it faster than current? Does it feel trustworthy?</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 16px; align-items: flex-start;">
+          <span style="background: var(--violet-glow); color: var(--violet); font-weight: 800; font-size: 14px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">5</span>
+          <div>
+            <div style="font-weight: 700;">Phase 2: Ask Mode + Browse Mode</div>
+            <div style="font-size: 13px; color: var(--text-dim);">Once Search Mode validates the JIT pattern, layer on Ask Mode (conversational) and Browse Mode (proactive feed). Same component palette, different entry points. Incremental rollout, not big bang.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div style="text-align: center; padding: 48px 0; color: var(--text-muted); font-size: 12px;">
+    <p>🧭 UX Designer — Dopamine × Atolls</p>
+    <p style="margin-top: 4px;">iGraal Smart Discovery — UX Flow Definition v1.0 — March 2026</p>
+  </div>
+
+</main>
+</body>
+</html>
