@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iGraal JIT Component Palette — Design Spec</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface-2: #1a1a26;
+    --surface-3: #222233;
+    --border: #2a2a3d;
+    --text: #e8e8f0;
+    --text-dim: #8888a0;
+    --text-muted: #555570;
+    --accent: #6366f1;
+    --accent-glow: rgba(99, 102, 241, 0.15);
+    --green: #22c55e;
+    --green-glow: rgba(34, 197, 94, 0.12);
+    --amber: #f59e0b;
+    --amber-glow: rgba(245, 158, 11, 0.12);
+    --rose: #f43f5e;
+    --rose-glow: rgba(244, 63, 94, 0.12);
+    --cyan: #06b6d4;
+    --cyan-glow: rgba(6, 182, 212, 0.12);
+    --violet: #8b5cf6;
+    --violet-glow: rgba(139, 92, 246, 0.12);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --phone-w: 375px;
+    --phone-h: 812px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 40px; height: 56px; display: flex; align-items: center; gap: 32px; }
+  nav .logo { font-weight: 800; font-size: 14px; letter-spacing: 0.5px; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+  nav .nav-links { display: flex; gap: 4px; overflow-x: auto; }
+  nav a { color: var(--text-dim); text-decoration: none; font-size: 12.5px; font-weight: 500; padding: 6px 12px; border-radius: 8px; transition: all 0.2s; white-space: nowrap; }
+  nav a:hover { color: var(--text); background: var(--surface-2); }
+
+  main { max-width: 1200px; margin: 0 auto; padding: 96px 32px 120px; }
+
+  .hero { text-align: center; margin-bottom: 64px; }
+  .hero .badge { display: inline-block; background: var(--accent-glow); color: var(--accent); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 6px 16px; border-radius: 100px; border: 1px solid rgba(99,102,241,0.25); margin-bottom: 24px; }
+  .hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; line-height: 1.1; margin-bottom: 16px; background: linear-gradient(135deg, #e8e8f0, #8888a0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero .subtitle { font-size: 16px; color: var(--text-dim); max-width: 600px; margin: 0 auto; }
+
+  section { margin-bottom: 80px; }
+  .section-label { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 12px; }
+  h2 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+  h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+  .section-desc { color: var(--text-dim); font-size: 14px; margin-bottom: 28px; max-width: 680px; }
+
+  .divider { height: 1px; background: var(--border); margin: 48px 0; }
+
+  .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 100px; margin: 2px; }
+  .tag-accent { background: var(--accent-glow); color: var(--accent); }
+  .tag-green { background: var(--green-glow); color: var(--green); }
+  .tag-amber { background: var(--amber-glow); color: var(--amber); }
+  .tag-rose { background: var(--rose-glow); color: var(--rose); }
+  .tag-cyan { background: var(--cyan-glow); color: var(--cyan); }
+
+  /* ── Component Spec Layout ── */
+  .comp-spec {
+    display: grid;
+    grid-template-columns: 375px 1fr;
+    gap: 32px;
+    margin-bottom: 48px;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .comp-spec { grid-template-columns: 1fr; }
+  }
+
+  /* ── Phone Mockup ── */
+  .phone-frame {
+    width: 375px;
+    background: #1a1a2e;
+    border-radius: 24px;
+    border: 2px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .phone-status-bar {
+    height: 44px;
+    background: #1a1a2e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+
+  .phone-content {
+    padding: 0 16px 24px;
+  }
+
+  /* ── Component Visual Mockups ── */
+  .mock-card {
+    background: #222240;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .mock-merchant-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .mock-merchant-row:last-child { border-bottom: none; }
+
+  .mock-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .mock-merchant-info { flex: 1; }
+  .mock-merchant-name { font-size: 14px; font-weight: 700; }
+  .mock-merchant-sub { font-size: 11px; color: var(--text-muted); }
+
+  .mock-rate {
+    font-size: 18px;
+    font-weight: 900;
+    text-align: right;
+  }
+
+  .mock-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .mock-btn-primary { background: var(--accent); color: white; }
+  .mock-btn-secondary { background: rgba(99,102,241,0.15); color: var(--accent); }
+  .mock-btn-green { background: var(--green); color: white; }
+  .mock-btn-amber { background: var(--amber); color: #1a1a2e; }
+
+  .mock-code-box {
+    background: #2a2a44;
+    border: 1.5px dashed rgba(99,102,241,0.4);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .mock-code-text { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 16px; font-weight: 700; letter-spacing: 2px; }
+  .mock-copy-btn { background: var(--accent); color: white; border: none; border-radius: 8px; padding: 6px 14px; font-size: 11px; font-weight: 700; cursor: pointer; }
+
+  .mock-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .mock-progress {
+    height: 6px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 8px 0;
+  }
+  .mock-progress-fill { height: 100%; border-radius: 3px; }
+
+  .mock-comparison-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    text-align: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .mock-comparison-row:last-child { border-bottom: none; }
+
+  .mock-countdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px;
+    background: rgba(245,158,11,0.1);
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+
+  .mock-countdown-unit { text-align: center; }
+  .mock-countdown-num { font-size: 22px; font-weight: 900; color: var(--amber); }
+  .mock-countdown-label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; }
+
+  .mock-chip-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+  .mock-chip { padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 600; background: var(--surface-3); color: var(--text-dim); border: 1px solid var(--border); }
+  .mock-chip.active { background: var(--accent-glow); color: var(--accent); border-color: var(--accent); }
+
+  .mock-tracking {
+    background: rgba(34,197,94,0.1);
+    border: 1px solid rgba(34,197,94,0.25);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .mock-tracking-icon { font-size: 28px; }
+  .mock-tracking-text { flex: 1; }
+
+  .mock-graph { width: 100%; height: 80px; position: relative; margin: 8px 0; }
+  .mock-graph svg { width: 100%; height: 100%; }
+
+  /* ── Spec Panel ── */
+  .spec-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+
+  .spec-panel h3 { margin-bottom: 4px; }
+  .spec-panel .spec-purpose { font-size: 13px; color: var(--text-dim); margin-bottom: 20px; }
+
+  .spec-row { margin-bottom: 16px; }
+  .spec-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px; }
+  .spec-value { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+  .spec-value code { font-family: 'SF Mono', monospace; font-size: 11px; background: var(--surface-2); padding: 2px 6px; border-radius: 4px; color: var(--cyan); }
+
+  .spec-states { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .spec-state { background: var(--surface-2); border-radius: 8px; padding: 10px 12px; }
+  .spec-state-name { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+  .spec-state-desc { font-size: 11px; color: var(--text-dim); }
+
+  .callout { background: var(--accent-glow); border: 1px solid rgba(99,102,241,0.2); border-radius: var(--radius); padding: 20px 24px; margin: 24px 0; }
+  .callout p { font-size: 13px; color: var(--text-dim); }
+  .callout strong { color: var(--accent); }
+
+  /* ── Assembly Demo ── */
+  .assembly-demo {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    margin: 32px 0;
+  }
+
+  @media (max-width: 900px) {
+    .assembly-demo { flex-direction: column; align-items: center; }
+  }
+
+  .assembly-query {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    flex: 1;
+    min-width: 280px;
+  }
+
+  .assembly-arrow {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    color: var(--text-muted);
+    padding-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="logo">🧭 Dopamine × Atolls</span>
+  <div class="nav-links">
+    <a href="#overview">Overview</a>
+    <a href="#c1">Merchant Card</a>
+    <a href="#c2">Promo Code</a>
+    <a href="#c3">Comparison</a>
+    <a href="#c4">Calculator</a>
+    <a href="#c5">Gift Card</a>
+    <a href="#c6">Countdown</a>
+    <a href="#c7">Rate Trend</a>
+    <a href="#c8">Tracking</a>
+    <a href="#c9">Quest</a>
+    <a href="#c10">Alert</a>
+    <a href="#assembly">Assembly</a>
+  </div>
+</nav>
+
+<main>
+
+  <div class="hero">
+    <span class="badge">JIT Component Palette — Design Spec v1.0</span>
+    <h1>Smart Discovery Components</h1>
+    <p class="subtitle">10 composable building blocks that the JIT engine assembles into answer screens. Each component is self-contained, responsive, and designed for VStack assembly.</p>
+  </div>
+
+  <!-- ━━ OVERVIEW ━━ -->
+  <section id="overview">
+    <span class="section-label">Design System Rules</span>
+    <h2>Component Architecture</h2>
+    <p class="section-desc">Every JIT answer screen is a VStack of these components. The Intent Engine scores each for relevance (0–1) and assembles those above 0.6 threshold. Order: relevance × user preference × recency.</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 24px;">
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px;">
+        <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Layout</div>
+        <div style="font-size: 13px; color: var(--text-dim);">VStack only. Full-width cards. 16px horizontal padding. 12px vertical gap between components.</div>
+      </div>
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px;">
+        <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Corners</div>
+        <div style="font-size: 13px; color: var(--text-dim);">14px border radius on cards. 10px on inner elements. 100px on pills/tags.</div>
+      </div>
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px;">
+        <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Typography</div>
+        <div style="font-size: 13px; color: var(--text-dim);">Inter. Rates: 18px/900. Names: 14px/700. Body: 13px/400. Labels: 11px/600 uppercase.</div>
+      </div>
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px;">
+        <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">States</div>
+        <div style="font-size: 13px; color: var(--text-dim);">Every component has: Default, Loading (skeleton), Error (graceful fallback), Empty (never blank).</div>
+      </div>
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px;">
+        <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Color System</div>
+        <div style="font-size: 13px; color: var(--text-dim);">Green = cashback/positive. Amber = urgency. Rose = alert/expired. Accent = interactive. Cyan = data.</div>
+      </div>
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px;">
+        <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Accessibility</div>
+        <div style="font-size: 13px; color: var(--text-dim);">Semantic HTML. ARIA labels on all interactive elements. Logical tab order. Min touch target: 44×44px.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ━━ C1: CASHBACK MERCHANT CARD ━━ -->
+  <section id="c1">
+    <span class="section-label">Component 01</span>
+    <div class="comp-spec">
+      <div class="phone-frame">
+        <div class="phone-status-bar">9:41 AM</div>
+        <div class="phone-content">
+          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Best Cashback for "Sneakers"</div>
+
+          <div class="mock-card">
+            <div class="mock-merchant-row">
+              <div class="mock-logo" style="background: linear-gradient(135deg, #ff6b00, #ff9500);">Z</div>
+              <div class="mock-merchant-info">
+                <div class="mock-merchant-name">Zalando</div>
+                <div class="mock-merchant-sub">Fashion · 3 active codes</div>
+              </div>
+              <div class="mock-rate" style="color: var(--green);">8%</div>
+            </div>
+            <div class="mock-merchant-row">
+              <div class="mock-logo" style="background: linear-gradient(135deg, #111, #333);">N</div>
+              <div class="mock-merchant-info">
+                <div class="mock-merchant-name">Nike</div>
+                <div class="mock-merchant-sub">Sports · 1 active code</div>
+              </div>
+              <div class="mock-rate" style="color: var(--green);">5%</div>
+            </div>
+            <div class="mock-merchant-row">
+              <div class="mock-logo" style="background: linear-gradient(135deg, #1a1a2e, #2d2d5e);">A</div>
+              <div class="mock-merchant-info">
+                <div class="mock-merchant-name">ASOS</div>
+                <div class="mock-merchant-sub">Fashion · 2 active codes</div>
+              </div>
+              <div class="mock-rate" style="color: var(--green);">6%</div>
+            </div>
+          </div>
+
+          <div class="mock-btn mock-btn-primary" style="margin-bottom: 8px;">Shop at Zalando — Earn 8% →</div>
+          <div style="text-align: center; font-size: 11px; color: var(--text-muted);">Cashback activates automatically</div>
+        </div>
+      </div>
+
+      <div class="spec-panel">
+        <h3>💰 Cashback Merchant Card</h3>
+        <p class="spec-purpose">Primary building block. Shows ranked merchants for a category/query with cashback rates, active codes count, and one-tap activation. Always appears first in results.</p>
+
+        <div class="spec-row">
+          <div class="spec-label">Data Requirements</div>
+          <div class="spec-value"><code>merchant</code> <code>rate</code> <code>category</code> <code>activeCodeCount</code> <code>logoUrl</code> <code>deeplink</code> <code>rateHistory[]</code> <code>isBookmarked</code></div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Variants</div>
+          <div class="spec-value">
+            <strong>Compact:</strong> Single merchant row (in Browse feed cards)<br>
+            <strong>List:</strong> 2–5 merchants ranked (default in Search/Ask results)<br>
+            <strong>Highlighted:</strong> Top merchant with expanded detail + "Best Deal" badge
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Interactions</div>
+          <div class="spec-value">
+            • Tap merchant row → expand to show codes + gift card option<br>
+            • Tap CTA → activate cashback + redirect to merchant<br>
+            • Long press → save/bookmark merchant<br>
+            • Rate badge shows trend indicator (↑↓→) from <code>rateHistory</code>
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">States</div>
+          <div class="spec-states">
+            <div class="spec-state"><div class="spec-state-name">Loading</div><div class="spec-state-desc">Skeleton: 3 rows with pulsing placeholders</div></div>
+            <div class="spec-state"><div class="spec-state-name">Empty</div><div class="spec-state-desc">Never empty — fallback to trending merchants</div></div>
+            <div class="spec-state"><div class="spec-state-name">Error</div><div class="spec-state-desc">Show cached data + "rates may be outdated"</div></div>
+            <div class="spec-state"><div class="spec-state-name">Expired</div><div class="spec-state-desc">Grey out + "Rate changed" + show current rate</div></div>
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Design Rationale</div>
+          <div class="spec-value">Rate transparency in results (steal from TopCashback). Ranked by cashback % by default — user can re-sort. Active code count creates a secondary incentive to tap.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ C2: PROMO CODE CARD ━━ -->
+  <section id="c2">
+    <span class="section-label">Component 02</span>
+    <div class="comp-spec">
+      <div class="phone-frame">
+        <div class="phone-status-bar">9:41 AM</div>
+        <div class="phone-content">
+          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Promo Codes for Zalando</div>
+
+          <div class="mock-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="font-size: 13px; font-weight: 700;">We tested 6 codes</span>
+              <span class="mock-pill" style="background: rgba(34,197,94,0.12); color: var(--green);">✓ 3 work</span>
+            </div>
+
+            <div class="mock-code-box">
+              <div>
+                <div class="mock-code-text" style="color: var(--accent);">SPRING25</div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">25% off · Min €50 · Expires Apr 2</div>
+              </div>
+              <div class="mock-copy-btn">Copy</div>
+            </div>
+
+            <div class="mock-code-box" style="opacity: 0.7;">
+              <div>
+                <div class="mock-code-text" style="color: var(--text-dim);">SAVE15</div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">15% off · No min · Expires Mar 30</div>
+              </div>
+              <div class="mock-copy-btn">Copy</div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 6px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.06);">
+              <span class="mock-pill" style="background: rgba(34,197,94,0.08); color: var(--green); font-size: 10px;">92% success rate</span>
+              <span style="font-size: 10px; color: var(--text-muted);">Based on 1,240 uses this week</span>
+            </div>
+          </div>
+
+          <div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 8px;">3 codes expired or rejected · <span style="color: var(--accent);">View all</span></div>
+        </div>
+      </div>
+
+      <div class="spec-panel">
+        <h3>🎟️ Promo Code Card (Transparent)</h3>
+        <p class="spec-purpose">Shows tested promo codes with success rates and full transparency. Directly counters the Honey scandal — users see how many codes were tested, not just the ones that work.</p>
+
+        <div class="spec-row">
+          <div class="spec-label">Data Requirements</div>
+          <div class="spec-value"><code>codes[]</code> <code>merchant</code> <code>testedCount</code> <code>workingCount</code> <code>successRate</code> <code>usageCount</code> <code>expiry</code> <code>conditions</code> <code>discount</code></div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Variants</div>
+          <div class="spec-value">
+            <strong>Inline:</strong> Single best code shown in Merchant Card row<br>
+            <strong>Expanded:</strong> Full list with all working codes + test count (default in Ask/Search)<br>
+            <strong>Auto-apply:</strong> "This code will be applied automatically via extension"
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Key Design Decision</div>
+          <div class="spec-value" style="color: var(--green);">
+            <strong>Always show: "We tested X codes. Y work."</strong> This is the anti-Honey pattern. Transparency about the testing process builds trust that no other platform offers. Success rate based on community usage validates the code.
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">States</div>
+          <div class="spec-states">
+            <div class="spec-state"><div class="spec-state-name">Loading</div><div class="spec-state-desc">Skeleton with "Testing codes..." animation</div></div>
+            <div class="spec-state"><div class="spec-state-name">No codes</div><div class="spec-state-desc">"No codes right now. Cashback still active at X%"</div></div>
+            <div class="spec-state"><div class="spec-state-name">Expired</div><div class="spec-state-desc">Strikethrough + "Expired [date]" + next best code</div></div>
+            <div class="spec-state"><div class="spec-state-name">Copied</div><div class="spec-state-desc">Button → "Copied ✓" with confetti micro-animation</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ C3: CROSS-RETAILER COMPARISON ━━ -->
+  <section id="c3">
+    <span class="section-label">Component 03</span>
+    <div class="comp-spec">
+      <div class="phone-frame">
+        <div class="phone-status-bar">9:41 AM</div>
+        <div class="phone-content">
+          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Compare: Sneakers</div>
+
+          <div class="mock-card">
+            <div class="mock-comparison-row" style="font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">
+              <span></span>
+              <span>Zalando</span>
+              <span>Nike</span>
+            </div>
+            <div class="mock-comparison-row">
+              <span style="font-size: 12px; color: var(--text-dim); text-align: left;">Cashback</span>
+              <span style="font-size: 16px; font-weight: 900; color: var(--green);">8%</span>
+              <span style="font-size: 16px; font-weight: 900; color: var(--text-dim);">5%</span>
+            </div>
+            <div class="mock-comparison-row">
+              <span style="font-size: 12px; color: var(--text-dim); text-align: left;">Best Code</span>
+              <span style="font-size: 12px; color: var(--accent);">−25%</span>
+              <span style="font-size: 12px; color: var(--text-muted);">None</span>
+            </div>
+            <div class="mock-comparison-row">
+              <span style="font-size: 12px; color: var(--text-dim); text-align: left;">On €80 item</span>
+              <span style="font-size: 14px; font-weight: 800; color: var(--green);">Save €26.40</span>
+              <span style="font-size: 14px; font-weight: 700; color: var(--text-dim);">Save €4.00</span>
+            </div>
+
+            <div style="margin-top: 12px; padding: 10px; background: rgba(34,197,94,0.08); border-radius: 8px; text-align: center;">
+              <span style="font-size: 12px; font-weight: 700; color: var(--green);">🏆 Zalando saves you €22.40 more</span>
+            </div>
+          </div>
+
+          <div class="mock-btn mock-btn-green">Shop at Zalando — Best Deal →</div>
+        </div>
+      </div>
+
+      <div class="spec-panel">
+        <h3>📊 Cross-Retailer Comparison</h3>
+        <p class="spec-purpose">Side-by-side comparison of 2–3 merchants for the same query. Shows cashback + codes + estimated total savings. Answers the question: "Where should I actually buy this?" Steal from Capital One Shopping.</p>
+
+        <div class="spec-row">
+          <div class="spec-label">Data Requirements</div>
+          <div class="spec-value"><code>merchants[]</code> <code>rates[]</code> <code>bestCodes[]</code> <code>estimatedPrice</code> <code>totalSavings[]</code> <code>winner</code></div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Variants</div>
+          <div class="spec-value">
+            <strong>2-column:</strong> Direct A vs B (most common)<br>
+            <strong>3-column:</strong> Up to 3 merchants (max — more gets cluttered on mobile)<br>
+            <strong>Summary:</strong> Just the winner badge with delta ("Zalando saves €22 more")
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Interactions</div>
+          <div class="spec-value">
+            • Amount input field: user can type their expected purchase amount for live calculation<br>
+            • Tap any column → go to that merchant's Merchant Card<br>
+            • Winner row highlighted with green background
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">When to Show</div>
+          <div class="spec-value">Relevance score > 0.6 when query matches 2+ merchants in same category. Always in Ask mode for product queries. In Search mode when multiple results exist. Never for single-merchant results.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ C4: STACKED SAVINGS CALCULATOR ━━ -->
+  <section id="c4">
+    <span class="section-label">Component 04</span>
+    <div class="comp-spec">
+      <div class="phone-frame">
+        <div class="phone-status-bar">9:41 AM</div>
+        <div class="phone-content">
+          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Your Total Savings · Zalando</div>
+
+          <div class="mock-card">
+            <div style="text-align: center; margin-bottom: 16px;">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">Purchase amount</div>
+              <div style="font-size: 32px; font-weight: 900; color: var(--text);">€80<span style="font-size: 14px; color: var(--text-muted); font-weight: 400;">.00</span></div>
+            </div>
+
+            <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px;">
+              <div style="display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px;">
+                <span style="color: var(--text-dim);">Cashback (8%)</span>
+                <span style="color: var(--green); font-weight: 700;">−€6.40</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px;">
+                <span style="color: var(--text-dim);">Promo code (SPRING25)</span>
+                <span style="color: var(--green); font-weight: 700;">−€20.00</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px;">
+                <span style="color: var(--text-dim);">Gift card bonus (+2%)</span>
+                <span style="color: var(--green); font-weight: 700;">−€1.60</span>
+              </div>
+            </div>
+
+            <div style="border-top: 2px solid var(--green); margin-top: 8px; padding-top: 12px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 14px; font-weight: 800;">Total saved</span>
+              <span style="font-size: 24px; font-weight: 900; color: var(--green);">€28.00</span>
+            </div>
+            <div style="text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 4px;">You pay €52.00 instead of €80.00</div>
+          </div>
+
+          <div class="mock-btn mock-btn-green">Stack All Savings & Shop →</div>
+          <div style="text-align: center; margin-top: 8px;">
+            <span style="font-size: 11px; color: var(--amber);">⚡ Buy gift card → get cashback in 24h</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-panel">
+        <h3>🧮 Stacked Savings Calculator</h3>
+        <p class="spec-purpose">For Savvy Maximizers. Breaks down every savings layer: cashback + promo code + gift card bonus = total. Interactive amount input. Makes iGraal's unique stacking capability visible and compelling.</p>
+
+        <div class="spec-row">
+          <div class="spec-label">Data Requirements</div>
+          <div class="spec-value"><code>merchant</code> <code>cashbackRate</code> <code>bestCode</code> <code>codeDiscount</code> <code>giftCardBonus</code> <code>inputAmount</code> <code>totalSaved</code> <code>finalPrice</code></div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Interactions</div>
+          <div class="spec-value">
+            • Tap amount → editable input with numpad<br>
+            • All savings lines recalculate live as amount changes<br>
+            • "Stack All & Shop" CTA applies code + activates cashback in one flow<br>
+            • Gift card line links to 24h gift card purchase flow
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">When to Show</div>
+          <div class="spec-value">When 2+ savings layers exist for a merchant. Always in Ask mode for "best deal" or "maximum savings" queries. Triggered by Savvy Maximizer behavior patterns (multiple queries, comparison browsing).</div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Key Design Decision</div>
+          <div class="spec-value" style="color: var(--green);"><strong>Always include the 24h gift card line</strong> — even if the bonus is small. This promotes iGraal's killer feature and introduces the instant-payout option naturally in context.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ C5: 24H GIFT CARD ━━ -->
+  <section id="c5">
+    <span class="section-label">Component 05</span>
+    <div class="comp-spec">
+      <div class="phone-frame">
+        <div class="phone-status-bar">9:41 AM</div>
+        <div class="phone-content">
+          <div class="mock-card" style="background: linear-gradient(135deg, rgba(34,197,94,0.12), rgba(34,197,94,0.04)); border: 1px solid rgba(34,197,94,0.25);">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+              <span style="font-size: 28px;">🎁</span>
+              <div>
+                <div style="font-size: 15px; font-weight: 800; color: var(--green);">Get Cashback in 24 Hours</div>
+                <div style="font-size: 12px; color: var(--text-dim);">Buy a Zalando gift card instead</div>
+              </div>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.2); border-radius: 10px; padding: 14px; margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                <span style="font-size: 12px; color: var(--text-dim);">Gift card value</span>
+                <span style="font-size: 14px; font-weight: 700;">€80.00</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                <span style="font-size: 12px; color: var(--text-dim);">Cashback rate</span>
+                <span style="font-size: 14px; font-weight: 700; color: var(--green);">5%</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px;">
+                <span style="font-size: 12px; font-weight: 700;">You'll earn</span>
+                <span style="font-size: 18px; font-weight: 900; color: var(--green);">€4.00</span>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+              <span style="font-size: 18px;">⏱️</span>
+              <div>
+                <div style="font-size: 13px; font-weight: 700; color: var(--green);">Cashback in your account within 24h</div>
+                <div style="font-size: 11px; color: var(--text-muted);">vs. standard: 30–90 day wait</div>
+              </div>
+            </div>
+
+            <div class="mock-btn mock-btn-green">Buy €80 Zalando Gift Card →</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-panel">
+        <h3>🎁 24h Gift Card Card</h3>
+        <p class="spec-purpose">iGraal's killer differentiator. Rakuten = 120 day wait. iGraal = 24 hours via gift cards. This component must appear in every result set where gift cards are available. First-class, never hidden.</p>
+
+        <div class="spec-row">
+          <div class="spec-label">Data Requirements</div>
+          <div class="spec-value"><code>merchant</code> <code>giftCardRate</code> <code>denominations[]</code> <code>deliveryTime</code> <code>available</code> <code>standardWaitDays</code></div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Visual Treatment</div>
+          <div class="spec-value" style="color: var(--green);">
+            <strong>Green-tinted card with border.</strong> Must visually stand out from standard merchant cards. The green gradient + ⏱️ "24h" creates instant recognition. Always shows the comparison: "24h vs. 30-90 day wait."
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Variants</div>
+          <div class="spec-value">
+            <strong>Full:</strong> As shown — standalone with amount calculator<br>
+            <strong>Inline:</strong> Single line in Calculator or Merchant Card: "⚡ Get cashback in 24h via gift card"<br>
+            <strong>Nudge:</strong> Small banner at bottom of any result: "Want faster cashback?"
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">When to Show</div>
+          <div class="spec-value"><strong>Always</strong> when the merchant offers gift cards. This is the trust differentiator — the one feature that directly counters the #1 category frustration (payout waits). Relevance score override: minimum 0.7 when available.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ C6: COUNTDOWN BANNER ━━ -->
+  <section id="c6">
+    <span class="section-label">Component 06</span>
+    <div class="comp-spec">
+      <div class="phone-frame">
+        <div class="phone-status-bar">9:41 AM</div>
+        <div class="phone-content">
+          <div class="mock-card" style="background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.2);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <div>
+                <div style="font-size: 13px; font-weight: 800; color: var(--amber);">⚡ Flash Cashback</div>
+                <div style="font-size: 12px; color: var(--text-dim);">Zalando boosted to 12% (normally 8%)</div>
+              </div>
+            </div>
+
+            <div class="mock-countdown">
+              <div class="mock-countdown-unit">
+                <div class="mock-countdown-num">04</div>
+                <div class="mock-countdown-label">Hours</div>
+              </div>
+              <div style="font-size: 20px; color: var(--text-muted);">:</div>
+              <div class="mock-countdown-unit">
+                <div class="mock-countdown-num">23</div>
+                <div class="mock-countdown-label">Min</div>
+              </div>
+              <div style="font-size: 20px; color: var(--text-muted);">:</div>
+              <div class="mock-countdown-unit">
+                <div class="mock-countdown-num">17</div>
+                <div class="mock-countdown-label">Sec</div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 12px;">
+              <span class="mock-pill" style="background: rgba(245,158,11,0.12); color: var(--amber); font-size: 10px;">🔥 2,400 activated today</span>
+            </div>
+
+            <div class="mock-btn mock-btn-amber">Grab 12% Before It's Gone →</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-panel">
+        <h3>⏰ Countdown Banner</h3>
+        <p class="spec-purpose">Urgency for time-limited boosted rates. Steal from ShopBack's countdown timers. Only for real expirations — never fake urgency. Social proof ("2,400 activated") drives action.</p>
+
+        <div class="spec-row">
+          <div class="spec-label">Data Requirements</div>
+          <div class="spec-value"><code>merchant</code> <code>boostedRate</code> <code>normalRate</code> <code>expiryTimestamp</code> <code>activationCount</code> <code>dealTitle</code></div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Design Rules</div>
+          <div class="spec-value">
+            <strong style="color: var(--rose);">⚠️ Only for genuine time-limited offers.</strong> If a deal "expires" and immediately returns, users will learn the countdown is fake. Trust destroyed. The counter must be honest.<br><br>
+            Social proof number must be real-time. "2,400 activated today" from actual activation data.
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">States</div>
+          <div class="spec-states">
+            <div class="spec-state"><div class="spec-state-name">Active</div><div class="spec-state-desc">Live countdown, amber theme</div></div>
+            <div class="spec-state"><div class="spec-state-name">< 1 hour</div><div class="spec-state-desc">Switch to rose theme, faster pulse</div></div>
+            <div class="spec-state"><div class="spec-state-name">Expired</div><div class="spec-state-desc">"This deal has ended. Rate is now X%"</div></div>
+            <div class="spec-state"><div class="spec-state-name">Upcoming</div><div class="spec-state-desc">"Starts in 2h" — pre-announcement</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ C7: RATE TREND GRAPH ━━ -->
+  <section id="c7">
+    <span class="section-label">Component 07</span>
+    <div class="comp-spec">
+      <div class="phone-frame">
+        <div class="phone-status-bar">9:41 AM</div>
+        <div class="phone-content">
+          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Zalando · Rate History</div>
+
+          <div class="mock-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px;">
+              <div>
+                <div style="font-size: 11px; color: var(--text-muted);">Current rate</div>
+                <div style="font-size: 28px; font-weight: 900; color: var(--green);">8%</div>
+              </div>
+              <span class="mock-pill" style="background: rgba(34,197,94,0.12); color: var(--green);">📈 12-month high</span>
+            </div>
+
+            <div class="mock-graph">
+              <svg viewBox="0 0 320 80">
+                <defs>
+                  <linearGradient id="graphGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="rgba(34,197,94,0.3)"/>
+                    <stop offset="100%" stop-color="rgba(34,197,94,0)"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0,60 L30,55 L60,58 L90,50 L120,52 L150,45 L180,40 L210,42 L240,30 L270,25 L300,15 L320,10" stroke="#22c55e" stroke-width="2" fill="none"/>
+                <path d="M0,60 L30,55 L60,58 L90,50 L120,52 L150,45 L180,40 L210,42 L240,30 L270,25 L300,15 L320,10 L320,80 L0,80 Z" fill="url(#graphGrad)"/>
+                <circle cx="320" cy="10" r="4" fill="#22c55e"/>
+              </svg>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted);">
+              <span>Mar '25</span>
+              <span>Jun</span>
+              <span>Sep</span>
+              <span>Dec</span>
+              <span>Now</span>
+            </div>
+
+            <div style="margin-top: 12px; padding: 10px; background: rgba(99,102,241,0.08); border-radius: 8px;">
+              <span style="font-size: 12px; color: var(--accent);">💡 This rate is unusually high. Best time to buy.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-panel">
+        <h3>📈 Rate Trend Graph</h3>
+        <p class="spec-purpose">Shows cashback rate history over 12 months. Empowers Savvy Maximizers to time purchases. "Is now a good time to buy?" answered visually. Creates a reason to check back.</p>
+
+        <div class="spec-row">
+          <div class="spec-label">Data Requirements</div>
+          <div class="spec-value"><code>merchant</code> <code>rateHistory[{date, rate}]</code> <code>currentRate</code> <code>trend</code> <code>percentile</code> <code>insight</code></div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Insights (Auto-Generated)</div>
+          <div class="spec-value">
+            • "12-month high" / "At average" / "Below average — usually higher in [month]"<br>
+            • "Rate increased 3x in the last week" (spike alert)<br>
+            • "Usually drops after Black Friday" (seasonal pattern)
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">When to Show</div>
+          <div class="spec-value">In Ask mode for "should I buy now?" or "best time" queries. In Search/Browse when merchant has volatile rate history. Always in expanded Merchant Card detail view. Never for merchants with flat/stable rates (adds no value).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ C8: TRACKING CONFIRMATION ━━ -->
+  <section id="c8">
+    <span class="section-label">Component 08</span>
+    <div class="comp-spec">
+      <div class="phone-frame">
+        <div class="phone-status-bar">9:41 AM</div>
+        <div class="phone-content">
+          <div class="mock-tracking">
+            <div class="mock-tracking-icon">✅</div>
+            <div class="mock-tracking-text">
+              <div style="font-size: 14px; font-weight: 700; color: var(--green);">Cashback Tracked</div>
+              <div style="font-size: 12px; color: var(--text-dim);">Zalando · €6.40 earned</div>
+            </div>
+          </div>
+
+          <div class="mock-card" style="margin-top: 12px;">
+            <div style="display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px;">
+              <span style="color: var(--text-dim);">Order amount</span>
+              <span style="font-weight: 600;">€80.00</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px;">
+              <span style="color: var(--text-dim);">Cashback rate</span>
+              <span style="font-weight: 600; color: var(--green);">8%</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px;">
+              <span style="color: var(--text-dim);">Estimated payout</span>
+              <span style="font-weight: 600; color: var(--green);">€6.40</span>
+            </div>
+
+            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.06);">
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 6px;">Payout timeline</div>
+              <div class="mock-progress">
+                <div class="mock-progress-fill" style="width: 15%; background: var(--green);"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted);">
+                <span>Today</span>
+                <span style="color: var(--green); font-weight: 600;">Available: May 15</span>
+              </div>
+            </div>
+
+            <div style="margin-top: 12px; padding: 10px; background: rgba(245,158,11,0.08); border-radius: 8px; text-align: center;">
+              <span style="font-size: 12px; color: var(--amber);">⚡ Want it in 24h? Next time, buy a gift card</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-panel">
+        <h3>✅ Tracking Confirmation</h3>
+        <p class="spec-purpose">Post-purchase confirmation that cashback was tracked. The #1 requested feature across the entire cashback category. Eliminates the anxiety gap between buying and seeing cashback appear. Critical trust builder.</p>
+
+        <div class="spec-row">
+          <div class="spec-label">Data Requirements</div>
+          <div class="spec-value"><code>orderId</code> <code>merchant</code> <code>amount</code> <code>rate</code> <code>earnedAmount</code> <code>status</code> <code>estimatedPayoutDate</code> <code>giftCardAlternative</code></div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Timing</div>
+          <div class="spec-value" style="color: var(--green);">
+            <strong>Must appear within seconds of purchase completion.</strong> Not minutes, not hours — seconds. This is the single most impactful trust signal. If tracking is delayed, show "Verifying your cashback..." with spinner, then confirm.
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">States</div>
+          <div class="spec-states">
+            <div class="spec-state"><div class="spec-state-name">Confirmed ✅</div><div class="spec-state-desc">Green — tracked successfully</div></div>
+            <div class="spec-state"><div class="spec-state-name">Verifying ⏳</div><div class="spec-state-desc">Amber — checking with merchant</div></div>
+            <div class="spec-state"><div class="spec-state-name">Issue ⚠️</div><div class="spec-state-desc">Rose — "didn't track" + one-tap claim</div></div>
+            <div class="spec-state"><div class="spec-state-name">Available 💰</div><div class="spec-state-desc">Green pulse — ready to withdraw</div></div>
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Key Design Decision</div>
+          <div class="spec-value">The "Issue" state must include a <strong>one-tap manual claim</strong> — not a support ticket. Research shows the current category pattern (file a claim → wait days → maybe get credit) is the #1 churn driver. Instant claim = instant trust.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ C9: QUEST CARD ━━ -->
+  <section id="c9">
+    <span class="section-label">Component 09</span>
+    <div class="comp-spec">
+      <div class="phone-frame">
+        <div class="phone-status-bar">9:41 AM</div>
+        <div class="phone-content">
+          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Active Quest</div>
+
+          <div class="mock-card" style="background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(139,92,246,0.04)); border: 1px solid rgba(139,92,246,0.25);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+              <div>
+                <div style="font-size: 15px; font-weight: 800; color: var(--violet);">🏆 Fashion Explorer</div>
+                <div style="font-size: 12px; color: var(--text-dim);">Shop at 3 fashion brands this week</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-size: 18px; font-weight: 900; color: var(--violet);">€5</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Bonus</div>
+              </div>
+            </div>
+
+            <div class="mock-progress" style="margin: 12px 0;">
+              <div class="mock-progress-fill" style="width: 66%; background: var(--violet);"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 12px;">
+              <span style="color: var(--violet); font-weight: 600;">2 of 3 complete</span>
+              <span style="color: var(--text-muted);">Ends in 3 days</span>
+            </div>
+
+            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+              <div style="flex: 1; background: rgba(34,197,94,0.08); border-radius: 8px; padding: 8px; text-align: center;">
+                <div style="font-size: 16px;">✅</div>
+                <div style="font-size: 10px; color: var(--green); font-weight: 600;">Zalando</div>
+              </div>
+              <div style="flex: 1; background: rgba(34,197,94,0.08); border-radius: 8px; padding: 8px; text-align: center;">
+                <div style="font-size: 16px;">✅</div>
+                <div style="font-size: 10px; color: var(--green); font-weight: 600;">ASOS</div>
+              </div>
+              <div style="flex: 1; background: rgba(255,255,255,0.04); border-radius: 8px; padding: 8px; text-align: center; border: 1px dashed rgba(139,92,246,0.3);">
+                <div style="font-size: 16px;">🔲</div>
+                <div style="font-size: 10px; color: var(--text-muted); font-weight: 600;">Any fashion</div>
+              </div>
+            </div>
+
+            <div class="mock-btn" style="background: var(--violet); color: white;">Browse Fashion Deals →</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-panel">
+        <h3>🏆 Quest Card</h3>
+        <p class="spec-purpose">Adapted from ShopBack's quest system. Time-limited challenges that drive repeat engagement. Critical rule: quests must be based on user's actual shopping patterns, not merchant payments. Gamification that feels fair.</p>
+
+        <div class="spec-row">
+          <div class="spec-label">Data Requirements</div>
+          <div class="spec-value"><code>questTitle</code> <code>description</code> <code>reward</code> <code>progress</code> <code>total</code> <code>completedMerchants[]</code> <code>eligibleMerchants[]</code> <code>expiry</code> <code>category</code></div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Quest Design Rules</div>
+          <div class="spec-value">
+            <strong style="color: var(--rose);">Never:</strong> "Spend €200 at [specific merchant]" — feels like an ad<br>
+            <strong style="color: var(--green);">Always:</strong> "Shop at 3 fashion brands" — user chooses which brands<br><br>
+            • Achievable within the time window (don't set impossible goals)<br>
+            • Reward proportional to effort (€5 for 3 shops, not €1)<br>
+            • Based on categories user already shops in (not random)<br>
+            • Max 2 active quests at a time (avoid overwhelm)
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">States</div>
+          <div class="spec-states">
+            <div class="spec-state"><div class="spec-state-name">Active</div><div class="spec-state-desc">Progress bar + remaining steps + countdown</div></div>
+            <div class="spec-state"><div class="spec-state-name">Complete 🎉</div><div class="spec-state-desc">Celebration animation + reward credited</div></div>
+            <div class="spec-state"><div class="spec-state-name">Expiring</div><div class="spec-state-desc">Amber highlight + "1 day left!"</div></div>
+            <div class="spec-state"><div class="spec-state-name">Failed</div><div class="spec-state-desc">"Time's up. New quest available tomorrow."</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ C10: SMART ALERT CARD ━━ -->
+  <section id="c10">
+    <span class="section-label">Component 10</span>
+    <div class="comp-spec">
+      <div class="phone-frame">
+        <div class="phone-status-bar">9:41 AM</div>
+        <div class="phone-content">
+          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">No exact match — but don't worry</div>
+
+          <div class="mock-card">
+            <div style="text-align: center; padding: 12px 0;">
+              <div style="font-size: 32px; margin-bottom: 8px;">🔔</div>
+              <div style="font-size: 15px; font-weight: 700; margin-bottom: 4px;">Set a Deal Alert</div>
+              <div style="font-size: 13px; color: var(--text-dim);">We'll notify you when matching deals appear</div>
+            </div>
+
+            <div class="mock-chip-row" style="justify-content: center; margin: 16px 0;">
+              <div class="mock-chip active">Nike cashback > 8%</div>
+              <div class="mock-chip">Any sneaker deal</div>
+              <div class="mock-chip">Under €80</div>
+            </div>
+
+            <div class="mock-btn mock-btn-primary">Set Alert →</div>
+            <div style="text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 8px;">We'll push-notify you. Unsubscribe anytime.</div>
+          </div>
+
+          <div style="margin-top: 16px;">
+            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Meanwhile, trending now</div>
+            <div class="mock-card" style="padding: 12px 16px;">
+              <div class="mock-merchant-row" style="padding: 8px 0;">
+                <div class="mock-logo" style="background: #333; font-size: 14px;">🔥</div>
+                <div class="mock-merchant-info">
+                  <div class="mock-merchant-name" style="font-size: 13px;">Decathlon — 6% cashback</div>
+                  <div class="mock-merchant-sub">Sports · Popular today</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-panel">
+        <h3>🔔 Smart Alert Card</h3>
+        <p class="spec-purpose">Turns zero-result into retention. When no exact match exists, offer to alert the user when one appears — plus show trending alternatives. Never show an empty screen. Every dead end becomes a hook.</p>
+
+        <div class="spec-row">
+          <div class="spec-label">Data Requirements</div>
+          <div class="spec-value"><code>query</code> <code>suggestedAlerts[]</code> <code>channel</code> <code>trendingAlternatives[]</code> <code>relatedCategories[]</code></div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Alert Options (Chip-Based)</div>
+          <div class="spec-value">
+            Auto-generated from the failed query:<br>
+            • Brand-specific: "Nike cashback > 8%"<br>
+            • Category-wide: "Any sneaker deal"<br>
+            • Price-bound: "Under €80"<br>
+            User taps chips to customise. One tap to set. Push notification when triggered.
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">Always Include</div>
+          <div class="spec-value">"Meanwhile, trending now" section below the alert — ensures the screen is never empty. Shows 2-3 popular deals from related categories. The user came for a deal; give them something even if it's not exactly what they asked for.</div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-label">When to Show</div>
+          <div class="spec-value">When Intent Engine returns < 0.4 relevance for all components. When merchant doesn't exist in iGraal's network. When all deals for a query are expired. Target: this component should be seen rarely — Ibotta benchmark of −73% zero results means most queries should have real results.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ━━ ASSEMBLY EXAMPLES ━━ -->
+  <section id="assembly">
+    <span class="section-label">Assembly Examples</span>
+    <h2>How Components Compose Into Screens</h2>
+    <p class="section-desc">The same components assemble differently based on query type. Here are three example compositions showing how the JIT engine would build answer screens.</p>
+
+    <div class="card-grid-3" style="margin-bottom: 24px;">
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px;">
+        <div style="font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 12px;">🗣️ "Best deal on sneakers under €80"</div>
+        <div style="font-size: 12px; color: var(--text-dim); line-height: 2;">
+          <div style="display: flex; align-items: center; gap: 8px;"><span style="background: var(--surface-3); width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0;">1</span> 📊 Cross-Retailer Comparison</div>
+          <div style="display: flex; align-items: center; gap: 8px;"><span style="background: var(--surface-3); width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0;">2</span> 💰 Merchant Card (ranked list)</div>
+          <div style="display: flex; align-items: center; gap: 8px;"><span style="background: var(--surface-3); width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0;">3</span> 🎟️ Promo Codes (best match)</div>
+          <div style="display: flex; align-items: center; gap: 8px;"><span style="background: var(--surface-3); width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0;">4</span> 🎁 24h Gift Card option</div>
+          <div style="display: flex; align-items: center; gap: 8px;"><span style="background: var(--surface-3); width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0;">5</span> 💬 Refinement chips</div>
+        </div>
+      </div>
+
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px;">
+        <div style="font-size: 13px; font-weight: 700; color: var(--green); margin-bottom: 12px;">🔍 Search: "Zalando"</div>
+        <div style="font-size: 12px; color: var(--text-dim); line-height: 2;">
+          <div style="display: flex; align-items: center; gap: 8px;"><span style="background: var(--surface-3); width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0;">1</span> 💰 Merchant Card (highlighted, single)</div>
+          <div style="display: flex; align-items: center; gap: 8px;"><span style="background: var(--surface-3); width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0;">2</span> ⏰ Countdown (if boosted rate active)</div>
+          <div style="display: flex; align-items: center; gap: 8px;"><span style="background: var(--surface-3); width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0;">3</span> 🎟️ All promo codes (expanded)</div>
+          <div style="display: flex; align-items: center; gap: 8px;"><span style="background: var(--surface-3); width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0;">4</span> 🧮 Stacked Savings Calculator</div>
+          <div style="display: flex; align-items: center; gap: 8px;"><span style="background: var(--surface-3); width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0;">5</span> 📈 Rate Trend Graph</div>
+          <div style="display: flex; align-items: center; gap: 8px;"><span style="background: var(--surface-3); width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0;">6</span> 🎁 24h Gift Card option</div>
+        </div>
+      </div>
+
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px;">
+        <div style="font-size: 13px; font-weight: 700; color: var(--amber); margin-bottom: 12px;">🎁 Browse feed: returning user</div>
+        <div style="font-size: 12px; color: var(--text-dim); line-height: 2;">
+          <div style="display: flex; align-items: center; gap: 8px;"><span style="background: var(--surface-3); width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0;">1</span> 🏆 Quest Card (active quest)</div>
+          <div style="display: flex; align-items: center; gap: 8px;"><span style="background: var(--surface-3); width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0;">2</span> ⏰ Flash deal countdown</div>
+          <div style="display: flex; align-items: center; gap: 8px;"><span style="background: var(--surface-3); width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0;">3</span> 💰 "Your brands" merchants (personal)</div>
+          <div style="display: flex; align-items: center; gap: 8px;"><span style="background: var(--surface-3); width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0;">4</span> 🔥 Trending deals (social proof)</div>
+          <div style="display: flex; align-items: center; gap: 8px;"><span style="background: var(--surface-3); width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0;">5</span> 🎁 Gift card spotlight</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>Assembly rule:</strong> Every screen must include the 24h Gift Card component when available — either as a standalone card or inline within the Merchant Card / Calculator. It's iGraal's most defensible differentiator and the direct counter to the category's #1 pain point (payout waits).</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div style="text-align: center; padding: 48px 0; color: var(--text-muted); font-size: 12px;">
+    <p>🧭 UX Designer — Dopamine × Atolls</p>
+    <p style="margin-top: 4px;">iGraal JIT Component Palette — Design Spec v1.0 — March 2026</p>
+    <p style="margin-top: 4px;">Companion to: <a href="./index.html" style="color: var(--accent); text-decoration: none;">Smart Discovery UX Flow Definition v2.0</a></p>
+  </div>
+
+</main>
+</body>
+</html>
