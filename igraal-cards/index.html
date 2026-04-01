@@ -236,7 +236,7 @@
   <div class="hero">
     <div class="badge">Deep Research Report</div>
     <h1>iGraal Card Architecture</h1>
-    <p class="subtitle">Complete inventory, structural analysis, and component consolidation plan for all card types across the iGraal product. From 13 card variants to 3 base components.</p>
+    <p class="subtitle">Every card in iGraal is currently owned by a team silo — CO, CCE, S&N, GC each built their own. This report proves they all belong in one design system. From 13 siloed card types to 3 shared base components.</p>
     <div class="meta">
       <span>📅 2026-04-01</span>
       <span>👥 Sprint Lead · UX Designer · Design Engineer · Scout</span>
@@ -271,8 +271,8 @@
   <!-- Card Inventory -->
   <section id="inventory">
     <div class="section-label">Section 01</div>
-    <h2>Card Inventory</h2>
-    <p class="section-desc">All 13 card types across iGraal screens. Below: the original reference map, then cards grouped by which base component covers them — so you can see exactly what each component needs to handle.</p>
+    <h2>Card Inventory &amp; Team Ownership</h2>
+    <p class="section-desc">13 card types across 4 teams. Cards 3 and 10 are both hero banners — owned by different teams. Cards 2 and 5 are both merchant rows — different teams. The duplication is the argument: <strong style="color:var(--text);">if two teams build the same card, that card belongs in the system, not in a team repo.</strong></p>
 
     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px;">
       <span class="tag tag-co">CO — Cashback Offer</span>
@@ -281,421 +281,376 @@
       <span class="tag tag-gc">GC — Gift Card (Alternative Offers)</span>
     </div>
 
-    <!-- Original reference PDF -->
+    <!-- Reference overview -->
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:48px;">
-      <div style="padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
-        <div style="font-size:13px;font-weight:700;">Original Card Map — Cards across pages.pdf</div>
-        <div style="font-size:11px;color:var(--text-muted);">Reference: all 13 card positions</div>
+      <div style="padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <div style="font-size:13px;font-weight:700;">Original Reference — Cards across pages.pdf</div>
+        <div style="font-size:11px;color:var(--text-muted);">Red numbers 1–13 annotated by design team</div>
       </div>
       <img src="cards-overview.png" alt="iGraal cards overview" style="width:100%;display:block;"/>
     </div>
 
-    <!-- GROUP: VerticalCard -->
-    <div style="margin-bottom:48px;">
-      <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
-        <div style="width:4px;height:40px;border-radius:4px;background:var(--accent);flex-shrink:0;"></div>
-        <div>
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:2px;">VerticalCard covers</div>
-          <div style="font-size:20px;font-weight:800;">Cards 3 · 9 · 10 · 11</div>
-        </div>
-        <span class="action-badge action-merge" style="margin-left:auto;">Merge VBC + VBCLite</span>
+    <!-- THE ARGUMENT: Team x Card matrix -->
+    <div style="margin-bottom:56px;">
+      <div style="margin-bottom:20px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text-muted);margin-bottom:8px;">The Core Argument</div>
+        <h3 style="font-size:22px;margin-bottom:8px;">Cross-team usage = system-level component</h3>
+        <p style="font-size:14px;color:var(--text-dim);max-width:680px;line-height:1.65;">The designer comments (from Iza) flagged cards where multiple teams use the same pattern. That's not a coincidence — it's evidence. When CO and CCE both build a hero banner independently, you don't have two different components. You have one component built twice, with drift. The fix is one shared component in Nalu.</p>
       </div>
-      <div class="card-grid-4">
 
-        <!-- Card 3: Voucher Offer -->
-        <div style="background:var(--surface);border:1px solid rgba(99,102,241,0.25);border-radius:var(--radius);overflow:hidden;">
-          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
-            <span style="font-size:11px;font-weight:700;color:var(--accent);">Card 3</span>
-            <span class="tag tag-co">CO</span>
-          </div>
-          <!-- Visual mockup -->
-          <div style="padding:0;">
-            <div style="background:linear-gradient(135deg,#1a3a2a,#2d6b45);height:120px;display:flex;align-items:center;justify-content:center;position:relative;">
-              <div style="text-align:center;">
-                <div style="font-size:22px;font-weight:900;color:#4ade80;">plenitude</div>
-                <div style="font-size:10px;color:rgba(255,255,255,0.6);margin-top:2px;">Brand image / illustration</div>
-              </div>
-            </div>
-            <div style="padding:14px;">
-              <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Voucher Offer Card</div>
-              <div style="font-size:13px;color:#4ade80;font-weight:700;margin-bottom:4px;">40 € de cashback</div>
-              <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">Jusqu'au 31/03/2026</div>
-              <div style="background:#e8e8f0;color:#0a0a0f;border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700;text-align:center;">Activer le cashback</div>
-            </div>
-          </div>
-          <div style="padding:10px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
-            <div style="font-size:10px;color:var(--text-muted);line-height:1.5;font-family:'JetBrains Mono',monospace;">bannerRatio=4:3 · cashback · cta · expiry</div>
-          </div>
+      <!-- Matrix -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+        <div style="display:grid;grid-template-columns:200px repeat(4,1fr);border-bottom:1px solid var(--border);">
+          <div style="padding:12px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);">Card</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);"><span class="tag tag-co" style="font-size:9px;">CO</span></div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);"><span class="tag tag-cce" style="font-size:9px;">CCE</span></div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);"><span class="tag tag-sn" style="font-size:9px;">S&amp;N</span></div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);"><span class="tag tag-gc" style="font-size:9px;">GC</span></div>
         </div>
 
-        <!-- Card 9: Gift Card -->
-        <div style="background:var(--surface);border:1px solid rgba(99,102,241,0.25);border-radius:var(--radius);overflow:hidden;">
-          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
-            <span style="font-size:11px;font-weight:700;color:var(--accent);">Card 9</span>
-            <span class="tag tag-gc">GC</span>
+        <!-- Hero Banner row -->
+        <div style="display:grid;grid-template-columns:200px repeat(4,1fr);border-bottom:1px solid var(--border);background:rgba(249,115,22,0.04);">
+          <div style="padding:12px 16px;">
+            <div style="font-size:13px;font-weight:700;">Hero Banner</div>
+            <div style="font-size:11px;color:var(--text-muted);">Cards 1, 10</div>
           </div>
-          <div style="padding:0;">
-            <div style="background:#fff;height:120px;display:flex;align-items:center;justify-content:center;position:relative;">
-              <div style="position:absolute;top:8px;left:8px;background:#f0f0f0;border:1px solid #ddd;border-radius:4px;padding:2px 8px;font-size:9px;font-weight:700;color:#333;">En ligne</div>
-              <div style="text-align:center;">
-                <div style="font-size:18px;font-weight:900;color:#e8321e;letter-spacing:-1px;">GET YOUR GUIDE</div>
-                <div style="font-size:10px;color:#888;margin-top:2px;">Brand logo</div>
-              </div>
-            </div>
-            <div style="padding:14px;">
-              <div style="font-weight:700;font-size:14px;margin-bottom:4px;">GetYourGuide</div>
-              <div style="font-size:13px;color:#4ade80;font-weight:700;">6% cashback</div>
-            </div>
-          </div>
-          <div style="padding:10px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
-            <div style="font-size:10px;color:var(--text-muted);line-height:1.5;font-family:'JetBrains Mono',monospace;">bannerRatio=1:1 · badge · cashback% · noCTA</div>
-          </div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="Card 1 — CO builds this">✅</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="Card 10 — CCE also builds this">✅</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
         </div>
 
-        <!-- Card 10: Grid Product -->
-        <div style="background:var(--surface);border:1px solid rgba(99,102,241,0.25);border-radius:var(--radius);overflow:hidden;">
-          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
-            <span style="font-size:11px;font-weight:700;color:var(--accent);">Card 10</span>
-            <span class="tag tag-cce">CCE</span>
+        <!-- Merchant/Offer Row -->
+        <div style="display:grid;grid-template-columns:200px repeat(4,1fr);border-bottom:1px solid var(--border);background:rgba(99,102,241,0.04);">
+          <div style="padding:12px 16px;">
+            <div style="font-size:13px;font-weight:700;">Merchant / Offer Row</div>
+            <div style="font-size:11px;color:var(--text-muted);">Cards 2, 5, 6, 7</div>
           </div>
-          <div style="padding:0;">
-            <div style="background:linear-gradient(135deg,#1a1a3a,#2a1a4a);height:120px;display:flex;align-items:center;justify-content:center;position:relative;">
-              <div style="position:absolute;top:8px;right:8px;background:var(--rose);color:#fff;border-radius:4px;padding:2px 8px;font-size:9px;font-weight:700;">-30%</div>
-              <div style="text-align:center;color:rgba(255,255,255,0.4);font-size:11px;">Product image</div>
-            </div>
-            <div style="padding:14px;">
-              <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Grid Product Card</div>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <span style="font-size:14px;font-weight:900;color:var(--text);">€24.99</span>
-                <span style="font-size:11px;color:var(--text-muted);text-decoration:line-through;">€35.00</span>
-              </div>
-            </div>
-          </div>
-          <div style="padding:10px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
-            <div style="font-size:10px;color:var(--text-muted);line-height:1.5;font-family:'JetBrains Mono',monospace;">bannerRatio=1:1 · price · saleBadge · rating?</div>
-          </div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="CO owns cards 2, 5, 6">✅</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="CCE uses same pattern in cards 12, 13">✅</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="S&N card 7, 8 are list rows too">✅</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
         </div>
 
-        <!-- Card 11: Editorial -->
-        <div style="background:var(--surface);border:1px solid rgba(99,102,241,0.25);border-radius:var(--radius);overflow:hidden;">
-          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
-            <span style="font-size:11px;font-weight:700;color:var(--accent);">Card 11</span>
-            <span class="tag tag-co">CO</span>
+        <!-- Promo/Inline Card -->
+        <div style="display:grid;grid-template-columns:200px repeat(4,1fr);border-bottom:1px solid var(--border);background:rgba(249,115,22,0.04);">
+          <div style="padding:12px 16px;">
+            <div style="font-size:13px;font-weight:700;">Inline Promo Card</div>
+            <div style="font-size:11px;color:var(--text-muted);">Cards 3, 7</div>
           </div>
-          <div style="padding:0;">
-            <div style="background:linear-gradient(135deg,#2a1a1a,#4a2a1a);height:120px;display:flex;align-items:center;justify-content:center;">
-              <div style="text-align:center;color:rgba(255,255,255,0.4);font-size:11px;">Editorial image · 16:9</div>
-            </div>
-            <div style="padding:14px;">
-              <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Editorial / Content Card</div>
-              <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">Author · Apr 1, 2026</div>
-              <div style="font-size:12px;color:var(--text-dim);line-height:1.4;">Short description or body text excerpt...</div>
-            </div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">✅</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">✅</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+        </div>
+
+        <!-- Gift Card Tile -->
+        <div style="display:grid;grid-template-columns:200px repeat(4,1fr);border-bottom:1px solid var(--border);">
+          <div style="padding:12px 16px;">
+            <div style="font-size:13px;font-weight:700;">Gift Card Tile</div>
+            <div style="font-size:11px;color:var(--text-muted);">Card 4</div>
           </div>
-          <div style="padding:10px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
-            <div style="font-size:10px;color:var(--text-muted);line-height:1.5;font-family:'JetBrains Mono',monospace;">bannerRatio=16:9 · text · author · date</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="GC owns this">✅</div>
+        </div>
+
+        <!-- Editorial/Image Grid -->
+        <div style="display:grid;grid-template-columns:200px repeat(4,1fr);border-bottom:1px solid var(--border);background:rgba(249,115,22,0.04);">
+          <div style="padding:12px 16px;">
+            <div style="font-size:13px;font-weight:700;">Editorial Image Grid</div>
+            <div style="font-size:11px;color:var(--text-muted);">Card 11</div>
           </div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">✅</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+        </div>
+
+        <!-- Search/List Row -->
+        <div style="display:grid;grid-template-columns:200px repeat(4,1fr);border-bottom:1px solid var(--border);background:rgba(6,182,212,0.04);">
+          <div style="padding:12px 16px;">
+            <div style="font-size:13px;font-weight:700;">Search / List Row</div>
+            <div style="font-size:11px;color:var(--text-muted);">Cards 8, 9</div>
+          </div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">✅</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+        </div>
+
+        <!-- Brand Store Row -->
+        <div style="display:grid;grid-template-columns:200px repeat(4,1fr);">
+          <div style="padding:12px 16px;">
+            <div style="font-size:13px;font-weight:700;">Brand Store Row</div>
+            <div style="font-size:11px;color:var(--text-muted);">Card 12</div>
+          </div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">✅</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
         </div>
 
       </div>
-      <!-- Props for VerticalCard -->
-      <div style="background:var(--surface);border:1px solid rgba(99,102,241,0.2);border-radius:var(--radius-sm);padding:18px 22px;margin-top:16px;">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:12px;">VerticalCard — Full Props</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;">
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">bannerSection</code><span style="color:var(--text-dim);">Media slot — any ReactElement</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">bannerRatio</code><span style="color:var(--text-dim);">🔴 NEW — "1:1" | "4:3" | "4:5" | "16:9" | "2.42:1" (default)</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">title</code><span style="color:var(--text-dim);">string — required</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">subTitle</code><span style="color:var(--text-dim);">string — optional</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">text</code><span style="color:var(--text-dim);">🟡 NEW — ReactNode rich body text (editorial cards)</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">cta</code><span style="color:var(--text-dim);">🔴 Now optional (was required in VBC)</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">tag</code><span style="color:var(--text-dim);">ReactElement&lt;Tag&gt; — overlay on banner</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">retailerLogo</code><span style="color:var(--text-dim);">ReactElement&lt;RetailerLogo&gt; — optional</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">bannerLabel</code><span style="color:var(--text-dim);">string — "Sponsorisé" etc</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">countdown</code><span style="color:var(--text-dim);">string — expiry or countdown display</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">overlayTitle</code><span style="color:var(--text-dim);">🟡 NEW — show title overlaid on image bottom</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">border</code><span style="color:var(--text-dim);">boolean — from VBCLite</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">titleLevel</code><span style="color:var(--text-dim);">"h3" | "h4" — default h3</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">onClick</code><span style="color:var(--text-dim);">VoidFunction — required</span></div>
-        </div>
-        <div style="margin-top:12px;display:flex;gap:16px;font-size:11px;color:var(--text-muted);flex-wrap:wrap;">
-          <span><span style="color:var(--rose);">●</span> Critical / required</span>
-          <span><span style="color:var(--amber);">●</span> Optional slot</span>
-          <span>🔴 Breaking change from current API</span>
-          <span>🟡 New prop</span>
-        </div>
+      <div style="margin-top:12px;padding:14px 18px;background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.2);border-radius:var(--radius-sm);font-size:13px;color:var(--text-dim);line-height:1.6;">
+        <strong style="color:var(--orange);">Note:</strong> This matrix is incomplete — it reflects what we know today from the PDF annotations and Iza's comments. The full cross-team usage data needs to be gathered. Every row with more than one ✅ is a card that <strong style="color:var(--text);">must</strong> live in Nalu, not in a team repo.
       </div>
     </div>
 
-    <!-- GROUP: HorizontalCard -->
-    <div style="margin-bottom:48px;">
-      <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
-        <div style="width:4px;height:40px;border-radius:4px;background:var(--cyan);flex-shrink:0;"></div>
-        <div>
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--cyan);margin-bottom:2px;">HorizontalCard covers</div>
-          <div style="font-size:20px;font-weight:800;">Cards 2 · 4 · 5 · 8</div>
-        </div>
-        <span class="action-badge action-evolve" style="margin-left:auto;">Evolve HBC · Kill OBC</span>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;">
+    <!-- All 13 cards with actual screenshots -->
+    <div style="margin-bottom:56px;">
+      <h3 style="font-size:22px;margin-bottom:8px;">All 13 Cards — What They Actually Are</h3>
+      <p style="font-size:14px;color:var(--text-dim);margin-bottom:24px;line-height:1.65;">Actual crops from the PDF. Each card is annotated with its team owner, structural pattern, and which Nalu base component it maps to.</p>
 
-        <!-- Card 2: Retailer -->
-        <div style="background:var(--surface);border:1px solid rgba(6,182,212,0.25);border-radius:var(--radius);overflow:hidden;">
-          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
-            <span style="font-size:11px;font-weight:700;color:var(--cyan);">Card 2</span>
-            <span class="tag tag-co">CO</span>
-          </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">
+
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <img src="card-crops/card-01-hero.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 1"/>
           <div style="padding:14px;">
-            <div style="display:flex;align-items:center;gap:12px;">
-              <div style="width:44px;height:44px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid #eee;">
-                <div style="font-size:8px;font-weight:900;color:#0070f3;text-align:center;line-height:1.2;">ENGIE</div>
-              </div>
-              <div style="flex:1;min-width:0;">
-                <div style="font-weight:700;font-size:14px;margin-bottom:2px;">ENGIE</div>
-                <div style="font-size:12px;color:#4ade80;">Jusqu'à 50 € cashback</div>
-              </div>
-              <div style="font-size:9px;color:var(--text-muted);border:1px solid var(--border);padding:2px 7px;border-radius:4px;flex-shrink:0;">Sponsorisé</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-size:20px;font-weight:900;color:var(--text-muted);">1</span>
+              <span class="tag tag-co">CO</span>
             </div>
-          </div>
-          <div style="padding:8px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
-            <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">density=compact · logo · cashback · badge</div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Hero Banner</div>
+            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Full-width promotional carousel. Large image with offer text and CTA overlaid.</div>
+            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(249,115,22,0.12);color:#fb923c;">→ PromoCard (hero)</div>
           </div>
         </div>
 
-        <!-- Card 4: Search Result -->
-        <div style="background:var(--surface);border:1px solid rgba(6,182,212,0.25);border-radius:var(--radius);overflow:hidden;">
-          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
-            <span style="font-size:11px;font-weight:700;color:var(--cyan);">Card 4</span>
-            <span class="tag tag-sn">S&amp;N</span>
-          </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <img src="card-crops/card-02-merchant.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 2"/>
           <div style="padding:14px;">
-            <div style="display:flex;align-items:flex-start;gap:12px;">
-              <div style="width:56px;height:56px;border-radius:8px;background:linear-gradient(135deg,#1a2a3a,#2a3a4a);flex-shrink:0;"></div>
-              <div style="flex:1;min-width:0;">
-                <div style="font-weight:700;font-size:14px;margin-bottom:2px;">Search Result Title</div>
-                <div style="font-size:12px;color:var(--text-dim);margin-bottom:6px;line-height:1.4;">Short description line two here with some text</div>
-                <div style="display:flex;align-items:center;gap:8px;">
-                  <span style="font-size:11px;color:var(--text-muted);">★★★★☆</span>
-                  <span style="font-size:11px;font-weight:700;color:#4ade80;">15% cashback</span>
-                </div>
-              </div>
-              <div style="flex-shrink:0;text-align:right;">
-                <div style="font-weight:800;font-size:15px;margin-bottom:6px;">€29.99</div>
-                <div style="background:#e8e8f0;color:#0a0a0f;border-radius:12px;padding:4px 12px;font-size:11px;font-weight:700;">Voir</div>
-              </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-size:20px;font-weight:900;color:var(--text-muted);">2</span>
+              <span class="tag tag-co">CO</span>
             </div>
-          </div>
-          <div style="padding:8px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
-            <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">density=standard · thumb · desc · price · cta</div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Merchant Offer Tile</div>
+            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Compact merchant card. Logo + cashback amount. One of many in a horizontal row.</div>
+            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(6,182,212,0.10);color:#22d3ee;">→ HorizontalCard (compact)</div>
           </div>
         </div>
 
-        <!-- Card 5: Compact Row -->
-        <div style="background:var(--surface);border:1px solid rgba(6,182,212,0.25);border-radius:var(--radius);overflow:hidden;">
-          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
-            <span style="font-size:11px;font-weight:700;color:var(--cyan);">Card 5</span>
-            <span class="tag tag-sn">S&amp;N</span>
-          </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <img src="card-crops/card-03-promo.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 3"/>
           <div style="padding:14px;">
-            <div style="display:flex;flex-direction:column;gap:10px;">
-              <div style="display:flex;align-items:center;gap:10px;">
-                <div style="width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#1a3a2a,#2d6b45);flex-shrink:0;"></div>
-                <div style="flex:1;min-width:0;">
-                  <div style="font-weight:600;font-size:13px;">AliExpress</div>
-                  <div style="font-size:11px;color:var(--text-muted);">Up to 8% cashback</div>
-                </div>
-              </div>
-              <div style="display:flex;align-items:center;gap:10px;">
-                <div style="width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#1a1a3a,#2a1a4a);flex-shrink:0;"></div>
-                <div style="flex:1;min-width:0;">
-                  <div style="font-weight:600;font-size:13px;">Cdiscount</div>
-                  <div style="font-size:11px;color:var(--text-muted);">Up to 5% cashback</div>
-                </div>
-              </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-size:20px;font-weight:900;color:var(--text-muted);">3</span>
+              <span class="tag tag-co">CO</span>
             </div>
-          </div>
-          <div style="padding:8px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
-            <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">density=dense · thumb(small) · title · subtitle</div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Referral Promo Card</div>
+            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Inline promo banner. Image + headline + CTA. Referral/sharing program callout.</div>
+            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(249,115,22,0.12);color:#fb923c;">→ PromoCard (inline)</div>
           </div>
         </div>
 
-
-        <!-- Card 8: List Item -->
-        <div style="background:var(--surface);border:1px solid rgba(6,182,212,0.25);border-radius:var(--radius);overflow:hidden;">
-          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
-            <span style="font-size:11px;font-weight:700;color:var(--cyan);">Card 8</span>
-            <span class="tag tag-co">CO</span>
-          </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <img src="card-crops/card-04-giftcard.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 4"/>
           <div style="padding:14px;">
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--surface-3);border-radius:8px;">
-                <div style="width:36px;height:36px;border-radius:6px;background:linear-gradient(135deg,#1a2a3a,#2a4a6a);flex-shrink:0;"></div>
-                <div style="flex:1;min-width:0;">
-                  <div style="font-weight:600;font-size:13px;">Merchant Name</div>
-                  <div style="font-size:11px;color:var(--text-muted);">Offer description line</div>
-                </div>
-                <div style="font-size:11px;font-weight:700;color:#4ade80;flex-shrink:0;">12%</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--surface-3);border-radius:8px;">
-                <div style="width:36px;height:36px;border-radius:6px;background:linear-gradient(135deg,#2a1a1a,#4a2a2a);flex-shrink:0;"></div>
-                <div style="flex:1;min-width:0;">
-                  <div style="font-weight:600;font-size:13px;">Another Merchant</div>
-                  <div style="font-size:11px;color:var(--text-muted);">Short offer text</div>
-                </div>
-                <div style="font-size:11px;font-weight:700;color:#4ade80;flex-shrink:0;">8%</div>
-              </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-size:20px;font-weight:900;color:var(--text-muted);">4</span>
+              <span class="tag tag-gc">GC</span>
             </div>
-          </div>
-          <div style="padding:8px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
-            <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">density=dense · thumb · title · meta · noCTA</div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Gift Card Tile</div>
+            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Brand logo tile inside a gift card grid. Logo centered, brand name below.</div>
+            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(99,102,241,0.12);color:#818cf8;">→ VerticalCard (tile)</div>
           </div>
         </div>
 
-      </div>
-      <!-- Props for HorizontalCard -->
-      <div style="background:var(--surface);border:1px solid rgba(6,182,212,0.2);border-radius:var(--radius-sm);padding:18px 22px;margin-top:16px;">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cyan);margin-bottom:12px;">HorizontalCard — Full Props</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;">
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">title</code><span style="color:var(--text-dim);">string — required</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">subtitle</code><span style="color:var(--text-dim);">string — optional</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">density</code><span style="color:var(--text-dim);">🟡 NEW — "compact" | "standard" | "dense"</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">captionSection</code><span style="color:var(--text-dim);">ReactElement — left column (logo, image)</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">contentSection</code><span style="color:var(--text-dim);">ReactElement — flexible content area</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">ctaButton</code><span style="color:var(--text-dim);">🔴 Now optional (was required in OBC)</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">tags</code><span style="color:var(--text-dim);">ReactElement&lt;Tag&gt;[] — max 2</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">conditions</code><span style="color:var(--text-dim);">ReactElement&lt;ExpandableText&gt; — collapsible</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">countdown</code><span style="color:var(--text-dim);">string — expiry countdown</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">state</code><span style="color:var(--text-dim);">"valid" | "expired" — visual state</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">onClick</code><span style="color:var(--text-dim);">VoidFunction — required</span></div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <img src="card-crops/card-05-merchant-detail.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 5"/>
+          <div style="padding:14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-size:20px;font-weight:900;color:var(--text-muted);">5</span>
+              <span class="tag tag-co">CO</span>
+            </div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Merchant Detail Header</div>
+            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Top of a merchant page. Logo + cashback rate + CTA. Header card for the page.</div>
+            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(6,182,212,0.10);color:#22d3ee;">→ HorizontalCard (standard)</div>
+          </div>
         </div>
-        <div style="margin-top:12px;display:flex;gap:16px;font-size:11px;color:var(--text-muted);flex-wrap:wrap;">
-          <span><span style="color:var(--rose);">●</span> Critical / required</span>
-          <span><span style="color:var(--amber);">●</span> Optional slot</span>
-          <span>🔴 Breaking change</span>
-          <span>🟡 New prop</span>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <img src="card-crops/card-06-offer-detail.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 6"/>
+          <div style="padding:14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-size:20px;font-weight:900;color:var(--text-muted);">6</span>
+              <span class="tag tag-co">CO</span>
+            </div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Offer / Coupon Card</div>
+            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Single offer row. Merchant logo, offer description, black CTA button. Part of a list.</div>
+            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(6,182,212,0.10);color:#22d3ee;">→ HorizontalCard (standard)</div>
+          </div>
         </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <img src="card-crops/card-07-list-rows.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 7"/>
+          <div style="padding:14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-size:20px;font-weight:900;color:var(--text-muted);">7</span>
+              <span class="tag tag-sn">S&N</span>
+            </div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Featured Promo in List</div>
+            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Larger inline card within an offer list. Has image + title + CTA. Visual break in a list.</div>
+            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(249,115,22,0.12);color:#fb923c;">→ PromoCard (inline)</div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <img src="card-crops/card-08-search-list.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 8"/>
+          <div style="padding:14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-size:20px;font-weight:900;color:var(--text-muted);">8</span>
+              <span class="tag tag-sn">S&N</span>
+            </div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Search / List Item</div>
+            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Result row in search results. Compact: logo/thumb left, text right, optional CTA.</div>
+            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(6,182,212,0.10);color:#22d3ee;">→ HorizontalCard (dense)</div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <img src="card-crops/card-09-filter.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 9"/>
+          <div style="padding:14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-size:20px;font-weight:900;color:var(--text-muted);">9</span>
+              <span class="tag tag-sn">S&N</span>
+            </div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Brand Directory Grid</div>
+            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Grid of merchant brand logos with cashback %. Each cell is a compact tile.</div>
+            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(99,102,241,0.12);color:#818cf8;">→ VerticalCard (tile)</div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <img src="card-crops/card-10-hero-cce.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 10"/>
+          <div style="padding:14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-size:20px;font-weight:900;color:var(--text-muted);">10</span>
+              <span class="tag tag-cce">CCE</span>
+            </div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Hero Banner (CCE)</div>
+            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Same structure as Card 1 — full-width editorial hero. CCE built their own version.</div>
+            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(249,115,22,0.12);color:#fb923c;">→ PromoCard (hero)</div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <img src="card-crops/card-11-grid.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 11"/>
+          <div style="padding:14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-size:20px;font-weight:900;color:var(--text-muted);">11</span>
+              <span class="tag tag-cce">CCE</span>
+            </div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Editorial Image Grid</div>
+            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Grid of editorial/trend image cards. Image-dominant tiles with category links.</div>
+            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(99,102,241,0.12);color:#818cf8;">→ VerticalCard (tile)</div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <img src="card-crops/card-12-brand-row.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 12"/>
+          <div style="padding:14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-size:20px;font-weight:900;color:var(--text-muted);">12</span>
+              <span class="tag tag-cce">CCE</span>
+            </div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Brand Store Offer Row</div>
+            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Row of brand logo cards with store-specific offers. Similar to Card 2 but CCE.</div>
+            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(6,182,212,0.10);color:#22d3ee;">→ HorizontalCard (compact)</div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <img src="card-crops/card-13-product.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 13"/>
+          <div style="padding:14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-size:20px;font-weight:900;color:var(--text-muted);">13</span>
+              <span class="tag tag-cce">CCE</span>
+            </div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Product Grid</div>
+            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Grid of product cards with image, price, cashback %. Standard e-commerce product tile.</div>
+            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(99,102,241,0.12);color:#818cf8;">→ VerticalCard (tile)</div>
+          </div>
+        </div>
+
+
       </div>
     </div>
 
-    <!-- GROUP: PromoCard -->
-    <div style="margin-bottom:48px;">
-      <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
-        <div style="width:4px;height:40px;border-radius:4px;background:var(--orange);flex-shrink:0;"></div>
-        <div>
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--orange);margin-bottom:2px;">PromoCard covers</div>
-          <div style="font-size:20px;font-weight:800;">Cards 1 · 12</div>
-        </div>
-        <span class="action-badge action-new" style="margin-left:auto;">New Build</span>
-      </div>
-      <div class="card-grid" style="grid-template-columns:repeat(auto-fit,minmax(340px,1fr));">
-
-        <!-- Card 1: Hero Promo -->
-        <div style="background:var(--surface);border:1px solid rgba(249,115,22,0.25);border-radius:var(--radius);overflow:hidden;">
-          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
-            <span style="font-size:11px;font-weight:700;color:var(--orange);">Card 1</span>
-            <span class="tag tag-co">CO</span>
-          </div>
-          <div style="position:relative;height:160px;background:linear-gradient(135deg,#0d1b2a 0%,#1a3a5c 50%,#0d4a6b 100%);display:flex;align-items:flex-end;padding:16px;">
-            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 60%);"></div>
-            <div style="position:relative;z-index:1;width:100%;">
-              <div style="font-size:10px;color:rgba(255,255,255,0.6);margin-bottom:4px;">Wind turbines image behind</div>
-              <div style="font-size:17px;font-weight:800;color:#fff;margin-bottom:8px;">ENGIE — Jusqu'à 50 € cashback</div>
-              <div style="display:inline-block;background:#fff;color:#0a0a0f;border-radius:20px;padding:6px 18px;font-size:12px;font-weight:700;">Activer</div>
-            </div>
-          </div>
-          <div style="padding:8px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
-            <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">layout=hero · backgroundImage · title · cta · gradient</div>
-          </div>
-        </div>
-
-        <!-- Card 12: Inline Promo -->
-        <div style="background:var(--surface);border:1px solid rgba(249,115,22,0.25);border-radius:var(--radius);overflow:hidden;">
-          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
-            <span style="font-size:11px;font-weight:700;color:var(--orange);">Card 12</span>
-            <span class="tag tag-co">CO</span>
-          </div>
-          <div style="padding:14px;">
-            <div style="display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,rgba(249,115,22,0.1),rgba(249,115,22,0.05));border-radius:12px;padding:14px;border:1px solid rgba(249,115,22,0.15);">
-              <div style="width:40px;height:40px;border-radius:10px;background:rgba(249,115,22,0.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🎁</div>
-              <div style="flex:1;min-width:0;">
-                <div style="font-weight:700;font-size:13px;margin-bottom:2px;">Offre exclusive membres</div>
-                <div style="font-size:11px;color:var(--text-dim);">Profitez de 10% de cashback supplémentaire</div>
-              </div>
-              <div style="background:#e8e8f0;color:#0a0a0f;border-radius:12px;padding:5px 14px;font-size:11px;font-weight:700;flex-shrink:0;">Voir</div>
-            </div>
-          </div>
-          <div style="padding:8px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
-            <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">layout=inline · icon · title · desc · cta · bgColor</div>
-          </div>
-        </div>
-
-      </div>
-      <!-- Props for PromoCard -->
-      <div style="background:var(--surface);border:1px solid rgba(249,115,22,0.2);border-radius:var(--radius-sm);padding:18px 22px;margin-top:16px;">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin-bottom:12px;">PromoCard — Full Props <span style="font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0;">(new component)</span></div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;">
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">layout</code><span style="color:var(--text-dim);">"hero" | "inline" — required</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">title</code><span style="color:var(--text-dim);">string — required</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">description</code><span style="color:var(--text-dim);">string — optional</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">backgroundImage</code><span style="color:var(--text-dim);">string URL — hero layout</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">backgroundGradient</code><span style="color:var(--text-dim);">string — overlay gradient for text contrast</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">backgroundColor</code><span style="color:var(--text-dim);">string — inline layout bg color</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">icon</code><span style="color:var(--text-dim);">ReactElement — icon/illustration (inline layout)</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">cta</code><span style="color:var(--text-dim);">ReactElement&lt;Button&gt; — optional</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">badge</code><span style="color:var(--text-dim);">ReactElement&lt;Tag&gt; — optional overlay tag</span></div>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">onClick</code><span style="color:var(--text-dim);">VoidFunction — optional</span></div>
-        </div>
-        <div style="margin-top:12px;display:flex;gap:16px;font-size:11px;color:var(--text-muted);flex-wrap:wrap;">
-          <span><span style="color:var(--rose);">●</span> Critical / required</span>
-          <span><span style="color:var(--amber);">●</span> Optional slot</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Non-cards note -->
+    <!-- Excluded: 6, 7non-card, 13 explanation -->
     <div style="margin-bottom:0;">
-      <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
-        <div style="width:4px;height:40px;border-radius:4px;background:var(--text-muted);flex-shrink:0;"></div>
-        <div>
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:2px;">Excluded from card system</div>
-          <div style="font-size:20px;font-weight:800;color:var(--text-dim);">Cards 6 · 7 · 13</div>
-        </div>
-      </div>
+      <h3 style="font-size:22px;margin-bottom:8px;">Patterns That Aren't Cards</h3>
+      <p style="font-size:14px;color:var(--text-dim);margin-bottom:24px;line-height:1.65;">Three patterns appear in the PDF but belong outside the card system. Here's what they look like and why they're excluded.</p>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;">
 
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;border-left:3px solid var(--text-muted);">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-            <span style="font-size:22px;font-weight:900;color:var(--text-muted);">6</span>
-            <div>
-              <div style="font-weight:700;font-size:14px;">Filter / Facet Item</div>
-              <div style="font-size:11px;color:var(--text-muted);">S&amp;N team</div>
+        <!-- Card 6-filter -->
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;border-left:3px solid var(--amber);">
+          <!-- Visual mockup of a filter panel -->
+          <div style="padding:16px;border-bottom:1px solid var(--border);background:var(--surface-2);">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--amber);margin-bottom:10px;">Filter / Facet Panel</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--surface);border-radius:8px;border:1px solid var(--border);">
+                <div style="width:16px;height:16px;border-radius:4px;border:2px solid #818cf8;background:rgba(99,102,241,0.2);flex-shrink:0;"></div>
+                <span style="font-size:12px;color:var(--text);">Voyages</span>
+                <span style="font-size:10px;color:var(--text-muted);margin-left:auto;">142</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--surface);border-radius:8px;border:1px solid var(--border);">
+                <div style="width:16px;height:16px;border-radius:4px;border:2px solid var(--border);flex-shrink:0;"></div>
+                <span style="font-size:12px;color:var(--text);">Mode</span>
+                <span style="font-size:10px;color:var(--text-muted);margin-left:auto;">89</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--surface);border-radius:8px;border:1px solid var(--border);">
+                <div style="width:16px;height:16px;border-radius:4px;border:2px solid var(--border);flex-shrink:0;"></div>
+                <span style="font-size:12px;color:var(--text);">High Tech</span>
+                <span style="font-size:10px;color:var(--text-muted);margin-left:auto;">64</span>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:4px;">
+                <div style="flex:1;text-align:center;padding:6px;border-radius:8px;border:1px solid var(--border);font-size:11px;font-weight:700;color:var(--text-muted);">Réinitialiser</div>
+                <div style="flex:1;text-align:center;padding:6px;border-radius:8px;background:#e8e8f0;font-size:11px;font-weight:700;color:#0a0a0f;">Appliquer</div>
+              </div>
             </div>
           </div>
-          <div style="font-size:13px;color:var(--text-dim);line-height:1.65;margin-bottom:12px;">A filter row is an <strong style="color:var(--text);">input control</strong>, not a content container. Cards present information and navigate somewhere. Filter toggles modify a query — completely different interaction model, different accessibility semantics (<code style="font-size:11px;font-family:monospace;">role="checkbox"</code> vs <code style="font-size:11px;font-family:monospace;">role="button"</code>), different states.</div>
-          <div style="background:var(--surface-2);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--amber);border-left:2px solid var(--amber);">⚠️ Mixing form controls into the card system would let filter behaviour leak into card components. Keeps a hard boundary between input and display.</div>
+          <div style="padding:14px;">
+            <div style="font-weight:700;font-size:14px;margin-bottom:6px;">Why not a card</div>
+            <div style="font-size:13px;color:var(--text-dim);line-height:1.65;">This is an <strong style="color:var(--text);">input control</strong> — it has checkboxes, toggle state, apply/reset actions. Cards are display containers. Mixing them means card components inherit form semantics (<code style="font-size:11px;font-family:monospace;">role=checkbox</code>, form validation, controlled state). That's a category error. This belongs in a Form or Filter component, not the card system.</div>
+          </div>
         </div>
 
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;border-left:3px solid var(--text-muted);">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-            <span style="font-size:22px;font-weight:900;color:var(--text-muted);">7</span>
-            <div>
-              <div style="font-weight:700;font-size:14px;">Checkout / Order Summary</div>
-              <div style="font-size:11px;color:var(--text-muted);">CCE team</div>
+        <!-- Checkout summary -->
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;border-left:3px solid var(--amber);">
+          <div style="padding:16px;border-bottom:1px solid var(--border);background:var(--surface-2);">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--amber);margin-bottom:10px;">Checkout / Order Summary</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text-dim);">Cashback ENGIE</span><span style="color:var(--text);">€40.00</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text-dim);">Cashback AliExpress</span><span style="color:var(--text);">€2.50</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text-dim);">Bonus parrainage</span><span style="color:#4ade80)">€5.00</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:800;padding:8px 0;"><span>Total disponible</span><span style="color:#4ade80;">€47.50</span></div>
+              <div style="background:#e8e8f0;color:#0a0a0f;border-radius:20px;padding:8px;font-size:12px;font-weight:700;text-align:center;">Demander le virement</div>
             </div>
           </div>
-          <div style="font-size:13px;color:var(--text-dim);line-height:1.65;margin-bottom:12px;">Cards are <strong style="color:var(--text);">reusable units</strong> — you put 12 in a grid. The checkout summary appears once, in a fixed layout, with business logic baked in (line items → subtotal → total → CTA). Building it as a card couples the design system to a single screen's domain logic.</div>
-          <div style="background:var(--surface-2);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--amber);border-left:2px solid var(--amber);">⚠️ This is a page-section pattern, not a component. It belongs to the checkout flow, not the component library.</div>
+          <div style="padding:14px;">
+            <div style="font-weight:700;font-size:14px;margin-bottom:6px;">Why not a card</div>
+            <div style="font-size:13px;color:var(--text-dim);line-height:1.65;">Cards are <strong style="color:var(--text);">reusable units</strong>. You put 12 of them in a grid. This appears exactly once, with hardcoded business logic (line items, totals, withdrawal CTA). It's a <strong style="color:var(--text);">page section</strong> tied to the checkout flow — not a component you reuse elsewhere. Building it as a card would couple Nalu to checkout domain logic.</div>
+          </div>
         </div>
 
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;border-left:3px solid var(--green);">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-            <span style="font-size:22px;font-weight:900;color:var(--text-muted);">13</span>
-            <div>
-              <div style="font-weight:700;font-size:14px;">Empty State</div>
-              <div style="font-size:11px;color:var(--text-muted);">All teams</div>
+        <!-- Empty state -->
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;border-left:3px solid var(--green);">
+          <div style="padding:16px;border-bottom:1px solid var(--border);background:var(--surface-2);">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--green);margin-bottom:10px;">Empty State</div>
+            <div style="text-align:center;padding:16px 8px;">
+              <div style="font-size:40px;margin-bottom:8px;">🔍</div>
+              <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Aucun résultat trouvé</div>
+              <div style="font-size:12px;color:var(--text-dim);margin-bottom:12px;line-height:1.5;">Essayez de modifier vos filtres ou votre recherche</div>
+              <div style="display:inline-block;background:#e8e8f0;color:#0a0a0f;border-radius:20px;padding:6px 18px;font-size:12px;font-weight:700;">Réinitialiser les filtres</div>
             </div>
           </div>
-          <div style="font-size:13px;color:var(--text-dim);line-height:1.65;margin-bottom:12px;">Nalu already has an <code style="font-family:monospace;font-size:12px;color:var(--cyan);">EmptyState</code> component that covers this exactly — illustration, heading, body, CTA. Building it again as a card would mean two components doing the same job.</div>
-          <div style="background:rgba(34,197,94,0.08);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--green);border-left:2px solid var(--green);">✅ Already done. Use EmptyState. No action needed.</div>
+          <div style="padding:14px;">
+            <div style="font-weight:700;font-size:14px;margin-bottom:6px;">Why not a card — it already exists</div>
+            <div style="font-size:13px;color:var(--text-dim);line-height:1.65;">Nalu already ships an <code style="font-family:monospace;font-size:12px;color:var(--cyan);">EmptyState</code> component covering exactly this: illustration + heading + body + CTA. Building it again as a card means two components doing the same job. The whole point of this exercise is <strong style="color:var(--text);">reducing duplication</strong>, not adding it.</div>
+          </div>
         </div>
 
       </div>
