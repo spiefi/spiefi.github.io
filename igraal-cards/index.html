@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>iGraal Cards — Component Architecture Research</title>
+<title>iGraal Cards — From Silos to System</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -222,8 +222,7 @@
   <div class="logo">iGraal Cards</div>
   <div class="nav-links">
     <a href="#inventory">Inventory</a>
-    <a href="#structure">Structure</a>
-    <a href="#components">Components</a>
+    <a href="#composition">Composition</a>
     <a href="#nalu">Nalu Audit</a>
     <a href="#migration">Migration</a>
     <a href="#next">Next Steps</a>
@@ -235,8 +234,8 @@
   <!-- Hero -->
   <div class="hero">
     <div class="badge">Deep Research Report</div>
-    <h1>iGraal Card Architecture</h1>
-    <p class="subtitle">Every card in iGraal is currently owned by a team silo — CO, CCE, S&N, GC each built their own. This report proves they all belong in one design system. From 13 siloed card types to 3 shared base components.</p>
+    <h1>From Silos to System</h1>
+    <p class="subtitle">Four teams. Thirteen patterns. Nine real cards — built independently, drifting apart every sprint. This report maps the duplication, proves the overlap, and proposes 3 shared base components that replace them all. The cost of doing nothing: every sprint compounds visual inconsistency, duplicated maintenance, and slower feature delivery across all brands.</p>
     <div class="meta">
       <span>📅 2026-04-01</span>
       <span>👥 Sprint Lead · UX Designer · Design Engineer · Scout</span>
@@ -248,11 +247,11 @@
   <div class="stat-bar">
     <div class="stat amber">
       <div class="num">13</div>
-      <div class="label">Card types in iGraal</div>
+      <div class="label">Patterns found</div>
     </div>
     <div class="stat accent">
       <div class="num">9</div>
-      <div class="label">Actual card components</div>
+      <div class="label">Are actual cards</div>
     </div>
     <div class="stat cyan">
       <div class="num">3</div>
@@ -669,9 +668,91 @@
 
   </section>
 
+  <!-- Composition Model -->
+  <section id="composition">
+    <div class="section-label">Section 02</div>
+    <h2>Composition Model</h2>
+    <p class="section-desc">The 9 real cards aren't 9 components. They're 3 layout templates with configurable slots. Within each family, variants differ by <strong style="color:var(--text);">which slots are active — not by layout</strong>. This is the core engineering insight.</p>
+
+    <div class="insight" style="margin-bottom:32px;">
+      <div class="insight-label">Key Insight</div>
+      <p>Commerce is not a separate card type. A commerce card in a grid = Grid Tile + price slot active. A commerce card in a list = List Row + price slot active. <strong>Don't build a separate commerce component — build price as a composable slot.</strong></p>
+    </div>
+
+    <h3 style="margin-bottom:16px;">Slot Inventory</h3>
+    <div class="card-grid" style="margin-bottom:32px;">
+      <div class="card" style="border-top:3px solid var(--accent);">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:12px;">Fixed Slots (always present)</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot fixed">Image</span><span style="font-size:13px;color:var(--text-dim);">Varies in ratio/position — 16:9, 1:1, 2:3, 3:2</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot fixed">Title</span><span style="font-size:13px;color:var(--text-dim);">1–2 lines, always visible</span></div>
+        </div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--text-muted);">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Variable Slots (optional, composable)</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt">Description</span><span style="font-size:13px;color:var(--text-dim);">0–3 lines</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt">Meta</span><span style="font-size:13px;color:var(--text-dim);">Rating, date, location, category — repeatable</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt">Price</span><span style="font-size:13px;color:var(--text-dim);">Commerce contexts — activates the commerce mode</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt">Badge / Pill</span><span style="font-size:13px;color:var(--text-dim);">Discount %, "new", "sponsored" — overlay or inline</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt">CTA</span><span style="font-size:13px;color:var(--text-dim);">Button or link — optional, size varies by family</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt">Action Icons</span><span style="font-size:13px;color:var(--text-dim);">Heart, save, compare — 0 to many</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt">Brand Chips</span><span style="font-size:13px;color:var(--text-dim);">Merchant logo row — hero cards only</span></div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom:16px;">Component Tree — Target Architecture</h3>
+    <pre style="margin-bottom:32px;">
+<span class="cm">// One Card primitive, 3 layout variants, composable slots</span>
+<span class="kw">&lt;Card</span> <span class="type">variant</span>=<span class="str">"hero"</span> | <span class="str">"tile"</span> | <span class="str">"row"</span><span class="kw">&gt;</span>
+  ├── <span class="kw">&lt;Card.Image</span> <span class="type">ratio</span>=<span class="str">"16:9"</span> | <span class="str">"1:1"</span> | <span class="str">"2:3"</span> | <span class="str">"3:2"</span> /&gt;
+  ├── <span class="kw">&lt;Card.Content&gt;</span>
+  │   ├── <span class="kw">&lt;Card.Title /&gt;</span>           <span class="cm">— always present</span>
+  │   ├── <span class="kw">&lt;Card.Description /&gt;</span>     <span class="cm">— optional</span>
+  │   ├── <span class="kw">&lt;Card.Meta /&gt;</span>            <span class="cm">— optional, repeatable</span>
+  │   └── <span class="kw">&lt;Card.BrandChips /&gt;</span>     <span class="cm">— optional, hero only</span>
+  ├── <span class="kw">&lt;Card.Commerce&gt;</span>            <span class="cm">— optional slot group</span>
+  │   ├── <span class="kw">&lt;Card.Price /&gt;</span>
+  │   ├── <span class="kw">&lt;Card.Merchant /&gt;</span>
+  │   └── <span class="kw">&lt;Card.Discount /&gt;</span>
+  └── <span class="kw">&lt;Card.Actions&gt;</span>             <span class="cm">— optional</span>
+      ├── <span class="kw">&lt;Card.CTA /&gt;</span>
+      └── <span class="kw">&lt;Card.QuickActions /&gt;</span>   <span class="cm">— heart, save, compare</span>
+</pre>
+
+    <h3 style="margin-bottom:16px;">Variant × Density Matrix</h3>
+    <div class="card" style="padding:0 24px;">
+      <div style="display:grid;grid-template-columns:140px repeat(3,1fr);border-bottom:1px solid var(--border);">
+        <div style="padding:12px 0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);">Variant</div>
+        <div style="padding:12px 8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);text-align:center;">Compact</div>
+        <div style="padding:12px 8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);text-align:center;">Standard</div>
+        <div style="padding:12px 8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);text-align:center;">Rich</div>
+      </div>
+      <div style="display:grid;grid-template-columns:140px repeat(3,1fr);border-bottom:1px solid var(--border);">
+        <div style="padding:12px 0;font-weight:700;font-size:13px;">PromoCard</div>
+        <div style="padding:12px 8px;font-size:12px;color:var(--text-dim);text-align:center;">—</div>
+        <div style="padding:12px 8px;font-size:12px;color:var(--text-dim);text-align:center;">—</div>
+        <div style="padding:12px 8px;font-size:12px;color:var(--text-dim);text-align:center;">Always rich (all slots)</div>
+      </div>
+      <div style="display:grid;grid-template-columns:140px repeat(3,1fr);border-bottom:1px solid var(--border);">
+        <div style="padding:12px 0;font-weight:700;font-size:13px;">VerticalCard</div>
+        <div style="padding:12px 8px;font-size:12px;color:var(--text-dim);text-align:center;">Title only</div>
+        <div style="padding:12px 8px;font-size:12px;color:var(--text-dim);text-align:center;">Title + meta</div>
+        <div style="padding:12px 8px;font-size:12px;color:var(--text-dim);text-align:center;">Title + meta + price</div>
+      </div>
+      <div style="display:grid;grid-template-columns:140px repeat(3,1fr);">
+        <div style="padding:12px 0;font-weight:700;font-size:13px;">HorizontalCard</div>
+        <div style="padding:12px 8px;font-size:12px;color:var(--text-dim);text-align:center;">Thumb + title</div>
+        <div style="padding:12px 8px;font-size:12px;color:var(--text-dim);text-align:center;">+ description + price</div>
+        <div style="padding:12px 8px;font-size:12px;color:var(--text-dim);text-align:center;">+ rating + actions</div>
+      </div>
+    </div>
+  </section>
+
   <!-- Nalu Audit -->
   <section id="nalu">
-    <div class="section-label">Section 04</div>
+    <div class="section-label">Section 03</div>
     <h2>Nalu Audit</h2>
     <p class="section-desc">Current state of <code style="font-family:monospace;font-size:13px;color:var(--cyan);">@atolls/nalu-react</code>. 5 card components, 64 total components scanned. Only 1 of 13 iGraal card types is fully covered today.</p>
 
@@ -803,7 +884,7 @@
 
   <!-- Migration -->
   <section id="migration">
-    <div class="section-label">Section 05</div>
+    <div class="section-label">Section 04</div>
     <h2>Migration Surface</h2>
     <p class="section-desc">64 components audited. 18.75% compliant. Prioritized in 3 tiers — wild-west first (they fake compliance), legacy second, reclassify the rest.</p>
 
@@ -876,7 +957,7 @@
 
   <!-- Next Steps -->
   <section id="next">
-    <div class="section-label">Section 06</div>
+    <div class="section-label">Section 05</div>
     <h2>Next Steps</h2>
     <p class="section-desc">Ordered by dependency. Design specs first, then build, then migration.</p>
 
