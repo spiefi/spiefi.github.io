@@ -585,71 +585,82 @@
       <p style="font-size:14px;color:var(--text-dim);margin-bottom:24px;line-height:1.65;">Three patterns appear in the PDF but belong outside the card system. Here's what they look like and why they're excluded.</p>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;">
 
-        <!-- Card 6-filter -->
+        <!-- Filter panel -->
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;border-left:3px solid var(--amber);">
-          <!-- Visual mockup of a filter panel -->
-          <div style="padding:16px;border-bottom:1px solid var(--border);background:var(--surface-2);">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;"><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--amber);">Filter / Facet Panel</div><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:18px;font-weight:900;color:var(--text-muted);">—</span><span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-muted);">Not in PDF</span></div></div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--surface);border-radius:8px;border:1px solid var(--border);">
-                <div style="width:16px;height:16px;border-radius:4px;border:2px solid #818cf8;background:rgba(99,102,241,0.2);flex-shrink:0;"></div>
-                <span style="font-size:12px;color:var(--text);">Voyages</span>
-                <span style="font-size:10px;color:var(--text-muted);margin-left:auto;">142</span>
+          <div style="padding:14px 16px;border-bottom:1px solid var(--border);background:var(--surface-2);display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--amber);">Filter / Facet Panel</div>
+            <div style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-muted);">Not numbered in PDF</div>
+          </div>
+          <!-- Real mockup: filter panel anatomy -->
+          <div style="padding:16px;border-bottom:1px solid var(--border);">
+            <div style="font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;">Typical filter sidebar — iGraal search/category pages</div>
+            <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface-2);">
+              <div style="padding:10px 14px;border-bottom:1px solid var(--border);font-size:12px;font-weight:700;">Filtrer par catégorie</div>
+              <div style="padding:8px 14px;display:flex;flex-direction:column;gap:6px;">
+                <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer;"><input type="checkbox" checked style="accent-color:#818cf8;"> Voyages <span style="margin-left:auto;font-size:10px;color:var(--text-muted);">142</span></label>
+                <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer;"><input type="checkbox" style="accent-color:#818cf8;"> Mode <span style="margin-left:auto;font-size:10px;color:var(--text-muted);">89</span></label>
+                <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer;"><input type="checkbox" style="accent-color:#818cf8;"> High Tech <span style="margin-left:auto;font-size:10px;color:var(--text-muted);">64</span></label>
+                <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer;"><input type="checkbox" style="accent-color:#818cf8;"> Beauté <span style="margin-left:auto;font-size:10px;color:var(--text-muted);">51</span></label>
               </div>
-              <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--surface);border-radius:8px;border:1px solid var(--border);">
-                <div style="width:16px;height:16px;border-radius:4px;border:2px solid var(--border);flex-shrink:0;"></div>
-                <span style="font-size:12px;color:var(--text);">Mode</span>
-                <span style="font-size:10px;color:var(--text-muted);margin-left:auto;">89</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--surface);border-radius:8px;border:1px solid var(--border);">
-                <div style="width:16px;height:16px;border-radius:4px;border:2px solid var(--border);flex-shrink:0;"></div>
-                <span style="font-size:12px;color:var(--text);">High Tech</span>
-                <span style="font-size:10px;color:var(--text-muted);margin-left:auto;">64</span>
-              </div>
-              <div style="display:flex;gap:8px;margin-top:4px;">
-                <div style="flex:1;text-align:center;padding:6px;border-radius:8px;border:1px solid var(--border);font-size:11px;font-weight:700;color:var(--text-muted);">Réinitialiser</div>
-                <div style="flex:1;text-align:center;padding:6px;border-radius:8px;background:#e8e8f0;font-size:11px;font-weight:700;color:#0a0a0f;">Appliquer</div>
+              <div style="padding:10px 14px;display:flex;gap:8px;border-top:1px solid var(--border);">
+                <button style="flex:1;padding:6px;border-radius:8px;border:1px solid var(--border);background:transparent;font-size:11px;font-weight:700;color:var(--text-muted);cursor:pointer;">Réinitialiser</button>
+                <button style="flex:1;padding:6px;border-radius:8px;border:none;background:#e8e8f0;font-size:11px;font-weight:700;color:#0a0a0f;cursor:pointer;">Appliquer</button>
               </div>
             </div>
           </div>
           <div style="padding:14px;">
             <div style="font-weight:700;font-size:14px;margin-bottom:6px;">Why not a card</div>
-            <div style="font-size:13px;color:var(--text-dim);line-height:1.65;">This is an <strong style="color:var(--text);">input control</strong> — it has checkboxes, toggle state, apply/reset actions. Cards are display containers. Mixing them means card components inherit form semantics (<code style="font-size:11px;font-family:monospace;">role=checkbox</code>, form validation, controlled state). That's a category error. This belongs in a Form or Filter component, not the card system.</div>
+            <div style="font-size:13px;color:var(--text-dim);line-height:1.65;">This is an <strong style="color:var(--text);">input control</strong> — checkboxes, toggles, apply/reset. Cards are display containers that present content. If you call this a card, card components inherit form semantics (<code style="font-size:11px;font-family:monospace;">role=checkbox</code>, form state, validation). That's a category error. It belongs in a Filter component, not the card system.</div>
           </div>
         </div>
 
         <!-- Checkout summary -->
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;border-left:3px solid var(--amber);">
-          <div style="padding:16px;border-bottom:1px solid var(--border);background:var(--surface-2);">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;"><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--amber);">Checkout / Order Summary</div><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:18px;font-weight:900;color:var(--text-muted);">—</span><span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-muted);">Not in PDF</span></div></div>
-            <div style="display:flex;flex-direction:column;gap:6px;">
-              <div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text-dim);">Cashback ENGIE</span><span style="color:var(--text);">€40.00</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text-dim);">Cashback AliExpress</span><span style="color:var(--text);">€2.50</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text-dim);">Bonus parrainage</span><span style="color:#4ade80)">€5.00</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:800;padding:8px 0;"><span>Total disponible</span><span style="color:#4ade80;">€47.50</span></div>
-              <div style="background:#e8e8f0;color:#0a0a0f;border-radius:20px;padding:8px;font-size:12px;font-weight:700;text-align:center;">Demander le virement</div>
+          <div style="padding:14px 16px;border-bottom:1px solid var(--border);background:var(--surface-2);display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--amber);">Checkout / Balance Summary</div>
+            <div style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-muted);">Not numbered in PDF</div>
+          </div>
+          <div style="padding:16px;border-bottom:1px solid var(--border);">
+            <div style="font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;">Appears on: account / cashback balance pages</div>
+            <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface-2);">
+              <div style="padding:10px 14px;border-bottom:1px solid var(--border);font-size:12px;font-weight:700;">Mon solde cashback</div>
+              <div style="padding:8px 14px;display:flex;flex-direction:column;gap:0;">
+                <div style="display:flex;justify-content:space-between;font-size:12px;padding:7px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text-dim);">Cashback ENGIE</span><span>€40.00</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;padding:7px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text-dim);">Cashback AliExpress</span><span>€2.50</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;padding:7px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text-dim);">Bonus parrainage</span><span style="color:#4ade80;">+€5.00</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:800;padding:10px 0;"><span>Total disponible</span><span style="color:#4ade80;">€47.50</span></div>
+              </div>
+              <div style="padding:10px 14px;border-top:1px solid var(--border);">
+                <button style="width:100%;padding:8px;border-radius:20px;border:none;background:#e8e8f0;font-size:12px;font-weight:700;color:#0a0a0f;cursor:pointer;">Demander le virement</button>
+              </div>
             </div>
           </div>
           <div style="padding:14px;">
             <div style="font-weight:700;font-size:14px;margin-bottom:6px;">Why not a card</div>
-            <div style="font-size:13px;color:var(--text-dim);line-height:1.65;">Cards are <strong style="color:var(--text);">reusable units</strong>. You put 12 of them in a grid. This appears exactly once, with hardcoded business logic (line items, totals, withdrawal CTA). It's a <strong style="color:var(--text);">page section</strong> tied to the checkout flow — not a component you reuse elsewhere. Building it as a card would couple Nalu to checkout domain logic.</div>
+            <div style="font-size:13px;color:var(--text-dim);line-height:1.65;">Cards are <strong style="color:var(--text);">reusable units</strong> — you drop 12 into a grid. This appears once, with hardcoded business logic baked in (line items, running total, withdrawal CTA). It's a <strong style="color:var(--text);">page section</strong> tied to account logic. Putting it in Nalu would couple the design system to a specific financial flow.</div>
           </div>
         </div>
 
         <!-- Empty state -->
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;border-left:3px solid var(--green);">
-          <div style="padding:16px;border-bottom:1px solid var(--border);background:var(--surface-2);">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;"><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--green);">Empty State</div><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:18px;font-weight:900;color:var(--text-muted);">—</span><span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;background:rgba(34,197,94,0.1);color:var(--green);">Already exists in Nalu</span></div></div>
-            <div style="text-align:center;padding:16px 8px;">
-              <div style="font-size:40px;margin-bottom:8px;">🔍</div>
-              <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Aucun résultat trouvé</div>
-              <div style="font-size:12px;color:var(--text-dim);margin-bottom:12px;line-height:1.5;">Essayez de modifier vos filtres ou votre recherche</div>
-              <div style="display:inline-block;background:#e8e8f0;color:#0a0a0f;border-radius:20px;padding:6px 18px;font-size:12px;font-weight:700;">Réinitialiser les filtres</div>
+          <div style="padding:14px 16px;border-bottom:1px solid var(--border);background:var(--surface-2);display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--green);">Empty State</div>
+            <div style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;background:rgba(34,197,94,0.1);color:var(--green);">Already in Nalu ✅</div>
+          </div>
+          <div style="padding:16px;border-bottom:1px solid var(--border);">
+            <div style="font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;">Appears on: empty search results, no offers state</div>
+            <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface-2);">
+              <div style="text-align:center;padding:24px 16px;">
+                <div style="font-size:48px;margin-bottom:12px;">🔍</div>
+                <div style="font-weight:700;font-size:15px;margin-bottom:6px;">Aucun résultat trouvé</div>
+                <div style="font-size:12px;color:var(--text-dim);margin-bottom:16px;line-height:1.5;max-width:200px;margin-left:auto;margin-right:auto;">Essayez de modifier vos filtres ou votre recherche</div>
+                <button style="padding:8px 20px;border-radius:20px;border:none;background:#e8e8f0;font-size:12px;font-weight:700;color:#0a0a0f;cursor:pointer;">Réinitialiser les filtres</button>
+              </div>
             </div>
           </div>
           <div style="padding:14px;">
-            <div style="font-weight:700;font-size:14px;margin-bottom:6px;">Why not a card — it already exists</div>
-            <div style="font-size:13px;color:var(--text-dim);line-height:1.65;">Nalu already ships an <code style="font-family:monospace;font-size:12px;color:var(--cyan);">EmptyState</code> component covering exactly this: illustration + heading + body + CTA. Building it again as a card means two components doing the same job. The whole point of this exercise is <strong style="color:var(--text);">reducing duplication</strong>, not adding it.</div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:6px;">Why not a card — already solved</div>
+            <div style="font-size:13px;color:var(--text-dim);line-height:1.65;">Nalu already ships <code style="font-family:monospace;font-size:12px;color:var(--cyan);">EmptyState</code> — illustration + heading + body + CTA. Building it again as a "card" means two components doing the same job. The whole point of this audit is <strong style="color:var(--text);">reducing duplication</strong>, not creating more.</div>
           </div>
         </div>
 
