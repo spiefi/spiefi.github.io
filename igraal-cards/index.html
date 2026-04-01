@@ -432,11 +432,11 @@
         <div style="width:4px;height:40px;border-radius:4px;background:var(--cyan);flex-shrink:0;"></div>
         <div>
           <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--cyan);margin-bottom:2px;">HorizontalCard covers</div>
-          <div style="font-size:20px;font-weight:800;">Cards 2 · 4 · 5</div>
+          <div style="font-size:20px;font-weight:800;">Cards 2 · 4 · 5 · 8</div>
         </div>
         <span class="action-badge action-evolve" style="margin-left:auto;">Evolve HBC · Kill OBC</span>
       </div>
-      <div class="card-grid-3">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;">
 
         <!-- Card 2: Retailer -->
         <div style="background:var(--surface);border:1px solid rgba(6,182,212,0.25);border-radius:var(--radius);overflow:hidden;">
@@ -515,6 +515,38 @@
           </div>
           <div style="padding:8px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
             <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">density=dense · thumb(small) · title · subtitle</div>
+          </div>
+        </div>
+
+
+        <!-- Card 8: List Item -->
+        <div style="background:var(--surface);border:1px solid rgba(6,182,212,0.25);border-radius:var(--radius);overflow:hidden;">
+          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
+            <span style="font-size:11px;font-weight:700;color:var(--cyan);">Card 8</span>
+            <span class="tag tag-co">CO</span>
+          </div>
+          <div style="padding:14px;">
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--surface-3);border-radius:8px;">
+                <div style="width:36px;height:36px;border-radius:6px;background:linear-gradient(135deg,#1a2a3a,#2a4a6a);flex-shrink:0;"></div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-weight:600;font-size:13px;">Merchant Name</div>
+                  <div style="font-size:11px;color:var(--text-muted);">Offer description line</div>
+                </div>
+                <div style="font-size:11px;font-weight:700;color:#4ade80;flex-shrink:0;">12%</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--surface-3);border-radius:8px;">
+                <div style="width:36px;height:36px;border-radius:6px;background:linear-gradient(135deg,#2a1a1a,#4a2a2a);flex-shrink:0;"></div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-weight:600;font-size:13px;">Another Merchant</div>
+                  <div style="font-size:11px;color:var(--text-muted);">Short offer text</div>
+                </div>
+                <div style="font-size:11px;font-weight:700;color:#4ade80;flex-shrink:0;">8%</div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:8px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
+            <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">density=dense · thumb · title · meta · noCTA</div>
           </div>
         </div>
 
@@ -620,13 +652,52 @@
     </div>
 
     <!-- Non-cards note -->
-    <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 22px;">
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:8px;">Cards 6 · 7 · 8 · 13 — not cards</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;">
-        <div style="font-size:13px;color:var(--text-dim);"><strong style="color:var(--text);">Card 6</strong> — Filter/Facet → form control, separate scope</div>
-        <div style="font-size:13px;color:var(--text-dim);"><strong style="color:var(--text);">Card 7</strong> — Checkout summary → composite section pattern</div>
-        <div style="font-size:13px;color:var(--text-dim);"><strong style="color:var(--text);">Card 8</strong> — Media gallery → media viewer component</div>
-        <div style="font-size:13px;color:var(--text-dim);"><strong style="color:var(--text);">Card 13</strong> — Empty state → <code style="font-size:11px;font-family:monospace;color:var(--cyan);">EmptyState</code> already exists in Nalu ✅</div>
+    <div style="margin-bottom:0;">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+        <div style="width:4px;height:40px;border-radius:4px;background:var(--text-muted);flex-shrink:0;"></div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:2px;">Excluded from card system</div>
+          <div style="font-size:20px;font-weight:800;color:var(--text-dim);">Cards 6 · 7 · 13</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;">
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;border-left:3px solid var(--text-muted);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+            <span style="font-size:22px;font-weight:900;color:var(--text-muted);">6</span>
+            <div>
+              <div style="font-weight:700;font-size:14px;">Filter / Facet Item</div>
+              <div style="font-size:11px;color:var(--text-muted);">S&amp;N team</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:var(--text-dim);line-height:1.65;margin-bottom:12px;">A filter row is an <strong style="color:var(--text);">input control</strong>, not a content container. Cards present information and navigate somewhere. Filter toggles modify a query — completely different interaction model, different accessibility semantics (<code style="font-size:11px;font-family:monospace;">role="checkbox"</code> vs <code style="font-size:11px;font-family:monospace;">role="button"</code>), different states.</div>
+          <div style="background:var(--surface-2);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--amber);border-left:2px solid var(--amber);">⚠️ Mixing form controls into the card system would let filter behaviour leak into card components. Keeps a hard boundary between input and display.</div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;border-left:3px solid var(--text-muted);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+            <span style="font-size:22px;font-weight:900;color:var(--text-muted);">7</span>
+            <div>
+              <div style="font-weight:700;font-size:14px;">Checkout / Order Summary</div>
+              <div style="font-size:11px;color:var(--text-muted);">CCE team</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:var(--text-dim);line-height:1.65;margin-bottom:12px;">Cards are <strong style="color:var(--text);">reusable units</strong> — you put 12 in a grid. The checkout summary appears once, in a fixed layout, with business logic baked in (line items → subtotal → total → CTA). Building it as a card couples the design system to a single screen's domain logic.</div>
+          <div style="background:var(--surface-2);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--amber);border-left:2px solid var(--amber);">⚠️ This is a page-section pattern, not a component. It belongs to the checkout flow, not the component library.</div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;border-left:3px solid var(--green);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+            <span style="font-size:22px;font-weight:900;color:var(--text-muted);">13</span>
+            <div>
+              <div style="font-weight:700;font-size:14px;">Empty State</div>
+              <div style="font-size:11px;color:var(--text-muted);">All teams</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:var(--text-dim);line-height:1.65;margin-bottom:12px;">Nalu already has an <code style="font-family:monospace;font-size:12px;color:var(--cyan);">EmptyState</code> component that covers this exactly — illustration, heading, body, CTA. Building it again as a card would mean two components doing the same job.</div>
+          <div style="background:rgba(34,197,94,0.08);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--green);border-left:2px solid var(--green);">✅ Already done. Use EmptyState. No action needed.</div>
+        </div>
+
       </div>
     </div>
 
