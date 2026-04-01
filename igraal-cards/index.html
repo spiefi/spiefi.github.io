@@ -272,460 +272,361 @@
   <section id="inventory">
     <div class="section-label">Section 01</div>
     <h2>Card Inventory</h2>
-    <p class="section-desc">All 13 card types identified across iGraal screens. 4 are not cards — they're UI patterns (filter, checkout, media viewer) or already covered by a separate component (EmptyState).</p>
+    <p class="section-desc">All 13 card types across iGraal screens. Below: the original reference map, then cards grouped by which base component covers them — so you can see exactly what each component needs to handle.</p>
 
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;">
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px;">
       <span class="tag tag-co">CO — Cashback Offer</span>
       <span class="tag tag-cce">CCE — Commercial Content Experience</span>
       <span class="tag tag-sn">S&amp;N — Search &amp; Navigation</span>
       <span class="tag tag-gc">GC — Gift Card (Alternative Offers)</span>
     </div>
 
-    <!-- Card 1 -->
-    <div class="card-item">
-      <div class="card-num">1</div>
-      <div class="card-info">
-        <div class="card-name">Hero Promo Card</div>
-        <div class="card-desc">Full-bleed background image, headline overlay, strong CTA. Used on Home as the primary attention anchor.</div>
-        <div class="card-slots">
-          <span class="slot fixed">Image (full-bleed)</span>
-          <span class="slot fixed">Title</span>
-          <span class="slot opt">Description</span>
-          <span class="slot opt">CTA button</span>
-          <span class="slot opt">Badge</span>
-          <span class="slot opt">Gradient overlay</span>
-        </div>
+    <!-- Original reference PDF -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:48px;">
+      <div style="padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+        <div style="font-size:13px;font-weight:700;">Original Card Map — Cards across pages.pdf</div>
+        <div style="font-size:11px;color:var(--text-muted);">Reference: all 13 card positions</div>
       </div>
-      <div class="card-meta-right">
-        <span class="tag tag-co">CO</span>
-        <span class="layout-badge">↕ Vertical · Hero</span>
-      </div>
+      <img src="cards-overview.png" alt="iGraal cards overview" style="width:100%;display:block;"/>
     </div>
 
-    <!-- Card 2 -->
-    <div class="card-item">
-      <div class="card-num">2</div>
-      <div class="card-info">
-        <div class="card-name">Retailer Card <span style="font-weight:400;color:var(--text-muted);font-size:12px;">— Voucher team</span></div>
-        <div class="card-desc">Compact horizontal card. Retailer logo left, cashback offer text right, optional "Sponsorisé" badge. No CTA button.</div>
-        <div class="card-slots">
-          <span class="slot fixed">Logo</span>
-          <span class="slot fixed">Title</span>
-          <span class="slot fixed">Cashback amount</span>
-          <span class="slot opt">Sponsored badge</span>
-        </div>
-      </div>
-      <div class="card-meta-right">
-        <span class="tag tag-co">CO</span>
-        <span class="layout-badge">↔ Horizontal · Compact</span>
-      </div>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="card-item">
-      <div class="card-num">3</div>
-      <div class="card-info">
-        <div class="card-name">Voucher Offer Card <span style="font-weight:400;color:var(--text-muted);font-size:12px;">— Combinable offers / Voucher Deals</span></div>
-        <div class="card-desc">Vertical card with large brand image or illustration at top. Cashback value, "Activer le cashback" CTA button, expiry date.</div>
-        <div class="card-slots">
-          <span class="slot fixed">Brand image/logo</span>
-          <span class="slot fixed">Title</span>
-          <span class="slot fixed">Cashback value</span>
-          <span class="slot fixed">CTA button</span>
-          <span class="slot opt">Expiry date</span>
-          <span class="slot opt">Badge/Tag</span>
-        </div>
-      </div>
-      <div class="card-meta-right">
-        <span class="tag tag-co">CO</span>
-        <span class="layout-badge">↕ Vertical · Standard</span>
-      </div>
-    </div>
-
-    <!-- Card 4 -->
-    <div class="card-item">
-      <div class="card-num">4</div>
-      <div class="card-info">
-        <div class="card-name">Search Result — Large</div>
-        <div class="card-desc">Horizontal card. Thumbnail left, title + description + price right, CTA button far-right. Standard search result row.</div>
-        <div class="card-slots">
-          <span class="slot fixed">Thumbnail</span>
-          <span class="slot fixed">Title</span>
-          <span class="slot opt">Description</span>
-          <span class="slot opt">Price</span>
-          <span class="slot opt">CTA button</span>
-          <span class="slot opt">Tags</span>
-          <span class="slot opt">Rating</span>
-        </div>
-      </div>
-      <div class="card-meta-right">
-        <span class="tag tag-sn">S&amp;N</span>
-        <span class="layout-badge">↔ Horizontal · Standard</span>
-      </div>
-    </div>
-
-    <!-- Card 5 -->
-    <div class="card-item">
-      <div class="card-num">5</div>
-      <div class="card-info">
-        <div class="card-name">Compact Result Row</div>
-        <div class="card-desc">Dense single-line horizontal card. Small thumbnail left, title + subtitle only. No price, no CTA. Used in sidebar and compact search.</div>
-        <div class="card-slots">
-          <span class="slot fixed">Thumbnail (small)</span>
-          <span class="slot fixed">Title</span>
-          <span class="slot opt">Subtitle</span>
-        </div>
-      </div>
-      <div class="card-meta-right">
-        <span class="tag tag-sn">S&amp;N</span>
-        <span class="layout-badge">↔ Horizontal · Dense</span>
-      </div>
-    </div>
-
-    <!-- Card 6 — not a card -->
-    <div class="card-item not-card">
-      <div class="card-num" style="background:var(--surface-2)">6</div>
-      <div class="card-info">
-        <div class="card-name" style="color:var(--text-muted)">Filter / Facet Item <span style="font-weight:400;font-size:12px;">— not a card</span></div>
-        <div class="card-desc">Toggle rows for browse filters. This is a form control pattern — belongs outside the card system.</div>
-      </div>
-      <div class="card-meta-right">
-        <span class="tag tag-sn">S&amp;N</span>
-        <span class="layout-badge" style="opacity:0.5">⊘ Form control</span>
-      </div>
-    </div>
-
-    <!-- Card 7 — not a card -->
-    <div class="card-item not-card">
-      <div class="card-num" style="background:var(--surface-2)">7</div>
-      <div class="card-info">
-        <div class="card-name" style="color:var(--text-muted)">Checkout / Order Summary <span style="font-weight:400;font-size:12px;">— not a card</span></div>
-        <div class="card-desc">Stacked line items with totals and CTA. Composite section pattern, not a card component.</div>
-      </div>
-      <div class="card-meta-right">
-        <span class="tag tag-cce">CCE</span>
-        <span class="layout-badge" style="opacity:0.5">⊘ Section pattern</span>
-      </div>
-    </div>
-
-    <!-- Card 8 — not a card -->
-    <div class="card-item not-card">
-      <div class="card-num" style="background:var(--surface-2)">8</div>
-      <div class="card-info">
-        <div class="card-name" style="color:var(--text-muted)">PDP Media Gallery <span style="font-weight:400;font-size:12px;">— not a card</span></div>
-        <div class="card-desc">Large image with thumbnail strip. Media viewer pattern. Separate scope.</div>
-      </div>
-      <div class="card-meta-right">
-        <span class="tag tag-cce">CCE</span>
-        <span class="layout-badge" style="opacity:0.5">⊘ Media viewer</span>
-      </div>
-    </div>
-
-    <!-- Card 9 -->
-    <div class="card-item">
-      <div class="card-num">9</div>
-      <div class="card-info">
-        <div class="card-name">Gift Card <span style="font-weight:400;color:var(--text-muted);font-size:12px;">— Team Alternative Offers</span></div>
-        <div class="card-desc">Vertical card. Brand logo/image prominent at top. "En ligne" availability badge. Title + cashback percentage. No explicit CTA button.</div>
-        <div class="card-slots">
-          <span class="slot fixed">Brand logo/image</span>
-          <span class="slot fixed">Title</span>
-          <span class="slot fixed">Cashback %</span>
-          <span class="slot opt">Availability badge (En ligne)</span>
-        </div>
-      </div>
-      <div class="card-meta-right">
-        <span class="tag tag-gc">GC</span>
-        <span class="layout-badge">↕ Vertical · Standard</span>
-      </div>
-    </div>
-
-    <!-- Card 10 -->
-    <div class="card-item">
-      <div class="card-num">10</div>
-      <div class="card-info">
-        <div class="card-name">Grid Product Card</div>
-        <div class="card-desc">Square-ratio vertical card. Product image fills card top. Title, price, sale badge overlay. Standard e-commerce product tile.</div>
-        <div class="card-slots">
-          <span class="slot fixed">Product image (1:1)</span>
-          <span class="slot fixed">Title</span>
-          <span class="slot opt">Price</span>
-          <span class="slot opt">Sale badge</span>
-          <span class="slot opt">Rating</span>
-          <span class="slot opt">Merchant logo</span>
-        </div>
-      </div>
-      <div class="card-meta-right">
-        <span class="tag tag-cce">CCE</span>
-        <span class="layout-badge">↕ Vertical · Standard</span>
-      </div>
-    </div>
-
-    <!-- Card 11 -->
-    <div class="card-item">
-      <div class="card-num">11</div>
-      <div class="card-info">
-        <div class="card-name">Editorial / Content Card</div>
-        <div class="card-desc">Vertical or horizontal editorial card. Image + headline + author/date meta. Used in collection and editorial pages.</div>
-        <div class="card-slots">
-          <span class="slot fixed">Image</span>
-          <span class="slot fixed">Title</span>
-          <span class="slot opt">Description / body text</span>
-          <span class="slot opt">Author + date meta</span>
-          <span class="slot opt">Category tag</span>
-        </div>
-      </div>
-      <div class="card-meta-right">
-        <span class="tag tag-co">CO</span>
-        <span class="layout-badge">↕↔ Vertical/Horizontal</span>
-      </div>
-    </div>
-
-    <!-- Card 12 -->
-    <div class="card-item">
-      <div class="card-num">12</div>
-      <div class="card-info">
-        <div class="card-name">Inline Promo / Upsell</div>
-        <div class="card-desc">Compact horizontal promo banner. Icon or illustration left, short text + CTA right. Used inline within pages as secondary callouts.</div>
-        <div class="card-slots">
-          <span class="slot fixed">Icon / illustration</span>
-          <span class="slot fixed">Title</span>
-          <span class="slot opt">Description</span>
-          <span class="slot opt">CTA button</span>
-          <span class="slot opt">Background color / image</span>
-        </div>
-      </div>
-      <div class="card-meta-right">
-        <span class="tag tag-co">CO</span>
-        <span class="layout-badge">↔ Horizontal · Inline</span>
-      </div>
-    </div>
-
-    <!-- Card 13 — not a card -->
-    <div class="card-item not-card">
-      <div class="card-num" style="background:var(--surface-2)">13</div>
-      <div class="card-info">
-        <div class="card-name" style="color:var(--text-muted)">Empty State <span style="font-weight:400;font-size:12px;">— already covered</span></div>
-        <div class="card-desc">Illustration + heading + body + CTA. Already exists as the <code style="font-family:monospace;font-size:11px;color:var(--cyan)">EmptyState</code> component in Nalu. No action needed.</div>
-      </div>
-      <div class="card-meta-right">
-        <span class="tag tag-none">✅ Exists</span>
-        <span class="layout-badge" style="opacity:0.5">⊘ EmptyState</span>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- Structural Grouping -->
-  <section id="structure">
-    <div class="section-label">Section 02</div>
-    <h2>Structural Grouping</h2>
-    <p class="section-desc">The 9 real card components collapse to 4 structural patterns based on shared layout logic — not content. What varies within a pattern is only which slots are active.</p>
-
-    <div class="insight">
-      <div class="insight-label">Key Insight</div>
-      <p><strong>Commerce is not a separate pattern.</strong> A commerce card in a grid = Grid Tile + price slot. A commerce card in a list = List Row + price slot. Don't build a separate commerce component — build price as a composable slot on the existing patterns.</p>
-    </div>
-
-    <div class="card-grid" style="margin-top:24px;">
-
-      <div class="card" style="border-top: 3px solid var(--orange);">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin-bottom:8px;">Hero Banner</div>
-        <div style="font-size:28px;font-weight:900;margin-bottom:4px;">Cards 1 · 12</div>
-        <div style="font-size:13px;color:var(--text-dim);margin-bottom:16px;line-height:1.5;">Full-width, image-dominant. Text overlaid or directly below. Strong CTA. Width always equals container.</div>
-        <div style="font-size:12px;color:var(--text-muted);">Screens: Home · PDP inline</div>
-      </div>
-
-      <div class="card" style="border-top: 3px solid var(--accent);">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px;">Grid Tile</div>
-        <div style="font-size:28px;font-weight:900;margin-bottom:4px;">Cards 3 · 9 · 10 · 11</div>
-        <div style="font-size:13px;color:var(--text-dim);margin-bottom:16px;line-height:1.5;">Fixed-ratio image card. Title below or overlaid. Minimal text. Designed for visual scanning in grids.</div>
-        <div style="font-size:12px;color:var(--text-muted);">Screens: Home · Browse · Category · Collection</div>
-      </div>
-
-      <div class="card" style="border-top: 3px solid var(--cyan);">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cyan);margin-bottom:8px;">List Row</div>
-        <div style="font-size:28px;font-weight:900;margin-bottom:4px;">Cards 2 · 4 · 5</div>
-        <div style="font-size:13px;color:var(--text-dim);margin-bottom:16px;line-height:1.5;">Horizontal: image/logo left, text right, price/CTA far-right. Three density levels. The system workhorse.</div>
-        <div style="font-size:12px;color:var(--text-muted);">Screens: Search · Sidebar · Browse lists</div>
-      </div>
-
-    </div>
-
-    <div style="margin-top:24px;">
-      <h3 style="margin-bottom:16px;">Screen Context Mapping</h3>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
-        <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);padding:12px 20px;border-bottom:1px solid var(--border);">
-          <div>Screen</div><div>Primary</div><div>Secondary</div>
-        </div>
-        <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:0;font-size:13px;padding:12px 20px;border-bottom:1px solid var(--border);align-items:center;">
-          <div style="color:var(--text-dim);">Home / Discovery</div>
-          <div><span style="color:var(--orange);">● Hero Banner</span></div>
-          <div><span style="color:var(--accent);">● Grid Tile</span></div>
-        </div>
-        <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:0;font-size:13px;padding:12px 20px;border-bottom:1px solid var(--border);align-items:center;">
-          <div style="color:var(--text-dim);">Browse / Category</div>
-          <div><span style="color:var(--accent);">● Grid Tile</span></div>
-          <div><span style="color:var(--cyan);">● List Row</span></div>
-        </div>
-        <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:0;font-size:13px;padding:12px 20px;border-bottom:1px solid var(--border);align-items:center;">
-          <div style="color:var(--text-dim);">Search Results</div>
-          <div><span style="color:var(--cyan);">● List Row (standard)</span></div>
-          <div><span style="color:var(--cyan);">● List Row (compact)</span></div>
-        </div>
-        <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:0;font-size:13px;padding:12px 20px;border-bottom:1px solid var(--border);align-items:center;">
-          <div style="color:var(--text-dim);">Product Detail</div>
-          <div><span style="color:var(--orange);">● Hero Banner</span></div>
-          <div><span style="color:var(--accent);">● Grid Tile (recs)</span></div>
-        </div>
-        <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:0;font-size:13px;padding:12px 20px;align-items:center;">
-          <div style="color:var(--text-dim);">Collection / Curated</div>
-          <div><span style="color:var(--accent);">● Grid Tile</span></div>
-          <div><span style="color:var(--cyan);">● List Row</span></div>
-        </div>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- Component Plan -->
-  <section id="components">
-    <div class="section-label">Section 03</div>
-    <h2>Component Plan</h2>
-    <p class="section-desc">3 base components + 1 primitive covers all 9 real card types. Every card is a variant controlled by props and active slots — not separate components.</p>
-
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:32px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.9;color:#a0a8c0;">
-<span style="color:#555570;">// Target architecture</span>
-<br>BaseCard          <span style="color:#555570;">← primitive (keep)</span>
-<br>├── VerticalCard  <span style="color:#818cf8;">← merge VBC + VBCLite</span>  <span style="color:#555570;">covers cards 3, 9, 10, 11</span>
-<br>├── HorizontalCard<span style="color:#22d3ee;">← evolve HBC, kill OBC</span> <span style="color:#555570;">covers cards 2, 4, 5</span>
-<br>└── PromoCard     <span style="color:#4ade80;">← NEW</span>                  <span style="color:#555570;">covers cards 1, 12</span>
-    </div>
-
-    <!-- VerticalCard -->
-    <div class="component-block vc">
-      <div class="component-header">
+    <!-- GROUP: VerticalCard -->
+    <div style="margin-bottom:48px;">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+        <div style="width:4px;height:40px;border-radius:4px;background:var(--accent);flex-shrink:0;"></div>
         <div>
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#818cf8;margin-bottom:6px;">VerticalCard</div>
-          <h3 style="color:var(--text);">VerticalBaseCard + VerticalBaseCardLite</h3>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:2px;">VerticalCard covers</div>
+          <div style="font-size:20px;font-weight:800;">Cards 3 · 9 · 10 · 11</div>
         </div>
-        <span class="action-badge action-merge">Merge</span>
+        <span class="action-badge action-merge" style="margin-left:auto;">Merge VBC + VBCLite</span>
       </div>
-      <div class="component-body">
-        <p style="font-size:14px;color:var(--text-dim);margin-bottom:20px;">80% structural overlap between the two existing vertical cards. The only differences are 3 optional props. Not two components — one, with configurable slots.</p>
-        <div class="component-cards">
-          <div class="component-card">
-            <div class="cc-num">Card 3</div>
-            <div class="cc-name">Voucher Offer Card</div>
-            <div class="cc-slots">bannerRatio=4:3 · retailerLogo · cashback · cta · expiry</div>
+      <div class="card-grid-4">
+
+        <!-- Card 3: Voucher Offer -->
+        <div style="background:var(--surface);border:1px solid rgba(99,102,241,0.25);border-radius:var(--radius);overflow:hidden;">
+          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
+            <span style="font-size:11px;font-weight:700;color:var(--accent);">Card 3</span>
+            <span class="tag tag-co">CO</span>
           </div>
-          <div class="component-card">
-            <div class="cc-num">Card 9</div>
-            <div class="cc-name">Gift Card</div>
-            <div class="cc-slots">bannerRatio=1:1 · badge · cashbackPercent · noCTA</div>
+          <!-- Visual mockup -->
+          <div style="padding:0;">
+            <div style="background:linear-gradient(135deg,#1a3a2a,#2d6b45);height:120px;display:flex;align-items:center;justify-content:center;position:relative;">
+              <div style="text-align:center;">
+                <div style="font-size:22px;font-weight:900;color:#4ade80;">plenitude</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.6);margin-top:2px;">Brand image / illustration</div>
+              </div>
+            </div>
+            <div style="padding:14px;">
+              <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Voucher Offer Card</div>
+              <div style="font-size:13px;color:#4ade80;font-weight:700;margin-bottom:4px;">40 € de cashback</div>
+              <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">Jusqu'au 31/03/2026</div>
+              <div style="background:#e8e8f0;color:#0a0a0f;border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700;text-align:center;">Activer le cashback</div>
+            </div>
           </div>
-          <div class="component-card">
-            <div class="cc-num">Card 10</div>
-            <div class="cc-name">Grid Product Card</div>
-            <div class="cc-slots">bannerRatio=1:1 · price · saleBadge · rating</div>
-          </div>
-          <div class="component-card">
-            <div class="cc-num">Card 11</div>
-            <div class="cc-name">Editorial Card</div>
-            <div class="cc-slots">bannerRatio=16:9 · text body · author · date</div>
+          <div style="padding:10px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
+            <div style="font-size:10px;color:var(--text-muted);line-height:1.5;font-family:'JetBrains Mono',monospace;">bannerRatio=4:3 · cashback · cta · expiry</div>
           </div>
         </div>
-        <h3 style="margin-top:20px;font-size:15px;">Required changes</h3>
-        <ul class="props-list">
-          <li class="prop"><span class="prop-critical"></span><span class="prop-name">bannerRatio</span><span class="prop-desc">Make configurable — the 2.42:1 hardlock blocks all reuse. Add: <code style="font-size:11px;">1:1 · 4:5 · 4:3 · 16:9 · 2.42:1</code> (keep as default)</span></li>
-          <li class="prop"><span class="prop-critical"></span><span class="prop-name">cta</span><span class="prop-desc">Make optional — VerticalBaseCardLite has no CTA, so the merged component must allow none</span></li>
-          <li class="prop"><span class="prop-high"></span><span class="prop-name">text</span><span class="prop-desc">Add rich body text slot (from Lite) — needed for editorial cards</span></li>
-          <li class="prop"><span class="prop-high"></span><span class="prop-name">overlayTitle</span><span class="prop-desc">Add title-on-image overlay mode — needed for category tiles (#3)</span></li>
-        </ul>
+
+        <!-- Card 9: Gift Card -->
+        <div style="background:var(--surface);border:1px solid rgba(99,102,241,0.25);border-radius:var(--radius);overflow:hidden;">
+          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
+            <span style="font-size:11px;font-weight:700;color:var(--accent);">Card 9</span>
+            <span class="tag tag-gc">GC</span>
+          </div>
+          <div style="padding:0;">
+            <div style="background:#fff;height:120px;display:flex;align-items:center;justify-content:center;position:relative;">
+              <div style="position:absolute;top:8px;left:8px;background:#f0f0f0;border:1px solid #ddd;border-radius:4px;padding:2px 8px;font-size:9px;font-weight:700;color:#333;">En ligne</div>
+              <div style="text-align:center;">
+                <div style="font-size:18px;font-weight:900;color:#e8321e;letter-spacing:-1px;">GET YOUR GUIDE</div>
+                <div style="font-size:10px;color:#888;margin-top:2px;">Brand logo</div>
+              </div>
+            </div>
+            <div style="padding:14px;">
+              <div style="font-weight:700;font-size:14px;margin-bottom:4px;">GetYourGuide</div>
+              <div style="font-size:13px;color:#4ade80;font-weight:700;">6% cashback</div>
+            </div>
+          </div>
+          <div style="padding:10px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
+            <div style="font-size:10px;color:var(--text-muted);line-height:1.5;font-family:'JetBrains Mono',monospace;">bannerRatio=1:1 · badge · cashback% · noCTA</div>
+          </div>
+        </div>
+
+        <!-- Card 10: Grid Product -->
+        <div style="background:var(--surface);border:1px solid rgba(99,102,241,0.25);border-radius:var(--radius);overflow:hidden;">
+          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
+            <span style="font-size:11px;font-weight:700;color:var(--accent);">Card 10</span>
+            <span class="tag tag-cce">CCE</span>
+          </div>
+          <div style="padding:0;">
+            <div style="background:linear-gradient(135deg,#1a1a3a,#2a1a4a);height:120px;display:flex;align-items:center;justify-content:center;position:relative;">
+              <div style="position:absolute;top:8px;right:8px;background:var(--rose);color:#fff;border-radius:4px;padding:2px 8px;font-size:9px;font-weight:700;">-30%</div>
+              <div style="text-align:center;color:rgba(255,255,255,0.4);font-size:11px;">Product image</div>
+            </div>
+            <div style="padding:14px;">
+              <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Grid Product Card</div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:14px;font-weight:900;color:var(--text);">€24.99</span>
+                <span style="font-size:11px;color:var(--text-muted);text-decoration:line-through;">€35.00</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding:10px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
+            <div style="font-size:10px;color:var(--text-muted);line-height:1.5;font-family:'JetBrains Mono',monospace;">bannerRatio=1:1 · price · saleBadge · rating?</div>
+          </div>
+        </div>
+
+        <!-- Card 11: Editorial -->
+        <div style="background:var(--surface);border:1px solid rgba(99,102,241,0.25);border-radius:var(--radius);overflow:hidden;">
+          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
+            <span style="font-size:11px;font-weight:700;color:var(--accent);">Card 11</span>
+            <span class="tag tag-co">CO</span>
+          </div>
+          <div style="padding:0;">
+            <div style="background:linear-gradient(135deg,#2a1a1a,#4a2a1a);height:120px;display:flex;align-items:center;justify-content:center;">
+              <div style="text-align:center;color:rgba(255,255,255,0.4);font-size:11px;">Editorial image · 16:9</div>
+            </div>
+            <div style="padding:14px;">
+              <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Editorial / Content Card</div>
+              <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">Author · Apr 1, 2026</div>
+              <div style="font-size:12px;color:var(--text-dim);line-height:1.4;">Short description or body text excerpt...</div>
+            </div>
+          </div>
+          <div style="padding:10px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
+            <div style="font-size:10px;color:var(--text-muted);line-height:1.5;font-family:'JetBrains Mono',monospace;">bannerRatio=16:9 · text · author · date</div>
+          </div>
+        </div>
+
+      </div>
+      <!-- Props for VerticalCard -->
+      <div style="background:var(--surface);border:1px solid rgba(99,102,241,0.2);border-radius:var(--radius-sm);padding:18px 22px;margin-top:16px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:12px;">VerticalCard — Full Props</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;">
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">bannerSection</code><span style="color:var(--text-dim);">Media slot — any ReactElement</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">bannerRatio</code><span style="color:var(--text-dim);">🔴 NEW — "1:1" | "4:3" | "4:5" | "16:9" | "2.42:1" (default)</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">title</code><span style="color:var(--text-dim);">string — required</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">subTitle</code><span style="color:var(--text-dim);">string — optional</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">text</code><span style="color:var(--text-dim);">🟡 NEW — ReactNode rich body text (editorial cards)</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">cta</code><span style="color:var(--text-dim);">🔴 Now optional (was required in VBC)</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">tag</code><span style="color:var(--text-dim);">ReactElement&lt;Tag&gt; — overlay on banner</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">retailerLogo</code><span style="color:var(--text-dim);">ReactElement&lt;RetailerLogo&gt; — optional</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">bannerLabel</code><span style="color:var(--text-dim);">string — "Sponsorisé" etc</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">countdown</code><span style="color:var(--text-dim);">string — expiry or countdown display</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">overlayTitle</code><span style="color:var(--text-dim);">🟡 NEW — show title overlaid on image bottom</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">border</code><span style="color:var(--text-dim);">boolean — from VBCLite</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">titleLevel</code><span style="color:var(--text-dim);">"h3" | "h4" — default h3</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#818cf8;background:rgba(99,102,241,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">onClick</code><span style="color:var(--text-dim);">VoidFunction — required</span></div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:16px;font-size:11px;color:var(--text-muted);flex-wrap:wrap;">
+          <span><span style="color:var(--rose);">●</span> Critical / required</span>
+          <span><span style="color:var(--amber);">●</span> Optional slot</span>
+          <span>🔴 Breaking change from current API</span>
+          <span>🟡 New prop</span>
+        </div>
       </div>
     </div>
 
-    <!-- HorizontalCard -->
-    <div class="component-block hc">
-      <div class="component-header">
+    <!-- GROUP: HorizontalCard -->
+    <div style="margin-bottom:48px;">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+        <div style="width:4px;height:40px;border-radius:4px;background:var(--cyan);flex-shrink:0;"></div>
         <div>
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#22d3ee;margin-bottom:6px;">HorizontalCard</div>
-          <h3 style="color:var(--text);">Evolve HorizontalBaseCard · Kill OfferBaseCard</h3>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--cyan);margin-bottom:2px;">HorizontalCard covers</div>
+          <div style="font-size:20px;font-weight:800;">Cards 2 · 4 · 5</div>
         </div>
-        <span class="action-badge action-evolve">Evolve</span>
+        <span class="action-badge action-evolve" style="margin-left:auto;">Evolve HBC · Kill OBC</span>
       </div>
-      <div class="component-body">
-        <p style="font-size:14px;color:var(--text-dim);margin-bottom:20px;">HorizontalBaseCard already exists but has 0 consumers. OfferBaseCard is already deprecated. Formalize the rename, make CTA optional, add compact density mode.</p>
-        <div class="component-cards">
-          <div class="component-card">
-            <div class="cc-num">Card 2</div>
-            <div class="cc-name">Retailer Card</div>
-            <div class="cc-slots">density=compact · logo · cashback · sponsoredBadge · noCTA</div>
+      <div class="card-grid-3">
+
+        <!-- Card 2: Retailer -->
+        <div style="background:var(--surface);border:1px solid rgba(6,182,212,0.25);border-radius:var(--radius);overflow:hidden;">
+          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
+            <span style="font-size:11px;font-weight:700;color:var(--cyan);">Card 2</span>
+            <span class="tag tag-co">CO</span>
           </div>
-          <div class="component-card">
-            <div class="cc-num">Card 4</div>
-            <div class="cc-name">Search Result</div>
-            <div class="cc-slots">density=standard · thumbnail · title · desc · price · cta · tags</div>
+          <div style="padding:14px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:44px;height:44px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid #eee;">
+                <div style="font-size:8px;font-weight:900;color:#0070f3;text-align:center;line-height:1.2;">ENGIE</div>
+              </div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:700;font-size:14px;margin-bottom:2px;">ENGIE</div>
+                <div style="font-size:12px;color:#4ade80;">Jusqu'à 50 € cashback</div>
+              </div>
+              <div style="font-size:9px;color:var(--text-muted);border:1px solid var(--border);padding:2px 7px;border-radius:4px;flex-shrink:0;">Sponsorisé</div>
+            </div>
           </div>
-          <div class="component-card">
-            <div class="cc-num">Card 5</div>
-            <div class="cc-name">Compact Row</div>
-            <div class="cc-slots">density=dense · thumbnail · title · subtitle</div>
+          <div style="padding:8px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
+            <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">density=compact · logo · cashback · badge</div>
           </div>
         </div>
-        <h3 style="margin-top:20px;font-size:15px;">Required changes</h3>
-        <ul class="props-list">
-          <li class="prop"><span class="prop-high"></span><span class="prop-name">ctaButton</span><span class="prop-desc">Make optional — Retailer Card and compact rows don't have CTAs</span></li>
-          <li class="prop"><span class="prop-high"></span><span class="prop-name">density</span><span class="prop-desc">Add <code style="font-size:11px;">"compact" | "standard" | "dense"</code> — controls slot visibility and spacing</span></li>
-          <li class="prop"><span class="prop-low"></span><span class="prop-name">name</span><span class="prop-desc">Rename from HorizontalBaseCard → HorizontalCard</span></li>
-        </ul>
+
+        <!-- Card 4: Search Result -->
+        <div style="background:var(--surface);border:1px solid rgba(6,182,212,0.25);border-radius:var(--radius);overflow:hidden;">
+          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
+            <span style="font-size:11px;font-weight:700;color:var(--cyan);">Card 4</span>
+            <span class="tag tag-sn">S&amp;N</span>
+          </div>
+          <div style="padding:14px;">
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <div style="width:56px;height:56px;border-radius:8px;background:linear-gradient(135deg,#1a2a3a,#2a3a4a);flex-shrink:0;"></div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:700;font-size:14px;margin-bottom:2px;">Search Result Title</div>
+                <div style="font-size:12px;color:var(--text-dim);margin-bottom:6px;line-height:1.4;">Short description line two here with some text</div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="font-size:11px;color:var(--text-muted);">★★★★☆</span>
+                  <span style="font-size:11px;font-weight:700;color:#4ade80;">15% cashback</span>
+                </div>
+              </div>
+              <div style="flex-shrink:0;text-align:right;">
+                <div style="font-weight:800;font-size:15px;margin-bottom:6px;">€29.99</div>
+                <div style="background:#e8e8f0;color:#0a0a0f;border-radius:12px;padding:4px 12px;font-size:11px;font-weight:700;">Voir</div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:8px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
+            <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">density=standard · thumb · desc · price · cta</div>
+          </div>
+        </div>
+
+        <!-- Card 5: Compact Row -->
+        <div style="background:var(--surface);border:1px solid rgba(6,182,212,0.25);border-radius:var(--radius);overflow:hidden;">
+          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
+            <span style="font-size:11px;font-weight:700;color:var(--cyan);">Card 5</span>
+            <span class="tag tag-sn">S&amp;N</span>
+          </div>
+          <div style="padding:14px;">
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#1a3a2a,#2d6b45);flex-shrink:0;"></div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-weight:600;font-size:13px;">AliExpress</div>
+                  <div style="font-size:11px;color:var(--text-muted);">Up to 8% cashback</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#1a1a3a,#2a1a4a);flex-shrink:0;"></div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-weight:600;font-size:13px;">Cdiscount</div>
+                  <div style="font-size:11px;color:var(--text-muted);">Up to 5% cashback</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:8px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
+            <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">density=dense · thumb(small) · title · subtitle</div>
+          </div>
+        </div>
+
+      </div>
+      <!-- Props for HorizontalCard -->
+      <div style="background:var(--surface);border:1px solid rgba(6,182,212,0.2);border-radius:var(--radius-sm);padding:18px 22px;margin-top:16px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cyan);margin-bottom:12px;">HorizontalCard — Full Props</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;">
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">title</code><span style="color:var(--text-dim);">string — required</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">subtitle</code><span style="color:var(--text-dim);">string — optional</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">density</code><span style="color:var(--text-dim);">🟡 NEW — "compact" | "standard" | "dense"</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">captionSection</code><span style="color:var(--text-dim);">ReactElement — left column (logo, image)</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">contentSection</code><span style="color:var(--text-dim);">ReactElement — flexible content area</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">ctaButton</code><span style="color:var(--text-dim);">🔴 Now optional (was required in OBC)</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">tags</code><span style="color:var(--text-dim);">ReactElement&lt;Tag&gt;[] — max 2</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">conditions</code><span style="color:var(--text-dim);">ReactElement&lt;ExpandableText&gt; — collapsible</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">countdown</code><span style="color:var(--text-dim);">string — expiry countdown</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">state</code><span style="color:var(--text-dim);">"valid" | "expired" — visual state</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#22d3ee;background:rgba(6,182,212,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">onClick</code><span style="color:var(--text-dim);">VoidFunction — required</span></div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:16px;font-size:11px;color:var(--text-muted);flex-wrap:wrap;">
+          <span><span style="color:var(--rose);">●</span> Critical / required</span>
+          <span><span style="color:var(--amber);">●</span> Optional slot</span>
+          <span>🔴 Breaking change</span>
+          <span>🟡 New prop</span>
+        </div>
       </div>
     </div>
 
-    <!-- PromoCard -->
-    <div class="component-block pc">
-      <div class="component-header">
+    <!-- GROUP: PromoCard -->
+    <div style="margin-bottom:48px;">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+        <div style="width:4px;height:40px;border-radius:4px;background:var(--orange);flex-shrink:0;"></div>
         <div>
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#fb923c;margin-bottom:6px;">PromoCard</div>
-          <h3 style="color:var(--text);">New component — the only net-new build</h3>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--orange);margin-bottom:2px;">PromoCard covers</div>
+          <div style="font-size:20px;font-weight:800;">Cards 1 · 12</div>
         </div>
-        <span class="action-badge action-new">New</span>
+        <span class="action-badge action-new" style="margin-left:auto;">New Build</span>
       </div>
-      <div class="component-body">
-        <p style="font-size:14px;color:var(--text-dim);margin-bottom:20px;">Nalu has zero answer for background-image cards with overlay content. This is the only genuinely new component in the plan. Covers two promotional contexts via a layout prop.</p>
-        <div class="component-cards">
-          <div class="component-card">
-            <div class="cc-num">Card 1</div>
-            <div class="cc-name">Hero Promo</div>
-            <div class="cc-slots">layout=hero · backgroundImage · overlayTitle · desc · cta · badge</div>
+      <div class="card-grid" style="grid-template-columns:repeat(auto-fit,minmax(340px,1fr));">
+
+        <!-- Card 1: Hero Promo -->
+        <div style="background:var(--surface);border:1px solid rgba(249,115,22,0.25);border-radius:var(--radius);overflow:hidden;">
+          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
+            <span style="font-size:11px;font-weight:700;color:var(--orange);">Card 1</span>
+            <span class="tag tag-co">CO</span>
           </div>
-          <div class="component-card">
-            <div class="cc-num">Card 12</div>
-            <div class="cc-name">Inline Promo</div>
-            <div class="cc-slots">layout=inline · icon · title · desc · cta · bgColor</div>
+          <div style="position:relative;height:160px;background:linear-gradient(135deg,#0d1b2a 0%,#1a3a5c 50%,#0d4a6b 100%);display:flex;align-items:flex-end;padding:16px;">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 60%);"></div>
+            <div style="position:relative;z-index:1;width:100%;">
+              <div style="font-size:10px;color:rgba(255,255,255,0.6);margin-bottom:4px;">Wind turbines image behind</div>
+              <div style="font-size:17px;font-weight:800;color:#fff;margin-bottom:8px;">ENGIE — Jusqu'à 50 € cashback</div>
+              <div style="display:inline-block;background:#fff;color:#0a0a0f;border-radius:20px;padding:6px 18px;font-size:12px;font-weight:700;">Activer</div>
+            </div>
+          </div>
+          <div style="padding:8px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
+            <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">layout=hero · backgroundImage · title · cta · gradient</div>
           </div>
         </div>
-        <h3 style="margin-top:20px;font-size:15px;">Props to build</h3>
-        <ul class="props-list">
-          <li class="prop"><span class="prop-critical"></span><span class="prop-name">layout</span><span class="prop-desc"><code style="font-size:11px;">"hero" | "inline"</code> — hero is full-width image-dominant, inline is compact horizontal banner</span></li>
-          <li class="prop"><span class="prop-critical"></span><span class="prop-name">backgroundImage</span><span class="prop-desc">URL for background image support</span></li>
-          <li class="prop"><span class="prop-high"></span><span class="prop-name">backgroundGradient</span><span class="prop-desc">Gradient overlay for text contrast on images</span></li>
-          <li class="prop"><span class="prop-high"></span><span class="prop-name">icon</span><span class="prop-desc">Icon/illustration slot — used in inline variant</span></li>
-        </ul>
+
+        <!-- Card 12: Inline Promo -->
+        <div style="background:var(--surface);border:1px solid rgba(249,115,22,0.25);border-radius:var(--radius);overflow:hidden;">
+          <div style="background:var(--surface-2);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
+            <span style="font-size:11px;font-weight:700;color:var(--orange);">Card 12</span>
+            <span class="tag tag-co">CO</span>
+          </div>
+          <div style="padding:14px;">
+            <div style="display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,rgba(249,115,22,0.1),rgba(249,115,22,0.05));border-radius:12px;padding:14px;border:1px solid rgba(249,115,22,0.15);">
+              <div style="width:40px;height:40px;border-radius:10px;background:rgba(249,115,22,0.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🎁</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:700;font-size:13px;margin-bottom:2px;">Offre exclusive membres</div>
+                <div style="font-size:11px;color:var(--text-dim);">Profitez de 10% de cashback supplémentaire</div>
+              </div>
+              <div style="background:#e8e8f0;color:#0a0a0f;border-radius:12px;padding:5px 14px;font-size:11px;font-weight:700;flex-shrink:0;">Voir</div>
+            </div>
+          </div>
+          <div style="padding:8px 14px;border-top:1px solid var(--border);background:var(--surface-2);">
+            <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">layout=inline · icon · title · desc · cta · bgColor</div>
+          </div>
+        </div>
+
+      </div>
+      <!-- Props for PromoCard -->
+      <div style="background:var(--surface);border:1px solid rgba(249,115,22,0.2);border-radius:var(--radius-sm);padding:18px 22px;margin-top:16px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin-bottom:12px;">PromoCard — Full Props <span style="font-weight:400;color:var(--text-muted);text-transform:none;letter-spacing:0;">(new component)</span></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;">
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">layout</code><span style="color:var(--text-dim);">"hero" | "inline" — required</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">title</code><span style="color:var(--text-dim);">string — required</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">description</code><span style="color:var(--text-dim);">string — optional</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--rose);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">backgroundImage</code><span style="color:var(--text-dim);">string URL — hero layout</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">backgroundGradient</code><span style="color:var(--text-dim);">string — overlay gradient for text contrast</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">backgroundColor</code><span style="color:var(--text-dim);">string — inline layout bg color</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">icon</code><span style="color:var(--text-dim);">ReactElement — icon/illustration (inline layout)</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">cta</code><span style="color:var(--text-dim);">ReactElement&lt;Button&gt; — optional</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">badge</code><span style="color:var(--text-dim);">ReactElement&lt;Tag&gt; — optional overlay tag</span></div>
+          <div style="display:flex;align-items:flex-start;gap:8px;font-size:12px;"><span style="color:var(--amber);font-size:8px;margin-top:5px;">●</span><code style="color:#fb923c;background:rgba(249,115,22,0.08);padding:1px 6px;border-radius:4px;font-size:11px;flex-shrink:0;">onClick</code><span style="color:var(--text-dim);">VoidFunction — optional</span></div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:16px;font-size:11px;color:var(--text-muted);flex-wrap:wrap;">
+          <span><span style="color:var(--rose);">●</span> Critical / required</span>
+          <span><span style="color:var(--amber);">●</span> Optional slot</span>
+        </div>
       </div>
     </div>
 
-    <!-- BaseCard -->
-    <div class="component-block bc">
-      <div class="component-header">
-        <div>
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:6px;">BaseCard</div>
-          <h3 style="color:var(--text);">Raw surface primitive — keep as-is</h3>
-        </div>
-        <span class="action-badge action-keep">Keep</span>
-      </div>
-      <div class="component-body">
-        <p style="font-size:14px;color:var(--text-dim);">Handles appearance, border, padding, onClick. Used for brand logo tiles via composition (BaseCard + RetailerLogo). No changes needed — it's already the right abstraction.</p>
+    <!-- Non-cards note -->
+    <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 22px;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:8px;">Cards 6 · 7 · 8 · 13 — not cards</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;">
+        <div style="font-size:13px;color:var(--text-dim);"><strong style="color:var(--text);">Card 6</strong> — Filter/Facet → form control, separate scope</div>
+        <div style="font-size:13px;color:var(--text-dim);"><strong style="color:var(--text);">Card 7</strong> — Checkout summary → composite section pattern</div>
+        <div style="font-size:13px;color:var(--text-dim);"><strong style="color:var(--text);">Card 8</strong> — Media gallery → media viewer component</div>
+        <div style="font-size:13px;color:var(--text-dim);"><strong style="color:var(--text);">Card 13</strong> — Empty state → <code style="font-size:11px;font-family:monospace;color:var(--cyan);">EmptyState</code> already exists in Nalu ✅</div>
       </div>
     </div>
 
