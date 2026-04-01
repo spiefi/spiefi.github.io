@@ -225,6 +225,7 @@
     <a href="#composition">Composition</a>
     <a href="#nalu">Nalu Audit</a>
     <a href="#migration">Migration</a>
+    <a href="#tickets">Build Tickets</a>
     <a href="#next">Next Steps</a>
   </div>
 </nav>
@@ -941,9 +942,230 @@
     </div>
   </section>
 
+  <!-- Build Tickets -->
+  <section id="tickets">
+    <div class="section-label">Section 06</div>
+    <h2>Build Tickets</h2>
+    <p class="section-desc">Four tickets for Laura. Ordered by dependency — VerticalCard and HorizontalCard are P0 and can run in parallel. PromoCard is P1 (unblocked but lower urgency). Tier 1 migration is P2, depends on all three components being done.</p>
+
+    <div style="display:flex;flex-direction:column;gap:20px;">
+
+      <!-- Ticket 1: VerticalCard -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+        <div style="padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;background:linear-gradient(135deg,rgba(99,102,241,0.06) 0%,transparent 60%);">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="font-size:11px;font-weight:800;padding:3px 10px;border-radius:100px;background:rgba(244,63,94,0.15);color:#fb7185;">P0</span>
+              <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);">VerticalCard</span>
+            </div>
+            <h3 style="font-size:20px;margin-bottom:4px;">VerticalCard — Merge + Configurable Ratio</h3>
+            <div style="font-size:13px;color:var(--text-dim);">Merge VerticalBaseCard + VerticalBaseCardLite into one component. The 2.42:1 hardlock is the #1 blocker — kill it first.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;">
+            <div style="font-size:11px;color:var(--text-muted);">Covers cards</div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;">
+              <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#3</span>
+              <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#4</span>
+              <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#6</span>
+              <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#7</span>
+              <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#10</span>
+              <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#12</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border-bottom:1px solid var(--border);">
+          <div style="padding:20px 24px;border-right:1px solid var(--border);">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">What to build</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--rose);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#818cf8;">bannerRatio</code> — configurable prop replacing hardcoded 2.42:1. Values: <code style="font-family:monospace;font-size:11px;">1:1 | 4:3 | 4:5 | 16:9 | 2.42:1</code> (default)</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--rose);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#818cf8;">cta</code> — make optional (required in VBC, absent in VBCLite)</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--amber);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#818cf8;">text</code> — rich body text slot from VBCLite</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--amber);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#818cf8;">tag</code> / badge overlay on banner image</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--amber);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#818cf8;">border</code> — boolean toggle from VBCLite</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--amber);flex-shrink:0;">●</span><span>Deprecate + remove VerticalBaseCard and VerticalBaseCardLite exports</span></li>
+            </ul>
+          </div>
+          <div style="padding:20px 24px;">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Acceptance criteria</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>All 6 card types render correctly using VerticalCard with different props</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>bannerRatio="1:1" renders square, "16:9" renders wide — no layout breakage</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>CTA can be omitted without layout shift</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>Existing 12 compliant consumers of VBC/VBCLite still work (backward compatible)</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>Storybook stories for all 6 card configurations</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="padding:14px 24px;background:var(--surface-2);display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+          <div style="font-size:12px;color:var(--text-dim);"><span style="color:var(--text-muted);">Assignee</span> Laura</div>
+          <div style="font-size:12px;color:var(--text-dim);"><span style="color:var(--text-muted);">Dependencies</span> None — start immediately</div>
+          <div style="font-size:12px;color:var(--text-dim);"><span style="color:var(--text-muted);">Can run parallel with</span> HorizontalCard ticket</div>
+        </div>
+      </div>
+
+      <!-- Ticket 2: HorizontalCard -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+        <div style="padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;background:linear-gradient(135deg,rgba(6,182,212,0.06) 0%,transparent 60%);">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="font-size:11px;font-weight:800;padding:3px 10px;border-radius:100px;background:rgba(244,63,94,0.15);color:#fb7185;">P0</span>
+              <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cyan);">HorizontalCard</span>
+            </div>
+            <h3 style="font-size:20px;margin-bottom:4px;">HorizontalCard — Evolve + Modes</h3>
+            <div style="font-size:13px;color:var(--text-dim);">Rename HorizontalBaseCard, kill OfferBaseCard (already deprecated), add compact + text-only modes. Lowest risk P0 — mostly additive changes.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;">
+            <div style="font-size:11px;color:var(--text-muted);">Covers cards</div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;">
+              <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#2</span>
+              <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#8</span>
+              <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#13</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border-bottom:1px solid var(--border);">
+          <div style="padding:20px 24px;border-right:1px solid var(--border);">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">What to build</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--rose);flex-shrink:0;">●</span><span>Rename HorizontalBaseCard → <code style="font-family:monospace;font-size:11px;color:#22d3ee;">HorizontalCard</code></span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--rose);flex-shrink:0;">●</span><span>Kill OfferBaseCard — migrate its 4 consumers (RlpCard, RlpGiftCard, VoucherOfferCard, FavoriteRetailerCardNalu)</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--rose);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#22d3ee;">density</code> — add <code style="font-family:monospace;font-size:11px;">"compact" | "standard" | "dense"</code> prop</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--amber);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#22d3ee;">captionSection</code> — make optional (text-only mode for card #13)</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--amber);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#22d3ee;">ctaButton</code> — make optional</span></li>
+            </ul>
+          </div>
+          <div style="padding:20px 24px;">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Acceptance criteria</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>Cards 2, 8, 13 render correctly using HorizontalCard with different density props</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>density="dense" renders compact single-line version (card #8)</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>Text-only mode (no captionSection) works without layout shift (card #13)</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>All 4 OfferBaseCard consumers migrated and tested</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>OfferBaseCard export removed from nalu-react index</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>Storybook stories for compact, standard, dense + text-only modes</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="padding:14px 24px;background:var(--surface-2);display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+          <div style="font-size:12px;color:var(--text-dim);"><span style="color:var(--text-muted);">Assignee</span> Laura</div>
+          <div style="font-size:12px;color:var(--text-dim);"><span style="color:var(--text-muted);">Dependencies</span> None — run parallel with VerticalCard</div>
+          <div style="font-size:12px;color:var(--text-dim);"><span style="color:var(--text-muted);">Risk</span> Low — mostly additive + one deprecation</div>
+        </div>
+      </div>
+
+      <!-- Ticket 3: PromoCard -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+        <div style="padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;background:linear-gradient(135deg,rgba(249,115,22,0.06) 0%,transparent 60%);">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="font-size:11px;font-weight:800;padding:3px 10px;border-radius:100px;background:rgba(245,158,11,0.15);color:#fbbf24;">P1</span>
+              <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--orange);">PromoCard</span>
+              <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;background:rgba(34,197,94,0.1);color:var(--green);">🆕 New component</span>
+            </div>
+            <h3 style="font-size:20px;margin-bottom:4px;">PromoCard — New Build</h3>
+            <div style="font-size:13px;color:var(--text-dim);">The only genuinely new component. Covers full-width hero banners and image-dominant brand promo cards. Nalu has zero answer for background-image cards today.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;">
+            <div style="font-size:11px;color:var(--text-muted);">Covers cards</div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;">
+              <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#1</span>
+              <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#11</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border-bottom:1px solid var(--border);">
+          <div style="padding:20px 24px;border-right:1px solid var(--border);">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">What to build</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--rose);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#fb923c;">layout</code> — <code style="font-family:monospace;font-size:11px;">"hero" | "portrait"</code> — hero is full-width landscape, portrait is image-dominant vertical</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--rose);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#fb923c;">backgroundImage</code> — URL, rendered as card background</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--rose);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#fb923c;">title</code> — text overlaid on image surface</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--amber);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#fb923c;">backgroundGradient</code> — scrim/gradient for text contrast</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--amber);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#fb923c;">cta</code> — optional CTA button slot</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--amber);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#fb923c;">badge</code> — optional overlay tag (e.g. "30% offerts")</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--amber);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#fb923c;">description</code> — optional subtitle line</span></li>
+            </ul>
+          </div>
+          <div style="padding:20px 24px;">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Acceptance criteria</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>layout="hero" renders full-width landscape (card #1 — hero carousel)</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>layout="portrait" renders image-dominant vertical card (card #11 — H&M brand promo)</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>Text remains readable over any image (gradient scrim required)</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>Works without backgroundImage (solid color fallback)</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>Passes WCAG AA contrast on text overlay</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>Storybook stories for hero + portrait, with/without CTA, with/without badge</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="padding:14px 24px;background:var(--surface-2);display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+          <div style="font-size:12px;color:var(--text-dim);"><span style="color:var(--text-muted);">Assignee</span> Laura</div>
+          <div style="font-size:12px;color:var(--text-dim);"><span style="color:var(--text-muted);">Dependencies</span> None — can start after VerticalCard is scoped</div>
+          <div style="font-size:12px;color:var(--text-dim);"><span style="color:var(--text-muted);">Risk</span> Medium — net new, no existing consumers</div>
+        </div>
+      </div>
+
+      <!-- Ticket 4: Tier 1 Migration -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+        <div style="padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="font-size:11px;font-weight:800;padding:3px 10px;border-radius:100px;background:rgba(34,197,94,0.12);color:#4ade80;">P2</span>
+              <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);">Migration</span>
+            </div>
+            <h3 style="font-size:20px;margin-bottom:4px;">Tier 1 Migration — Wild-west Components</h3>
+            <div style="font-size:13px;color:var(--text-dim);">20 components that use Nova primitives but skip BaseCard wrapper. They look compliant but aren't — highest inconsistency risk. Migrate to the three new components.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;">
+            <div style="font-size:11px;color:var(--text-muted);">Components</div>
+            <div style="font-size:24px;font-weight:900;color:var(--rose);">20</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border-bottom:1px solid var(--border);">
+          <div style="padding:20px 24px;border-right:1px solid var(--border);">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Priority targets</div>
+            <div style="display:flex;flex-direction:column;gap:7px;">
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px;"><span style="font-family:monospace;font-size:11px;color:var(--text-dim);background:var(--surface-3);padding:1px 7px;border-radius:4px;">SponsoredCard</span><span style="color:var(--accent);">→ VerticalCard</span></div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px;"><span style="font-family:monospace;font-size:11px;color:var(--text-dim);background:var(--surface-3);padding:1px 7px;border-radius:4px;">CashbackOfferPanel</span><span style="color:var(--cyan);">→ HorizontalCard</span></div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px;"><span style="font-family:monospace;font-size:11px;color:var(--text-dim);background:var(--surface-3);padding:1px 7px;border-radius:4px;">VoucherStageBanner ×2</span><span style="color:var(--orange);">→ PromoCard</span></div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px;"><span style="font-family:monospace;font-size:11px;color:var(--text-dim);background:var(--surface-3);padding:1px 7px;border-radius:4px;">RetailerCard</span><span style="color:var(--accent);">→ VerticalCard</span></div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px;"><span style="font-family:monospace;font-size:11px;color:var(--text-dim);background:var(--surface-3);padding:1px 7px;border-radius:4px;">RetailerCardWithVoucher</span><span style="color:var(--accent);">→ VerticalCard</span></div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px;"><span style="font-family:monospace;font-size:11px;color:var(--text-dim);background:var(--surface-3);padding:1px 7px;border-radius:4px;">Coupon</span><span style="color:var(--cyan);">→ HorizontalCard (compact)</span></div>
+              <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">+ 14 more in gift-card-ui, savings-campaigns-ui, printable-coupons-ui</div>
+            </div>
+          </div>
+          <div style="padding:20px 24px;">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Acceptance criteria</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>All 20 components migrated to VerticalCard / HorizontalCard / PromoCard</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>No direct Nova primitive usage in migrated components — only via base components</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>Visual regression tests pass for all affected pages</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>Compliance score improves from 18.75% → &gt;50%</span></li>
+              <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>6 components reclassified as non-cards (dialogs, carousel wrappers) — removed from card migration scope</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="padding:14px 24px;background:var(--surface-2);display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+          <div style="font-size:12px;color:var(--text-dim);"><span style="color:var(--text-muted);">Assignee</span> Laura</div>
+          <div style="font-size:12px;color:var(--text-dim);"><span style="color:var(--rose);">⛔ Depends on</span> Tickets 1 + 2 + 3 complete</div>
+          <div style="font-size:12px;color:var(--text-dim);"><span style="color:var(--text-muted);">Risk</span> High — each component needs individual audit</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- Next Steps -->
   <section id="next">
-    <div class="section-label">Section 05</div>
+    <div class="section-label">Section 07</div>
     <h2>Next Steps</h2>
     <p class="section-desc">Ordered by dependency. Design specs first, then build, then migration.</p>
 
