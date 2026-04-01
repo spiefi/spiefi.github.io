@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iGraal Cards — Component Architecture Research</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface-2: #1a1a26;
+    --surface-3: #222233;
+    --border: #2a2a3d;
+    --text: #e8e8f0;
+    --text-dim: #8888a0;
+    --text-muted: #555570;
+    --accent: #6366f1;
+    --accent-glow: rgba(99, 102, 241, 0.15);
+    --green: #22c55e;
+    --green-glow: rgba(34, 197, 94, 0.12);
+    --amber: #f59e0b;
+    --amber-glow: rgba(245, 158, 11, 0.12);
+    --rose: #f43f5e;
+    --rose-glow: rgba(244, 63, 94, 0.12);
+    --cyan: #06b6d4;
+    --cyan-glow: rgba(6, 182, 212, 0.12);
+    --violet: #8b5cf6;
+    --violet-glow: rgba(139, 92, 246, 0.12);
+    --orange: #f97316;
+    --orange-glow: rgba(249, 115, 22, 0.12);
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10, 10, 15, 0.9); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border); padding: 0 40px; height: 56px;
+    display: flex; align-items: center; gap: 32px;
+  }
+  nav .logo { font-weight: 800; font-size: 13px; letter-spacing: 0.5px; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+  nav .nav-links { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  nav .nav-links::-webkit-scrollbar { display: none; }
+  nav a { color: var(--text-dim); text-decoration: none; font-size: 12px; font-weight: 500; padding: 6px 12px; border-radius: 8px; transition: all 0.2s; white-space: nowrap; }
+  nav a:hover { color: var(--text); background: var(--surface-2); }
+
+  main { max-width: 1140px; margin: 0 auto; padding: 96px 32px 140px; }
+
+  /* Hero */
+  .hero { text-align: center; margin-bottom: 88px; }
+  .hero .badge { display: inline-block; background: var(--accent-glow); color: var(--accent); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 6px 16px; border-radius: 100px; border: 1px solid rgba(99, 102, 241, 0.25); margin-bottom: 24px; }
+  .hero h1 { font-size: clamp(34px, 5vw, 56px); font-weight: 900; line-height: 1.1; margin-bottom: 20px; background: linear-gradient(135deg, #e8e8f0 0%, #8888a0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero .subtitle { font-size: 17px; color: var(--text-dim); max-width: 640px; margin: 0 auto 36px; line-height: 1.65; }
+  .hero .meta { display: flex; justify-content: center; gap: 32px; font-size: 12px; color: var(--text-muted); flex-wrap: wrap; }
+  .hero .meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* Stat bar */
+  .stat-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 80px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; text-align: center; position: relative; overflow: hidden; }
+  .stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+  .stat.green::before { background: var(--green); }
+  .stat.amber::before { background: var(--amber); }
+  .stat.rose::before { background: var(--rose); }
+  .stat.accent::before { background: var(--accent); }
+  .stat.cyan::before { background: var(--cyan); }
+  .stat .num { font-size: 42px; font-weight: 900; line-height: 1; margin-bottom: 6px; }
+  .stat.green .num { color: var(--green); }
+  .stat.amber .num { color: var(--amber); }
+  .stat.rose .num { color: var(--rose); }
+  .stat.accent .num { color: var(--accent); }
+  .stat.cyan .num { color: var(--cyan); }
+  .stat .label { font-size: 12px; color: var(--text-dim); font-weight: 500; }
+
+  /* Sections */
+  section { margin-bottom: 80px; scroll-margin-top: 72px; }
+  .section-label { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 12px; }
+  h2 { font-size: 30px; font-weight: 800; margin-bottom: 8px; line-height: 1.2; }
+  h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+  .section-desc { color: var(--text-dim); font-size: 15px; margin-bottom: 32px; max-width: 720px; line-height: 1.65; }
+
+  /* Cards */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 16px; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+  .card-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .card-grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+
+  /* Team tags */
+  .tag { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 6px; }
+  .tag-co { background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
+  .tag-cce { background: rgba(249,115,22,0.12); color: #fb923c; border: 1px solid rgba(249,115,22,0.3); }
+  .tag-sn { background: rgba(6,182,212,0.12); color: #22d3ee; border: 1px solid rgba(6,182,212,0.3); }
+  .tag-gc { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+  .tag-none { background: var(--surface-3); color: var(--text-muted); border: 1px solid var(--border); }
+
+  /* Card inventory */
+  .card-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 10px; display: grid; grid-template-columns: 40px 1fr auto; gap: 16px; align-items: start; transition: border-color 0.2s; }
+  .card-item:hover { border-color: #3a3a55; }
+  .card-item.not-card { opacity: 0.45; }
+  .card-num { width: 36px; height: 36px; border-radius: 10px; background: var(--surface-3); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: var(--text-dim); flex-shrink: 0; }
+  .card-info .card-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .card-info .card-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; margin-bottom: 8px; }
+  .card-slots { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+  .slot { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 5px; background: var(--surface-3); color: var(--text-dim); }
+  .slot.fixed { background: rgba(99,102,241,0.1); color: #818cf8; }
+  .slot.opt { background: var(--surface-3); color: var(--text-muted); }
+  .card-meta-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+  .layout-badge { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 6px; background: var(--surface-3); color: var(--text-dim); white-space: nowrap; }
+
+  /* Component plan */
+  .component-block { border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; margin-bottom: 20px; }
+  .component-header { padding: 20px 24px 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .component-header h3 { margin: 0; font-size: 20px; }
+  .component-body { padding: 0 24px 24px; }
+  .component-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 16px; }
+  .component-card { background: var(--surface-3); border-radius: var(--radius-sm); padding: 14px; }
+  .component-card .cc-num { font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; }
+  .component-card .cc-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .component-card .cc-slots { font-size: 11px; color: var(--text-dim); line-height: 1.5; }
+
+  .vc { background: linear-gradient(135deg, rgba(99,102,241,0.05) 0%, transparent 60%); border-color: rgba(99,102,241,0.25); }
+  .vc .component-header { border-bottom: 1px solid rgba(99,102,241,0.15); }
+  .hc { background: linear-gradient(135deg, rgba(6,182,212,0.05) 0%, transparent 60%); border-color: rgba(6,182,212,0.25); }
+  .hc .component-header { border-bottom: 1px solid rgba(6,182,212,0.15); }
+  .pc { background: linear-gradient(135deg, rgba(249,115,22,0.05) 0%, transparent 60%); border-color: rgba(249,115,22,0.25); }
+  .pc .component-header { border-bottom: 1px solid rgba(249,115,22,0.15); }
+  .bc { background: linear-gradient(135deg, rgba(85,85,112,0.1) 0%, transparent 60%); border-color: rgba(85,85,112,0.3); }
+  .bc .component-header { border-bottom: 1px solid rgba(85,85,112,0.2); }
+
+  .action-badge { font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 100px; }
+  .action-merge { background: rgba(99,102,241,0.15); color: #818cf8; }
+  .action-evolve { background: rgba(6,182,212,0.12); color: #22d3ee; }
+  .action-new { background: rgba(34,197,94,0.12); color: #4ade80; }
+  .action-keep { background: var(--surface-3); color: var(--text-muted); }
+
+  /* Props table */
+  .props-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+  .prop { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+  .prop-name { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #818cf8; background: rgba(99,102,241,0.08); padding: 2px 8px; border-radius: 5px; flex-shrink: 0; }
+  .prop-desc { color: var(--text-dim); }
+  .prop-critical::before { content: '●'; color: var(--rose); margin-right: 4px; font-size: 8px; }
+  .prop-high::before { content: '●'; color: var(--amber); margin-right: 4px; font-size: 8px; }
+  .prop-low::before { content: '●'; color: var(--green); margin-right: 4px; font-size: 8px; }
+
+  /* Nalu audit */
+  .audit-row { display: grid; grid-template-columns: 200px 1fr 80px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); align-items: start; font-size: 13px; }
+  .audit-row.header { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); padding-bottom: 10px; }
+  .audit-row:last-child { border-bottom: none; }
+  .audit-name { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--cyan); }
+  .audit-desc { color: var(--text-dim); line-height: 1.5; }
+  .coverage-dot { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; }
+  .coverage-dot.full { color: var(--green); }
+  .coverage-dot.partial { color: var(--amber); }
+  .coverage-dot.gap { color: var(--rose); }
+  .coverage-dot.na { color: var(--text-muted); }
+  .audit-note { color: var(--text-dim); font-size: 12px; line-height: 1.5; }
+
+  /* Migration */
+  .migration-tier { border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 16px; overflow: hidden; }
+  .tier-header { padding: 16px 24px; display: flex; align-items: center; gap: 16px; border-bottom: 1px solid var(--border); }
+  .tier-badge { font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 100px; }
+  .tier-1 { background: rgba(244,63,94,0.15); color: #fb7185; }
+  .tier-2 { background: rgba(245,158,11,0.12); color: #fbbf24; }
+  .tier-3 { background: var(--surface-3); color: var(--text-muted); }
+  .tier-body { padding: 16px 24px; }
+  .migration-items { display: flex; flex-direction: column; gap: 8px; }
+  .migration-item { display: flex; align-items: center; gap: 12px; font-size: 13px; }
+  .mi-from { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); background: var(--surface-3); padding: 2px 8px; border-radius: 5px; flex-shrink: 0; }
+  .mi-arrow { color: var(--text-muted); flex-shrink: 0; }
+  .mi-to { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--cyan); background: rgba(6,182,212,0.08); padding: 2px 8px; border-radius: 5px; flex-shrink: 0; }
+  .mi-note { color: var(--text-dim); font-size: 12px; }
+
+  /* Next steps */
+  .next-item { display: flex; gap: 16px; padding: 16px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 10px; align-items: flex-start; transition: border-color 0.2s; }
+  .next-item:hover { border-color: #3a3a55; }
+  .next-owner { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 10px; border-radius: 6px; flex-shrink: 0; white-space: nowrap; }
+  .owner-de { background: rgba(99,102,241,0.12); color: #818cf8; }
+  .owner-ux { background: rgba(139,92,246,0.12); color: #a78bfa; }
+  .owner-ws { background: rgba(6,182,212,0.12); color: #22d3ee; }
+  .owner-marcin { background: rgba(245,158,11,0.12); color: #fbbf24; }
+  .next-text { font-size: 14px; color: var(--text-dim); }
+  .next-text strong { color: var(--text); }
+
+  /* Code block */
+  pre { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px 24px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.7; color: #a0a8c0; overflow-x: auto; margin-top: 16px; }
+  pre .kw { color: #818cf8; }
+  pre .str { color: #4ade80; }
+  pre .cm { color: #555570; font-style: italic; }
+  pre .type { color: #22d3ee; }
+
+  /* Key insight box */
+  .insight { background: linear-gradient(135deg, var(--accent-glow), transparent); border: 1px solid rgba(99,102,241,0.3); border-radius: var(--radius); padding: 24px 28px; margin: 24px 0; }
+  .insight .insight-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 8px; }
+  .insight p { font-size: 15px; color: var(--text); line-height: 1.65; }
+
+  /* Divider */
+  hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    nav { padding: 0 16px; }
+    main { padding: 80px 16px 100px; }
+    .audit-row { grid-template-columns: 1fr 1fr; }
+    .audit-row .audit-note { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">iGraal Cards</div>
+  <div class="nav-links">
+    <a href="#inventory">Inventory</a>
+    <a href="#structure">Structure</a>
+    <a href="#components">Components</a>
+    <a href="#nalu">Nalu Audit</a>
+    <a href="#migration">Migration</a>
+    <a href="#next">Next Steps</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="badge">Deep Research Report</div>
+    <h1>iGraal Card Architecture</h1>
+    <p class="subtitle">Complete inventory, structural analysis, and component consolidation plan for all card types across the iGraal product. From 13 card variants to 3 base components.</p>
+    <div class="meta">
+      <span>📅 2026-04-01</span>
+      <span>👥 Sprint Lead · UX Designer · Design Engineer · Scout</span>
+      <span>📦 Atolls / Nalu DS</span>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stat-bar">
+    <div class="stat amber">
+      <div class="num">13</div>
+      <div class="label">Card types in iGraal</div>
+    </div>
+    <div class="stat accent">
+      <div class="num">9</div>
+      <div class="label">Actual card components</div>
+    </div>
+    <div class="stat cyan">
+      <div class="num">3</div>
+      <div class="label">Base components needed</div>
+    </div>
+    <div class="stat rose">
+      <div class="num">64</div>
+      <div class="label">Components audited</div>
+    </div>
+    <div class="stat green">
+      <div class="num">18%</div>
+      <div class="label">Currently compliant</div>
+    </div>
+  </div>
+
+  <!-- Card Inventory -->
+  <section id="inventory">
+    <div class="section-label">Section 01</div>
+    <h2>Card Inventory</h2>
+    <p class="section-desc">All 13 card types identified across iGraal screens. 4 are not cards — they're UI patterns (filter, checkout, media viewer) or already covered by a separate component (EmptyState).</p>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;">
+      <span class="tag tag-co">CO — Cashback Offer</span>
+      <span class="tag tag-cce">CCE — Commercial Content Experience</span>
+      <span class="tag tag-sn">S&amp;N — Search &amp; Navigation</span>
+      <span class="tag tag-gc">GC — Gift Card (Alternative Offers)</span>
+    </div>
+
+    <!-- Card 1 -->
+    <div class="card-item">
+      <div class="card-num">1</div>
+      <div class="card-info">
+        <div class="card-name">Hero Promo Card</div>
+        <div class="card-desc">Full-bleed background image, headline overlay, strong CTA. Used on Home as the primary attention anchor.</div>
+        <div class="card-slots">
+          <span class="slot fixed">Image (full-bleed)</span>
+          <span class="slot fixed">Title</span>
+          <span class="slot opt">Description</span>
+          <span class="slot opt">CTA button</span>
+          <span class="slot opt">Badge</span>
+          <span class="slot opt">Gradient overlay</span>
+        </div>
+      </div>
+      <div class="card-meta-right">
+        <span class="tag tag-co">CO</span>
+        <span class="layout-badge">↕ Vertical · Hero</span>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card-item">
+      <div class="card-num">2</div>
+      <div class="card-info">
+        <div class="card-name">Retailer Card <span style="font-weight:400;color:var(--text-muted);font-size:12px;">— Voucher team</span></div>
+        <div class="card-desc">Compact horizontal card. Retailer logo left, cashback offer text right, optional "Sponsorisé" badge. No CTA button.</div>
+        <div class="card-slots">
+          <span class="slot fixed">Logo</span>
+          <span class="slot fixed">Title</span>
+          <span class="slot fixed">Cashback amount</span>
+          <span class="slot opt">Sponsored badge</span>
+        </div>
+      </div>
+      <div class="card-meta-right">
+        <span class="tag tag-co">CO</span>
+        <span class="layout-badge">↔ Horizontal · Compact</span>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card-item">
+      <div class="card-num">3</div>
+      <div class="card-info">
+        <div class="card-name">Voucher Offer Card <span style="font-weight:400;color:var(--text-muted);font-size:12px;">— Combinable offers / Voucher Deals</span></div>
+        <div class="card-desc">Vertical card with large brand image or illustration at top. Cashback value, "Activer le cashback" CTA button, expiry date.</div>
+        <div class="card-slots">
+          <span class="slot fixed">Brand image/logo</span>
+          <span class="slot fixed">Title</span>
+          <span class="slot fixed">Cashback value</span>
+          <span class="slot fixed">CTA button</span>
+          <span class="slot opt">Expiry date</span>
+          <span class="slot opt">Badge/Tag</span>
+        </div>
+      </div>
+      <div class="card-meta-right">
+        <span class="tag tag-co">CO</span>
+        <span class="layout-badge">↕ Vertical · Standard</span>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card-item">
+      <div class="card-num">4</div>
+      <div class="card-info">
+        <div class="card-name">Search Result — Large</div>
+        <div class="card-desc">Horizontal card. Thumbnail left, title + description + price right, CTA button far-right. Standard search result row.</div>
+        <div class="card-slots">
+          <span class="slot fixed">Thumbnail</span>
+          <span class="slot fixed">Title</span>
+          <span class="slot opt">Description</span>
+          <span class="slot opt">Price</span>
+          <span class="slot opt">CTA button</span>
+          <span class="slot opt">Tags</span>
+          <span class="slot opt">Rating</span>
+        </div>
+      </div>
+      <div class="card-meta-right">
+        <span class="tag tag-sn">S&amp;N</span>
+        <span class="layout-badge">↔ Horizontal · Standard</span>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card-item">
+      <div class="card-num">5</div>
+      <div class="card-info">
+        <div class="card-name">Compact Result Row</div>
+        <div class="card-desc">Dense single-line horizontal card. Small thumbnail left, title + subtitle only. No price, no CTA. Used in sidebar and compact search.</div>
+        <div class="card-slots">
+          <span class="slot fixed">Thumbnail (small)</span>
+          <span class="slot fixed">Title</span>
+          <span class="slot opt">Subtitle</span>
+        </div>
+      </div>
+      <div class="card-meta-right">
+        <span class="tag tag-sn">S&amp;N</span>
+        <span class="layout-badge">↔ Horizontal · Dense</span>
+      </div>
+    </div>
+
+    <!-- Card 6 — not a card -->
+    <div class="card-item not-card">
+      <div class="card-num" style="background:var(--surface-2)">6</div>
+      <div class="card-info">
+        <div class="card-name" style="color:var(--text-muted)">Filter / Facet Item <span style="font-weight:400;font-size:12px;">— not a card</span></div>
+        <div class="card-desc">Toggle rows for browse filters. This is a form control pattern — belongs outside the card system.</div>
+      </div>
+      <div class="card-meta-right">
+        <span class="tag tag-sn">S&amp;N</span>
+        <span class="layout-badge" style="opacity:0.5">⊘ Form control</span>
+      </div>
+    </div>
+
+    <!-- Card 7 — not a card -->
+    <div class="card-item not-card">
+      <div class="card-num" style="background:var(--surface-2)">7</div>
+      <div class="card-info">
+        <div class="card-name" style="color:var(--text-muted)">Checkout / Order Summary <span style="font-weight:400;font-size:12px;">— not a card</span></div>
+        <div class="card-desc">Stacked line items with totals and CTA. Composite section pattern, not a card component.</div>
+      </div>
+      <div class="card-meta-right">
+        <span class="tag tag-cce">CCE</span>
+        <span class="layout-badge" style="opacity:0.5">⊘ Section pattern</span>
+      </div>
+    </div>
+
+    <!-- Card 8 — not a card -->
+    <div class="card-item not-card">
+      <div class="card-num" style="background:var(--surface-2)">8</div>
+      <div class="card-info">
+        <div class="card-name" style="color:var(--text-muted)">PDP Media Gallery <span style="font-weight:400;font-size:12px;">— not a card</span></div>
+        <div class="card-desc">Large image with thumbnail strip. Media viewer pattern. Separate scope.</div>
+      </div>
+      <div class="card-meta-right">
+        <span class="tag tag-cce">CCE</span>
+        <span class="layout-badge" style="opacity:0.5">⊘ Media viewer</span>
+      </div>
+    </div>
+
+    <!-- Card 9 -->
+    <div class="card-item">
+      <div class="card-num">9</div>
+      <div class="card-info">
+        <div class="card-name">Gift Card <span style="font-weight:400;color:var(--text-muted);font-size:12px;">— Team Alternative Offers</span></div>
+        <div class="card-desc">Vertical card. Brand logo/image prominent at top. "En ligne" availability badge. Title + cashback percentage. No explicit CTA button.</div>
+        <div class="card-slots">
+          <span class="slot fixed">Brand logo/image</span>
+          <span class="slot fixed">Title</span>
+          <span class="slot fixed">Cashback %</span>
+          <span class="slot opt">Availability badge (En ligne)</span>
+        </div>
+      </div>
+      <div class="card-meta-right">
+        <span class="tag tag-gc">GC</span>
+        <span class="layout-badge">↕ Vertical · Standard</span>
+      </div>
+    </div>
+
+    <!-- Card 10 -->
+    <div class="card-item">
+      <div class="card-num">10</div>
+      <div class="card-info">
+        <div class="card-name">Grid Product Card</div>
+        <div class="card-desc">Square-ratio vertical card. Product image fills card top. Title, price, sale badge overlay. Standard e-commerce product tile.</div>
+        <div class="card-slots">
+          <span class="slot fixed">Product image (1:1)</span>
+          <span class="slot fixed">Title</span>
+          <span class="slot opt">Price</span>
+          <span class="slot opt">Sale badge</span>
+          <span class="slot opt">Rating</span>
+          <span class="slot opt">Merchant logo</span>
+        </div>
+      </div>
+      <div class="card-meta-right">
+        <span class="tag tag-cce">CCE</span>
+        <span class="layout-badge">↕ Vertical · Standard</span>
+      </div>
+    </div>
+
+    <!-- Card 11 -->
+    <div class="card-item">
+      <div class="card-num">11</div>
+      <div class="card-info">
+        <div class="card-name">Editorial / Content Card</div>
+        <div class="card-desc">Vertical or horizontal editorial card. Image + headline + author/date meta. Used in collection and editorial pages.</div>
+        <div class="card-slots">
+          <span class="slot fixed">Image</span>
+          <span class="slot fixed">Title</span>
+          <span class="slot opt">Description / body text</span>
+          <span class="slot opt">Author + date meta</span>
+          <span class="slot opt">Category tag</span>
+        </div>
+      </div>
+      <div class="card-meta-right">
+        <span class="tag tag-co">CO</span>
+        <span class="layout-badge">↕↔ Vertical/Horizontal</span>
+      </div>
+    </div>
+
+    <!-- Card 12 -->
+    <div class="card-item">
+      <div class="card-num">12</div>
+      <div class="card-info">
+        <div class="card-name">Inline Promo / Upsell</div>
+        <div class="card-desc">Compact horizontal promo banner. Icon or illustration left, short text + CTA right. Used inline within pages as secondary callouts.</div>
+        <div class="card-slots">
+          <span class="slot fixed">Icon / illustration</span>
+          <span class="slot fixed">Title</span>
+          <span class="slot opt">Description</span>
+          <span class="slot opt">CTA button</span>
+          <span class="slot opt">Background color / image</span>
+        </div>
+      </div>
+      <div class="card-meta-right">
+        <span class="tag tag-co">CO</span>
+        <span class="layout-badge">↔ Horizontal · Inline</span>
+      </div>
+    </div>
+
+    <!-- Card 13 — not a card -->
+    <div class="card-item not-card">
+      <div class="card-num" style="background:var(--surface-2)">13</div>
+      <div class="card-info">
+        <div class="card-name" style="color:var(--text-muted)">Empty State <span style="font-weight:400;font-size:12px;">— already covered</span></div>
+        <div class="card-desc">Illustration + heading + body + CTA. Already exists as the <code style="font-family:monospace;font-size:11px;color:var(--cyan)">EmptyState</code> component in Nalu. No action needed.</div>
+      </div>
+      <div class="card-meta-right">
+        <span class="tag tag-none">✅ Exists</span>
+        <span class="layout-badge" style="opacity:0.5">⊘ EmptyState</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Structural Grouping -->
+  <section id="structure">
+    <div class="section-label">Section 02</div>
+    <h2>Structural Grouping</h2>
+    <p class="section-desc">The 9 real card components collapse to 4 structural patterns based on shared layout logic — not content. What varies within a pattern is only which slots are active.</p>
+
+    <div class="insight">
+      <div class="insight-label">Key Insight</div>
+      <p><strong>Commerce is not a separate pattern.</strong> A commerce card in a grid = Grid Tile + price slot. A commerce card in a list = List Row + price slot. Don't build a separate commerce component — build price as a composable slot on the existing patterns.</p>
+    </div>
+
+    <div class="card-grid" style="margin-top:24px;">
+
+      <div class="card" style="border-top: 3px solid var(--orange);">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin-bottom:8px;">Hero Banner</div>
+        <div style="font-size:28px;font-weight:900;margin-bottom:4px;">Cards 1 · 12</div>
+        <div style="font-size:13px;color:var(--text-dim);margin-bottom:16px;line-height:1.5;">Full-width, image-dominant. Text overlaid or directly below. Strong CTA. Width always equals container.</div>
+        <div style="font-size:12px;color:var(--text-muted);">Screens: Home · PDP inline</div>
+      </div>
+
+      <div class="card" style="border-top: 3px solid var(--accent);">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px;">Grid Tile</div>
+        <div style="font-size:28px;font-weight:900;margin-bottom:4px;">Cards 3 · 9 · 10 · 11</div>
+        <div style="font-size:13px;color:var(--text-dim);margin-bottom:16px;line-height:1.5;">Fixed-ratio image card. Title below or overlaid. Minimal text. Designed for visual scanning in grids.</div>
+        <div style="font-size:12px;color:var(--text-muted);">Screens: Home · Browse · Category · Collection</div>
+      </div>
+
+      <div class="card" style="border-top: 3px solid var(--cyan);">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cyan);margin-bottom:8px;">List Row</div>
+        <div style="font-size:28px;font-weight:900;margin-bottom:4px;">Cards 2 · 4 · 5</div>
+        <div style="font-size:13px;color:var(--text-dim);margin-bottom:16px;line-height:1.5;">Horizontal: image/logo left, text right, price/CTA far-right. Three density levels. The system workhorse.</div>
+        <div style="font-size:12px;color:var(--text-muted);">Screens: Search · Sidebar · Browse lists</div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:24px;">
+      <h3 style="margin-bottom:16px;">Screen Context Mapping</h3>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+        <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);padding:12px 20px;border-bottom:1px solid var(--border);">
+          <div>Screen</div><div>Primary</div><div>Secondary</div>
+        </div>
+        <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:0;font-size:13px;padding:12px 20px;border-bottom:1px solid var(--border);align-items:center;">
+          <div style="color:var(--text-dim);">Home / Discovery</div>
+          <div><span style="color:var(--orange);">● Hero Banner</span></div>
+          <div><span style="color:var(--accent);">● Grid Tile</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:0;font-size:13px;padding:12px 20px;border-bottom:1px solid var(--border);align-items:center;">
+          <div style="color:var(--text-dim);">Browse / Category</div>
+          <div><span style="color:var(--accent);">● Grid Tile</span></div>
+          <div><span style="color:var(--cyan);">● List Row</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:0;font-size:13px;padding:12px 20px;border-bottom:1px solid var(--border);align-items:center;">
+          <div style="color:var(--text-dim);">Search Results</div>
+          <div><span style="color:var(--cyan);">● List Row (standard)</span></div>
+          <div><span style="color:var(--cyan);">● List Row (compact)</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:0;font-size:13px;padding:12px 20px;border-bottom:1px solid var(--border);align-items:center;">
+          <div style="color:var(--text-dim);">Product Detail</div>
+          <div><span style="color:var(--orange);">● Hero Banner</span></div>
+          <div><span style="color:var(--accent);">● Grid Tile (recs)</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:0;font-size:13px;padding:12px 20px;align-items:center;">
+          <div style="color:var(--text-dim);">Collection / Curated</div>
+          <div><span style="color:var(--accent);">● Grid Tile</span></div>
+          <div><span style="color:var(--cyan);">● List Row</span></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Component Plan -->
+  <section id="components">
+    <div class="section-label">Section 03</div>
+    <h2>Component Plan</h2>
+    <p class="section-desc">3 base components + 1 primitive covers all 9 real card types. Every card is a variant controlled by props and active slots — not separate components.</p>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:32px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.9;color:#a0a8c0;">
+<span style="color:#555570;">// Target architecture</span>
+<br>BaseCard          <span style="color:#555570;">← primitive (keep)</span>
+<br>├── VerticalCard  <span style="color:#818cf8;">← merge VBC + VBCLite</span>  <span style="color:#555570;">covers cards 3, 9, 10, 11</span>
+<br>├── HorizontalCard<span style="color:#22d3ee;">← evolve HBC, kill OBC</span> <span style="color:#555570;">covers cards 2, 4, 5</span>
+<br>└── PromoCard     <span style="color:#4ade80;">← NEW</span>                  <span style="color:#555570;">covers cards 1, 12</span>
+    </div>
+
+    <!-- VerticalCard -->
+    <div class="component-block vc">
+      <div class="component-header">
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#818cf8;margin-bottom:6px;">VerticalCard</div>
+          <h3 style="color:var(--text);">VerticalBaseCard + VerticalBaseCardLite</h3>
+        </div>
+        <span class="action-badge action-merge">Merge</span>
+      </div>
+      <div class="component-body">
+        <p style="font-size:14px;color:var(--text-dim);margin-bottom:20px;">80% structural overlap between the two existing vertical cards. The only differences are 3 optional props. Not two components — one, with configurable slots.</p>
+        <div class="component-cards">
+          <div class="component-card">
+            <div class="cc-num">Card 3</div>
+            <div class="cc-name">Voucher Offer Card</div>
+            <div class="cc-slots">bannerRatio=4:3 · retailerLogo · cashback · cta · expiry</div>
+          </div>
+          <div class="component-card">
+            <div class="cc-num">Card 9</div>
+            <div class="cc-name">Gift Card</div>
+            <div class="cc-slots">bannerRatio=1:1 · badge · cashbackPercent · noCTA</div>
+          </div>
+          <div class="component-card">
+            <div class="cc-num">Card 10</div>
+            <div class="cc-name">Grid Product Card</div>
+            <div class="cc-slots">bannerRatio=1:1 · price · saleBadge · rating</div>
+          </div>
+          <div class="component-card">
+            <div class="cc-num">Card 11</div>
+            <div class="cc-name">Editorial Card</div>
+            <div class="cc-slots">bannerRatio=16:9 · text body · author · date</div>
+          </div>
+        </div>
+        <h3 style="margin-top:20px;font-size:15px;">Required changes</h3>
+        <ul class="props-list">
+          <li class="prop"><span class="prop-critical"></span><span class="prop-name">bannerRatio</span><span class="prop-desc">Make configurable — the 2.42:1 hardlock blocks all reuse. Add: <code style="font-size:11px;">1:1 · 4:5 · 4:3 · 16:9 · 2.42:1</code> (keep as default)</span></li>
+          <li class="prop"><span class="prop-critical"></span><span class="prop-name">cta</span><span class="prop-desc">Make optional — VerticalBaseCardLite has no CTA, so the merged component must allow none</span></li>
+          <li class="prop"><span class="prop-high"></span><span class="prop-name">text</span><span class="prop-desc">Add rich body text slot (from Lite) — needed for editorial cards</span></li>
+          <li class="prop"><span class="prop-high"></span><span class="prop-name">overlayTitle</span><span class="prop-desc">Add title-on-image overlay mode — needed for category tiles (#3)</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- HorizontalCard -->
+    <div class="component-block hc">
+      <div class="component-header">
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#22d3ee;margin-bottom:6px;">HorizontalCard</div>
+          <h3 style="color:var(--text);">Evolve HorizontalBaseCard · Kill OfferBaseCard</h3>
+        </div>
+        <span class="action-badge action-evolve">Evolve</span>
+      </div>
+      <div class="component-body">
+        <p style="font-size:14px;color:var(--text-dim);margin-bottom:20px;">HorizontalBaseCard already exists but has 0 consumers. OfferBaseCard is already deprecated. Formalize the rename, make CTA optional, add compact density mode.</p>
+        <div class="component-cards">
+          <div class="component-card">
+            <div class="cc-num">Card 2</div>
+            <div class="cc-name">Retailer Card</div>
+            <div class="cc-slots">density=compact · logo · cashback · sponsoredBadge · noCTA</div>
+          </div>
+          <div class="component-card">
+            <div class="cc-num">Card 4</div>
+            <div class="cc-name">Search Result</div>
+            <div class="cc-slots">density=standard · thumbnail · title · desc · price · cta · tags</div>
+          </div>
+          <div class="component-card">
+            <div class="cc-num">Card 5</div>
+            <div class="cc-name">Compact Row</div>
+            <div class="cc-slots">density=dense · thumbnail · title · subtitle</div>
+          </div>
+        </div>
+        <h3 style="margin-top:20px;font-size:15px;">Required changes</h3>
+        <ul class="props-list">
+          <li class="prop"><span class="prop-high"></span><span class="prop-name">ctaButton</span><span class="prop-desc">Make optional — Retailer Card and compact rows don't have CTAs</span></li>
+          <li class="prop"><span class="prop-high"></span><span class="prop-name">density</span><span class="prop-desc">Add <code style="font-size:11px;">"compact" | "standard" | "dense"</code> — controls slot visibility and spacing</span></li>
+          <li class="prop"><span class="prop-low"></span><span class="prop-name">name</span><span class="prop-desc">Rename from HorizontalBaseCard → HorizontalCard</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PromoCard -->
+    <div class="component-block pc">
+      <div class="component-header">
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#fb923c;margin-bottom:6px;">PromoCard</div>
+          <h3 style="color:var(--text);">New component — the only net-new build</h3>
+        </div>
+        <span class="action-badge action-new">New</span>
+      </div>
+      <div class="component-body">
+        <p style="font-size:14px;color:var(--text-dim);margin-bottom:20px;">Nalu has zero answer for background-image cards with overlay content. This is the only genuinely new component in the plan. Covers two promotional contexts via a layout prop.</p>
+        <div class="component-cards">
+          <div class="component-card">
+            <div class="cc-num">Card 1</div>
+            <div class="cc-name">Hero Promo</div>
+            <div class="cc-slots">layout=hero · backgroundImage · overlayTitle · desc · cta · badge</div>
+          </div>
+          <div class="component-card">
+            <div class="cc-num">Card 12</div>
+            <div class="cc-name">Inline Promo</div>
+            <div class="cc-slots">layout=inline · icon · title · desc · cta · bgColor</div>
+          </div>
+        </div>
+        <h3 style="margin-top:20px;font-size:15px;">Props to build</h3>
+        <ul class="props-list">
+          <li class="prop"><span class="prop-critical"></span><span class="prop-name">layout</span><span class="prop-desc"><code style="font-size:11px;">"hero" | "inline"</code> — hero is full-width image-dominant, inline is compact horizontal banner</span></li>
+          <li class="prop"><span class="prop-critical"></span><span class="prop-name">backgroundImage</span><span class="prop-desc">URL for background image support</span></li>
+          <li class="prop"><span class="prop-high"></span><span class="prop-name">backgroundGradient</span><span class="prop-desc">Gradient overlay for text contrast on images</span></li>
+          <li class="prop"><span class="prop-high"></span><span class="prop-name">icon</span><span class="prop-desc">Icon/illustration slot — used in inline variant</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- BaseCard -->
+    <div class="component-block bc">
+      <div class="component-header">
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:6px;">BaseCard</div>
+          <h3 style="color:var(--text);">Raw surface primitive — keep as-is</h3>
+        </div>
+        <span class="action-badge action-keep">Keep</span>
+      </div>
+      <div class="component-body">
+        <p style="font-size:14px;color:var(--text-dim);">Handles appearance, border, padding, onClick. Used for brand logo tiles via composition (BaseCard + RetailerLogo). No changes needed — it's already the right abstraction.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Nalu Audit -->
+  <section id="nalu">
+    <div class="section-label">Section 04</div>
+    <h2>Nalu Audit</h2>
+    <p class="section-desc">Current state of <code style="font-family:monospace;font-size:13px;color:var(--cyan);">@atolls/nalu-react</code>. 5 card components, 64 total components scanned. Only 1 of 13 iGraal card types is fully covered today.</p>
+
+    <div class="card-grid" style="margin-bottom:32px;">
+      <div class="card" style="border-top:3px solid var(--green);">
+        <div style="font-size:32px;font-weight:900;color:var(--green);">18.75%</div>
+        <div style="font-size:13px;color:var(--text-dim);margin-top:4px;">of 64 components properly use Nova BaseCard wrappers</div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--amber);">
+        <div style="font-size:32px;font-weight:900;color:var(--amber);">20</div>
+        <div style="font-size:13px;color:var(--text-dim);margin-top:4px;">"Wild-west" — use Nova primitives but skip BaseCard wrapper</div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--rose);">
+        <div style="font-size:32px;font-weight:900;color:var(--rose);">31</div>
+        <div style="font-size:13px;color:var(--text-dim);margin-top:4px;">Legacy / non-Nova — full rewrite required</div>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom:16px;">Existing Nalu Card Components</h3>
+    <div class="card" style="padding:0 24px;">
+      <div class="audit-row header">
+        <div>Component</div><div>Status</div><div>Coverage</div><div>Action</div>
+      </div>
+      <div class="audit-row">
+        <div class="audit-name">BaseCard</div>
+        <div class="audit-desc">Raw surface primitive. Handles appearance, border, padding, onClick.</div>
+        <div><span class="coverage-dot full">● Keep</span></div>
+        <div class="audit-note">No changes needed. Correct abstraction level.</div>
+      </div>
+      <div class="audit-row">
+        <div class="audit-name">VerticalBaseCard</div>
+        <div class="audit-desc">Vertical card. Banner section wrapped in hardcoded 2.42:1 AspectRatio. Retailer logo, title, CTA.</div>
+        <div><span class="coverage-dot partial">● Partial</span></div>
+        <div class="audit-note">Merge with Lite. Make bannerRatio configurable — this is the #1 blocker.</div>
+      </div>
+      <div class="audit-row">
+        <div class="audit-name">VerticalBaseCardLite</div>
+        <div class="audit-desc">Lighter vertical card. Same 2.42:1 ratio. No CTA, adds rich text body. 80% overlap with VBC.</div>
+        <div><span class="coverage-dot partial">● Partial</span></div>
+        <div class="audit-note">Merge into VerticalCard. Not a separate component.</div>
+      </div>
+      <div class="audit-row">
+        <div class="audit-name">OfferBaseCard</div>
+        <div class="audit-desc">Horizontal offer card. Already marked @deprecated in source. "Use HorizontalBaseCard instead."</div>
+        <div><span class="coverage-dot gap">● Dead</span></div>
+        <div class="audit-note">Kill it. 4 consumers need migrating to HorizontalCard.</div>
+      </div>
+      <div class="audit-row">
+        <div class="audit-name">HorizontalBaseCard</div>
+        <div class="audit-desc">V2 of OfferBaseCard. Better grid-based layout. Adds subtitle. Currently has 0 consumers.</div>
+        <div><span class="coverage-dot partial">● Partial</span></div>
+        <div class="audit-note">Rename to HorizontalCard. Make CTA optional. Add density modes.</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:32px;margin-bottom:16px;">Coverage Map — 13 Card Types vs Nalu</h3>
+    <div class="card" style="padding:0 24px;">
+      <div class="audit-row header">
+        <div>Card</div><div>Description</div><div>Status</div><div>Gap / Action</div>
+      </div>
+      <div class="audit-row">
+        <div><span style="font-weight:700;">#1</span> Hero Promo</div>
+        <div class="audit-desc">Full-bleed background image with text overlay</div>
+        <div><span class="coverage-dot gap">🔴 Gap</span></div>
+        <div class="audit-note">No background-image card exists → build PromoCard</div>
+      </div>
+      <div class="audit-row">
+        <div><span style="font-weight:700;">#2</span> Retailer Card</div>
+        <div class="audit-desc">Compact horizontal, logo + cashback</div>
+        <div><span class="coverage-dot gap">🔴 Gap</span></div>
+        <div class="audit-note">HBC too large. Needs compact density mode → HorizontalCard</div>
+      </div>
+      <div class="audit-row">
+        <div><span style="font-weight:700;">#3</span> Voucher Offer Card</div>
+        <div class="audit-desc">Vertical, large image, cashback + CTA</div>
+        <div><span class="coverage-dot partial">🟡 Partial</span></div>
+        <div class="audit-note">VBC close but needs flexible ratio + expiry slot → VerticalCard</div>
+      </div>
+      <div class="audit-row">
+        <div><span style="font-weight:700;">#4</span> Search Result</div>
+        <div class="audit-desc">Horizontal, thumb + text + price + CTA</div>
+        <div><span class="coverage-dot partial">🟡 Partial</span></div>
+        <div class="audit-note">HBC covers structure but missing price slot → HorizontalCard</div>
+      </div>
+      <div class="audit-row">
+        <div><span style="font-weight:700;">#5</span> Compact Row</div>
+        <div class="audit-desc">Dense single-line horizontal</div>
+        <div><span class="coverage-dot gap">🔴 Gap</span></div>
+        <div class="audit-note">Nothing this compact exists → HorizontalCard (dense mode)</div>
+      </div>
+      <div class="audit-row">
+        <div><span style="font-weight:700;">#6–8</span> Non-cards</div>
+        <div class="audit-desc">Filter, Checkout, Media Gallery</div>
+        <div><span class="coverage-dot na">⚪ N/A</span></div>
+        <div class="audit-note">Out of card scope — separate component categories</div>
+      </div>
+      <div class="audit-row">
+        <div><span style="font-weight:700;">#9</span> Gift Card</div>
+        <div class="audit-desc">Vertical, logo/image, cashback %</div>
+        <div><span class="coverage-dot partial">🟡 Partial</span></div>
+        <div class="audit-note">VBCLite close but wrong ratio + no badge slot → VerticalCard</div>
+      </div>
+      <div class="audit-row">
+        <div><span style="font-weight:700;">#10</span> Grid Product</div>
+        <div class="audit-desc">Vertical, square image, price, badge</div>
+        <div><span class="coverage-dot partial">🟡 Partial</span></div>
+        <div class="audit-note">VBC close but needs 1:1 ratio + price slot → VerticalCard</div>
+      </div>
+      <div class="audit-row">
+        <div><span style="font-weight:700;">#11</span> Editorial Card</div>
+        <div class="audit-desc">Vertical, image + author meta</div>
+        <div><span class="coverage-dot partial">🟡 Partial</span></div>
+        <div class="audit-note">VBCLite close but needs author/date slots → VerticalCard</div>
+      </div>
+      <div class="audit-row">
+        <div><span style="font-weight:700;">#12</span> Inline Promo</div>
+        <div class="audit-desc">Compact horizontal banner, icon + CTA</div>
+        <div><span class="coverage-dot gap">🔴 Gap</span></div>
+        <div class="audit-note">Structurally unique → PromoCard (inline mode)</div>
+      </div>
+      <div class="audit-row">
+        <div><span style="font-weight:700;">#13</span> Empty State</div>
+        <div class="audit-desc">Illustration + heading + body + CTA</div>
+        <div><span class="coverage-dot full">✅ Done</span></div>
+        <div class="audit-note">EmptyState component already exists. No action needed.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Migration -->
+  <section id="migration">
+    <div class="section-label">Section 05</div>
+    <h2>Migration Surface</h2>
+    <p class="section-desc">64 components audited. 18.75% compliant. Prioritized in 3 tiers — wild-west first (they fake compliance), legacy second, reclassify the rest.</p>
+
+    <div class="migration-tier">
+      <div class="tier-header">
+        <span class="tier-badge tier-1">Tier 1 — Now</span>
+        <div>
+          <div style="font-size:15px;font-weight:700;">20 wild-west components</div>
+          <div style="font-size:13px;color:var(--text-dim);">Use Nova primitives but skip BaseCard wrapper. Highest risk — they look compliant but aren't.</div>
+        </div>
+        <div style="margin-left:auto;font-size:13px;color:var(--text-dim);">Effort: <strong style="color:var(--text);">High</strong></div>
+      </div>
+      <div class="tier-body">
+        <div class="migration-items">
+          <div class="migration-item"><span class="mi-from">SponsoredCard</span><span class="mi-arrow">→</span><span class="mi-to">VerticalCard</span><span class="mi-note">with retailerLogo + cta</span></div>
+          <div class="migration-item"><span class="mi-from">CashbackOfferPanel</span><span class="mi-arrow">→</span><span class="mi-to">HorizontalCard</span><span class="mi-note">with captionSection + conditions</span></div>
+          <div class="migration-item"><span class="mi-from">VoucherStageBanner</span><span class="mi-arrow">→</span><span class="mi-to">PromoCard</span><span class="mi-note">layout=inline</span></div>
+          <div class="migration-item"><span class="mi-from">VoucherStageBannerNew</span><span class="mi-arrow">→</span><span class="mi-to">PromoCard</span><span class="mi-note">layout=inline</span></div>
+          <div class="migration-item"><span class="mi-from">RetailerCard</span><span class="mi-arrow">→</span><span class="mi-to">VerticalCard</span><span class="mi-note">no CTA, retailerLogo</span></div>
+          <div class="migration-item"><span class="mi-from">RetailerCardWithVoucher</span><span class="mi-arrow">→</span><span class="mi-to">VerticalCard</span><span class="mi-note">retailerLogo + tag</span></div>
+          <div class="migration-item"><span class="mi-from">CashbackOfferPromoNew</span><span class="mi-arrow">→</span><span class="mi-to">PromoCard</span><span class="mi-note">or VerticalCard</span></div>
+          <div class="migration-item"><span class="mi-from">VoucherDialogCard</span><span class="mi-arrow">→</span><span class="mi-to">HorizontalCard</span><span class="mi-note">⚠️ reclassify as dialog first</span></div>
+          <div class="migration-item"><span class="mi-from">Coupon</span><span class="mi-arrow">→</span><span class="mi-to">HorizontalCard</span><span class="mi-note">density=compact</span></div>
+          <div style="padding:8px 0;font-size:12px;color:var(--text-muted);">+ 11 more components in gift-card-ui, savings-campaigns-ui, printable-coupons-ui</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="migration-tier">
+      <div class="tier-header">
+        <span class="tier-badge tier-2">Tier 2 — Soon</span>
+        <div>
+          <div style="font-size:15px;font-weight:700;">31 legacy / non-Nova components</div>
+          <div style="font-size:13px;color:var(--text-dim);">No Nova usage at all. Full rewrites. Prioritize by page traffic.</div>
+        </div>
+        <div style="margin-left:auto;font-size:13px;color:var(--text-dim);">Effort: <strong style="color:var(--text);">Very High</strong></div>
+      </div>
+      <div class="tier-body">
+        <div class="migration-items">
+          <div class="migration-item"><span style="font-size:11px;font-weight:700;color:var(--rose);">P0</span><span class="mi-note">Home page legacy cards — highest traffic page</span></div>
+          <div class="migration-item"><span style="font-size:11px;font-weight:700;color:var(--rose);">P0</span><span class="mi-note">Search result legacy cards — core user journey</span></div>
+          <div class="migration-item"><span style="font-size:11px;font-weight:700;color:var(--amber);">P1</span><span class="mi-note">Category/browse legacy cards — discovery flow</span></div>
+          <div class="migration-item"><span style="font-size:11px;font-weight:700;color:var(--amber);">P1</span><span class="mi-note">Gift card non-v2 components — active feature</span></div>
+          <div class="migration-item"><span style="font-size:11px;font-weight:700;color:var(--green);">P2</span><span class="mi-note">Dialog-based card layouts — deprioritize (dialogs, not cards)</span></div>
+          <div class="migration-item"><span style="font-size:11px;font-weight:700;color:var(--green);">P2</span><span class="mi-note">Carousel wrappers — migrate inner cards, keep wrappers</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="migration-tier">
+      <div class="tier-header">
+        <span class="tier-badge tier-3">Tier 3 — Reclassify</span>
+        <div>
+          <div style="font-size:15px;font-weight:700;">~6 components that aren't cards</div>
+          <div style="font-size:13px;color:var(--text-dim);">Dialogs, carousel wrappers, layout containers. Remove from card migration scope.</div>
+        </div>
+        <div style="margin-left:auto;font-size:13px;color:var(--text-dim);">Effort: <strong style="color:var(--text);">Low</strong></div>
+      </div>
+      <div class="tier-body">
+        <div class="migration-items">
+          <div class="migration-item"><span class="mi-from">CashbackSignupDialog</span><span class="mi-arrow">→</span><span class="mi-note">Dialog redesign, not card migration</span></div>
+          <div class="migration-item"><span class="mi-from">ClickoutPopup</span><span class="mi-arrow">→</span><span class="mi-note">Dialog redesign, not card migration</span></div>
+          <div class="migration-item"><span class="mi-from">CarouselGiftCards</span><span class="mi-arrow">→</span><span class="mi-note">Layout wrapper — migrate inner cards, keep shell</span></div>
+          <div class="migration-item"><span class="mi-from">OffersCarousel</span><span class="mi-arrow">→</span><span class="mi-note">Layout wrapper — migrate inner cards, keep shell</span></div>
+          <div class="migration-item"><span class="mi-from">Single-row-offers</span><span class="mi-arrow">→</span><span class="mi-note">Layout wrapper — same</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next Steps -->
+  <section id="next">
+    <div class="section-label">Section 06</div>
+    <h2>Next Steps</h2>
+    <p class="section-desc">Ordered by dependency. Design specs first, then build, then migration.</p>
+
+    <div class="next-item">
+      <span class="next-owner owner-marcin">Marcin</span>
+      <div class="next-text"><strong>Confirm full team names</strong> — CO / S&amp;N / GC / CCE abbreviations confirmed, full names to be verified with Iza's team</div>
+    </div>
+    <div class="next-item">
+      <span class="next-owner owner-de">Design Engineer</span>
+      <div class="next-text"><strong>VerticalCard spec</strong> — merged component design: configurable ratio, optional CTA, overlay mode, all variants documented</div>
+    </div>
+    <div class="next-item">
+      <span class="next-owner owner-de">Design Engineer</span>
+      <div class="next-text"><strong>HorizontalCard spec</strong> — compact mode, optional CTA, density × slots matrix</div>
+    </div>
+    <div class="next-item">
+      <span class="next-owner owner-de">Design Engineer</span>
+      <div class="next-text"><strong>PromoCard spec</strong> — hero + inline layout modes, background image handling, gradient overlay</div>
+    </div>
+    <div class="next-item">
+      <span class="next-owner owner-ux">UX Designer</span>
+      <div class="next-text"><strong>Visual design — all variants × density</strong> — how each card looks in each context. Feeds into design engineer build brief.</div>
+    </div>
+    <div class="next-item">
+      <span class="next-owner owner-ws">Workshop</span>
+      <div class="next-text"><strong>Build VerticalCard</strong> — merge + configurable ratio. Start here, highest coverage gain.</div>
+    </div>
+    <div class="next-item">
+      <span class="next-owner owner-ws">Workshop</span>
+      <div class="next-text"><strong>Evolve HorizontalCard</strong> — rename, optional CTA, compact mode. Kill OfferBaseCard, migrate 4 consumers.</div>
+    </div>
+    <div class="next-item">
+      <span class="next-owner owner-ws">Workshop</span>
+      <div class="next-text"><strong>Build PromoCard</strong> — new component. Hero + inline. Background image + gradient support.</div>
+    </div>
+    <div class="next-item">
+      <span class="next-owner owner-ws">Workshop</span>
+      <div class="next-text"><strong>Tier 1 migration — 20 wild-west components</strong> — migrate to new components after specs are ready</div>
+    </div>
+
+  </section>
+
+</main>
+</body>
+</html>
