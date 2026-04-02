@@ -619,12 +619,22 @@
   <!-- Composition Model -->
   <section id="composition">
     <div class="section-label">Section 02</div>
-    <h2>Composition Model</h2>
-    <p class="section-desc">The 9 real cards aren't 9 components. They're 3 layout templates with configurable slots. Within each family, variants differ by <strong style="color:var(--text);">which slots are active — not by layout</strong>. This is the core engineering insight.</p>
+    <h2>Why 3 Components, Not 1</h2>
+    <p class="section-desc">The natural instinct is to build one flexible Card component with enough props to handle everything. <strong style="color:var(--text);">That's how you get the current mess.</strong> Too much freedom means every team invents their own variation — and you end up with cards 10 and 11 looking nearly identical but built separately by different teams.</p>
+
+    <div style="padding:16px 20px;background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.25);border-left:4px solid var(--rose);border-radius:var(--radius-sm);margin-bottom:24px;">
+      <div style="font-size:14px;font-weight:700;color:var(--rose);margin-bottom:6px;">⚠️ The Problem Today: Freedom Without Guardrails</div>
+      <div style="font-size:14px;color:var(--text-dim);line-height:1.6;">Card 10 (Product Deal) and Card 11 (Brand Promo) are almost identical — both are image-dominant cards with discount text. But they were built by different teams with different code. When teams get a generic "Card" primitive, they don't build shared patterns — they build one-offs. Every variation looks slightly different for no design reason. The fix isn't more flexibility. It's <strong style="color:var(--text);">fewer choices that are harder to get wrong.</strong></div>
+    </div>
 
     <div class="insight" style="margin-bottom:32px;">
-      <div class="insight-label">Key Insight</div>
-      <p>Commerce is not a separate card type. A commerce card in a grid = Grid Tile + price slot active. A commerce card in a list = List Row + price slot active. <strong>Don't build a separate commerce component — build price as a composable slot.</strong></p>
+      <div class="insight-label">Design Principle</div>
+      <p>Three constrained components > one flexible one. Each component enforces a specific layout — teams pick which one fits, then configure slots within it. They can't invent new layouts. That's the point.</p>
+    </div>
+
+    <div style="padding:16px 20px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-left:4px solid var(--amber);border-radius:var(--radius-sm);margin-bottom:32px;">
+      <div style="font-size:14px;font-weight:700;color:var(--amber);margin-bottom:6px;">📋 Scope Note</div>
+      <div style="font-size:14px;color:var(--text-dim);line-height:1.6;">The slot model below is a <strong style="color:var(--text);">discovery artifact</strong> — it documents what we found across the 13 cards, not a final API. The actual component API will be designed during the build phase. This section exists to prove that 3 components can cover all 13 variations through slot configuration, not to prescribe the implementation.</div>
     </div>
 
     <h3 style="margin-bottom:16px;">Slot Inventory</h3>
