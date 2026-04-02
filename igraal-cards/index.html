@@ -299,74 +299,117 @@
         <p style="font-size:14px;color:var(--text-dim);max-width:680px;line-height:1.65;">The designer comments (from Iza) flagged cards where multiple teams use the same pattern. That's not a coincidence — it's evidence. When CO and CCE both build a hero banner independently, you don't have two different components. You have one component built twice, with drift. The fix is one shared component in Nalu.</p>
       </div>
 
-      <!-- Matrix -->
+      <!-- Per-card ownership matrix -->
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
-        <div style="display:grid;grid-template-columns:200px repeat(4,1fr);border-bottom:1px solid var(--border);">
+        <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
+          <div style="padding:12px 8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);text-align:center;">#</div>
           <div style="padding:12px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);">Card</div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);"><span class="tag tag-co" style="font-size:9px;">CO</span></div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);"><span class="tag tag-cce" style="font-size:9px;">CCE</span></div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);"><span class="tag tag-sn" style="font-size:9px;">S&amp;N</span></div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);"><span class="tag tag-gc" style="font-size:9px;">GC</span></div>
+          <div style="padding:12px 8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);text-align:center;">Team</div>
+          <div style="padding:12px 8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);text-align:center;">Component</div>
         </div>
-
-        <!-- Hero Banner row -->
-        <div style="display:grid;grid-template-columns:200px repeat(4,1fr);border-bottom:1px solid var(--border);background:rgba(249,115,22,0.04);">
-          <div style="padding:12px 16px;">
-            <div style="font-size:13px;font-weight:700;">Hero / Promo Banner</div>
-            <div style="font-size:11px;color:var(--text-muted);">Cards 1, 11</div>
-          </div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="Card 1 — CO builds this">✅</div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="Card 11 — CCE also builds this">✅</div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+        <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
+          <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">1</div>
+          <div style="padding:8px 16px;font-size:13px;">Hero Carousel</div>
+          <div style="padding:8px;text-align:center;"><span class="tag tag-co" style="font-size:9px;">CO</span></div>
+          <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#fb923c;">PromoCard</div>
         </div>
-
-        <!-- Cashback / Offer Card (vertical) -->
-        <div style="display:grid;grid-template-columns:200px repeat(4,1fr);border-bottom:1px solid var(--border);background:rgba(99,102,241,0.04);">
-          <div style="padding:12px 16px;">
-            <div style="font-size:13px;font-weight:700;">Cashback / Offer Card</div>
-            <div style="font-size:11px;color:var(--text-muted);">Cards 3, 6, 7, 10, 12</div>
-          </div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="CO owns cards 3, 6">✅</div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="CCE owns cards 10, 12">✅</div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="S&N owns card 7">✅</div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+        <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
+          <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">2</div>
+          <div style="padding:8px 16px;font-size:13px;">Sponsored Offer Card</div>
+          <div style="padding:8px;text-align:center;"><span class="tag tag-co" style="font-size:9px;">CO</span></div>
+          <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#22d3ee;">HorizontalCard</div>
         </div>
-
-        <!-- Compact Offer Row -->
-        <div style="display:grid;grid-template-columns:200px repeat(4,1fr);border-bottom:1px solid var(--border);background:rgba(6,182,212,0.04);">
-          <div style="padding:12px 16px;">
-            <div style="font-size:13px;font-weight:700;">Horizontal / Offer Row</div>
-            <div style="font-size:11px;color:var(--text-muted);">Cards 2, 5, 8, 9, 13</div>
-          </div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="CO owns cards 2, 5, 8">✅</div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="CCE owns card 13">✅</div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="S&N owns card 9">✅</div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+        <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
+          <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">3</div>
+          <div style="padding:8px 16px;font-size:13px;">Cashback Offer Card</div>
+          <div style="padding:8px;text-align:center;"><span class="tag tag-co" style="font-size:9px;">CO</span></div>
+          <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#818cf8;">VerticalCard</div>
         </div>
-
-        <!-- Gift Card Tile -->
-        <div style="display:grid;grid-template-columns:200px repeat(4,1fr);border-bottom:1px solid var(--border);">
-          <div style="padding:12px 16px;">
-            <div style="font-size:13px;font-weight:700;">Gift Card Tile</div>
-            <div style="font-size:11px;color:var(--text-muted);">Card 4</div>
-          </div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="GC owns this">✅</div>
+        <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
+          <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">4</div>
+          <div style="padding:8px 16px;font-size:13px;">Gift Card Tile</div>
+          <div style="padding:8px;text-align:center;"><span class="tag tag-gc" style="font-size:9px;">GC</span></div>
+          <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#818cf8;">VerticalCard</div>
         </div>
-
-
-
+        <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
+          <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">5</div>
+          <div style="padding:8px 16px;font-size:13px;">Merchant Detail Card</div>
+          <div style="padding:8px;text-align:center;"><span class="tag tag-co" style="font-size:9px;">CO</span></div>
+          <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#22d3ee;">HorizontalCard</div>
+        </div>
+        <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
+          <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">6</div>
+          <div style="padding:8px 16px;font-size:13px;">Boosted Merchant Card</div>
+          <div style="padding:8px;text-align:center;"><span class="tag tag-co" style="font-size:9px;">CO</span></div>
+          <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#818cf8;">VerticalCard</div>
+        </div>
+        <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
+          <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">7</div>
+          <div style="padding:8px 16px;font-size:13px;">Sponsored Product Promo</div>
+          <div style="padding:8px;text-align:center;"><span class="tag tag-sn" style="font-size:9px;">S&amp;N</span></div>
+          <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#818cf8;">VerticalCard</div>
+        </div>
+        <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
+          <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">8</div>
+          <div style="padding:8px 16px;font-size:13px;">Compact Offer Row</div>
+          <div style="padding:8px;text-align:center;"><span class="tag tag-co" style="font-size:9px;">CO</span></div>
+          <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#22d3ee;">HorizontalCard</div>
+        </div>
+        <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
+          <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">9</div>
+          <div style="padding:8px 16px;font-size:13px;">Search Result Row</div>
+          <div style="padding:8px;text-align:center;"><span class="tag tag-sn" style="font-size:9px;">S&amp;N</span></div>
+          <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#22d3ee;">HorizontalCard</div>
+        </div>
+        <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
+          <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">10</div>
+          <div style="padding:8px 16px;font-size:13px;">Product Deal Card</div>
+          <div style="padding:8px;text-align:center;"><span class="tag tag-cce" style="font-size:9px;">CCE</span></div>
+          <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#818cf8;">VerticalCard</div>
+        </div>
+        <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
+          <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">11</div>
+          <div style="padding:8px 16px;font-size:13px;">Brand Promo Card</div>
+          <div style="padding:8px;text-align:center;"><span class="tag tag-cce" style="font-size:9px;">CCE</span></div>
+          <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#fb923c;">PromoCard</div>
+        </div>
+        <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
+          <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">12</div>
+          <div style="padding:8px 16px;font-size:13px;">Brand Deal Card</div>
+          <div style="padding:8px;text-align:center;"><span class="tag tag-cce" style="font-size:9px;">CCE</span></div>
+          <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#818cf8;">VerticalCard</div>
+        </div>
+        <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;">
+          <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">13</div>
+          <div style="padding:8px 16px;font-size:13px;">Text Offer Card</div>
+          <div style="padding:8px;text-align:center;"><span class="tag tag-cce" style="font-size:9px;">CCE</span></div>
+          <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#22d3ee;">HorizontalCard</div>
+        </div>
       </div>
-      <div style="margin-top:12px;padding:14px 18px;background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.2);border-radius:var(--radius-sm);font-size:13px;color:var(--text-dim);line-height:1.6;">
-        <strong style="color:var(--orange);">Note:</strong> This matrix is incomplete — it reflects what we know today from the PDF annotations and Iza's comments. The full cross-team usage data needs to be gathered. Every row with more than one ✅ is a card that <strong style="color:var(--text);">must</strong> live in Nalu, not in a team repo.
-      </div>
-    </div>
 
-    <!-- All 13 cards with actual screenshots -->
-    <div style="margin-bottom:56px;">
+      <!-- Summary: team card counts -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px;">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-align:center;">
+          <span class="tag tag-co" style="font-size:10px;margin-bottom:8px;display:inline-block;">CO</span>
+          <div style="font-size:24px;font-weight:900;color:var(--text);">6</div>
+          <div style="font-size:11px;color:var(--text-muted);">cards (1,2,3,5,6,8)</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-align:center;">
+          <span class="tag tag-cce" style="font-size:10px;margin-bottom:8px;display:inline-block;">CCE</span>
+          <div style="font-size:24px;font-weight:900;color:var(--text);">4</div>
+          <div style="font-size:11px;color:var(--text-muted);">cards (10,11,12,13)</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-align:center;">
+          <span class="tag tag-sn" style="font-size:10px;margin-bottom:8px;display:inline-block;">S&amp;N</span>
+          <div style="font-size:24px;font-weight:900;color:var(--text);">2</div>
+          <div style="font-size:11px;color:var(--text-muted);">cards (7,9)</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-align:center;">
+          <span class="tag tag-gc" style="font-size:10px;margin-bottom:8px;display:inline-block;">GC</span>
+          <div style="font-size:24px;font-weight:900;color:var(--text);">1</div>
+          <div style="font-size:11px;color:var(--text-muted);">card (4)</div>
+        </div>
+      </div>
       <h3 style="font-size:22px;margin-bottom:8px;">All 13 Cards — What They Actually Are</h3>
       <p style="font-size:14px;color:var(--text-dim);margin-bottom:24px;line-height:1.65;">Actual crops from the PDF. Each card is annotated with its team owner, structural pattern, and which Nalu base component it maps to.</p>
 
