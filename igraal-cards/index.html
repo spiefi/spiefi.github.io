@@ -336,11 +336,11 @@
         <div style="display:grid;grid-template-columns:200px repeat(4,1fr);border-bottom:1px solid var(--border);background:rgba(6,182,212,0.04);">
           <div style="padding:12px 16px;">
             <div style="font-size:13px;font-weight:700;">Horizontal / Offer Row</div>
-            <div style="font-size:11px;color:var(--text-muted);">Cards 2, 5, 8, 13</div>
+            <div style="font-size:11px;color:var(--text-muted);">Cards 2, 5, 8, 9, 13</div>
           </div>
           <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="CO owns cards 2, 5, 8">✅</div>
           <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="CCE owns card 13">✅</div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="S&N owns card 9">✅</div>
           <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
         </div>
 
@@ -483,9 +483,9 @@
               <span style="font-size:20px;font-weight:900;color:var(--text-muted);">9</span>
               <span class="tag tag-sn">S&N</span>
             </div>
-            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Brand Logo Grid</div>
-            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Grid of merchant brand logos with cashback %. Each cell is a compact tile.</div>
-            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(99,102,241,0.12);color:#818cf8;">→ VerticalCard (tile)</div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Search Result Row</div>
+            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Compact horizontal row. Brand logo left, name + cashback % + coupon count right.</div>
+            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(6,182,212,0.10);color:#22d3ee;">→ HorizontalCard (compact)</div>
           </div>
         </div>
 
@@ -827,10 +827,10 @@
         <div class="audit-note">Nothing this compact exists → HorizontalCard (dense)</div>
       </div>
       <div class="audit-row">
-        <div><span style="font-weight:700;">#9</span> Brand Logo Grid</div>
-        <div class="audit-desc">Grid of brand logo tiles with cashback %</div>
+        <div><span style="font-weight:700;">#9</span> Search Result Row</div>
+        <div class="audit-desc">Compact horizontal, logo + name + cashback % + coupon count</div>
         <div><span class="coverage-dot partial">🟡 Partial</span></div>
-        <div class="audit-note">BaseCard composition — no dedicated component needed</div>
+        <div class="audit-note">HBC covers structure, needs compact mode → HorizontalCard</div>
       </div>
       <div class="audit-row">
         <div><span style="font-weight:700;">#10</span> Product Deal Card</div>
@@ -1012,6 +1012,7 @@
               <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#2</span>
               <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#5</span>
               <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#8</span>
+              <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#9</span>
               <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#13</span>
             </div>
           </div>
