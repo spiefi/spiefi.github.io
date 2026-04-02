@@ -223,6 +223,7 @@
   <div class="nav-links">
     <a href="#inventory">Inventory</a>
     <a href="#composition">Composition</a>
+    <a href="#coverage-visual">Coverage</a>
     <a href="#nalu">Nalu Audit</a>
     <a href="#migration">Migration</a>
     <a href="#tickets">Build Tickets</a>
@@ -715,9 +716,199 @@
     </div>
   </section>
 
+  <!-- Component Coverage — Visual Proof -->
+  <section id="coverage-visual">
+    <div class="section-label">Section 03</div>
+    <h2>Component Coverage — Visual Proof</h2>
+    <p class="section-desc">Three components. Ten cards. Every variation covered. The card crops below are grouped by their target component — proving that composition and configuration replace duplication.</p>
+
+    <!-- VerticalCard -->
+    <div class="component-block vc" style="margin-bottom:24px;">
+      <div class="component-header">
+        <div>
+          <h3 style="margin:0;">VerticalCard</h3>
+          <div style="font-size:13px;color:var(--text-dim);margin-top:4px;">Image on top, structured content below. Configurable ratio + optional slots.</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="action-badge action-merge">Merge</span>
+          <span style="font-size:28px;font-weight:900;color:#818cf8;">6</span>
+          <span style="font-size:12px;color:var(--text-dim);">cards</span>
+        </div>
+      </div>
+      <div style="padding:16px 24px 24px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;">
+          <div style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid rgba(99,102,241,0.25);background:var(--surface-2);">
+            <img src="card-crops/card-03-promo.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 3"/>
+            <div style="padding:8px 10px;">
+              <div style="font-size:11px;font-weight:800;color:#818cf8;">#3</div>
+              <div style="font-size:11px;color:var(--text-dim);">Cashback Offer</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">standard · CTA + expiry</div>
+            </div>
+          </div>
+          <div style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid rgba(99,102,241,0.25);background:var(--surface-2);">
+            <img src="card-crops/card-04-giftcard.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 4"/>
+            <div style="padding:8px 10px;">
+              <div style="font-size:11px;font-weight:800;color:#818cf8;">#4</div>
+              <div style="font-size:11px;color:var(--text-dim);">Gift Card Tile</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">no-CTA · badge</div>
+            </div>
+          </div>
+          <div style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid rgba(99,102,241,0.25);background:var(--surface-2);">
+            <img src="card-crops/card-06-offer-detail.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 6"/>
+            <div style="padding:8px 10px;">
+              <div style="font-size:11px;font-weight:800;color:#818cf8;">#6</div>
+              <div style="font-size:11px;color:var(--text-dim);">Boosted Merchant</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">featured · boost badge</div>
+            </div>
+          </div>
+          <div style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid rgba(99,102,241,0.25);background:var(--surface-2);">
+            <img src="card-crops/card-07-list-rows.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 7"/>
+            <div style="padding:8px 10px;">
+              <div style="font-size:11px;font-weight:800;color:#818cf8;">#7</div>
+              <div style="font-size:11px;color:var(--text-dim);">Sponsored Product</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">image-dominant · overlay</div>
+            </div>
+          </div>
+          <div style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid rgba(99,102,241,0.25);background:var(--surface-2);">
+            <img src="card-crops/card-10-hero-cce.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 10"/>
+            <div style="padding:8px 10px;">
+              <div style="font-size:11px;font-weight:800;color:#818cf8;">#10</div>
+              <div style="font-size:11px;color:var(--text-dim);">Product Deal</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">tile · carousel</div>
+            </div>
+          </div>
+          <div style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid rgba(99,102,241,0.25);background:var(--surface-2);">
+            <img src="card-crops/card-12-brand-row.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 12"/>
+            <div style="padding:8px 10px;">
+              <div style="font-size:11px;font-weight:800;color:#818cf8;">#12</div>
+              <div style="font-size:11px;color:var(--text-dim);">Brand Deal</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">text-focused · urgency</div>
+            </div>
+          </div>
+        </div>
+        <div class="insight" style="margin-top:16px;margin-bottom:0;">
+          <div class="insight-label">What varies</div>
+          <p style="font-size:13px;"><code style="font-family:monospace;font-size:11px;color:#818cf8;">bannerRatio</code> (2.42:1 → configurable), CTA presence, tag/badge slot, sponsored label. <strong>Same layout template, different slot config.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- HorizontalCard -->
+    <div class="component-block hc" style="margin-bottom:24px;">
+      <div class="component-header">
+        <div>
+          <h3 style="margin:0;">HorizontalCard</h3>
+          <div style="font-size:13px;color:var(--text-dim);margin-top:4px;">Logo/image left, content right. Compact, standard, and text-only modes.</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="action-badge action-evolve">Evolve</span>
+          <span style="font-size:28px;font-weight:900;color:#22d3ee;">5</span>
+          <span style="font-size:12px;color:var(--text-dim);">cards</span>
+        </div>
+      </div>
+      <div style="padding:16px 24px 24px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;">
+          <div style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid rgba(6,182,212,0.25);background:var(--surface-2);">
+            <img src="card-crops/card-02-merchant.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 2"/>
+            <div style="padding:8px 10px;">
+              <div style="font-size:11px;font-weight:800;color:#22d3ee;">#2</div>
+              <div style="font-size:11px;color:var(--text-dim);">Sponsored Offer</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">compact · sponsored</div>
+            </div>
+          </div>
+          <div style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid rgba(6,182,212,0.25);background:var(--surface-2);">
+            <img src="card-crops/card-05-merchant-detail.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 5"/>
+            <div style="padding:8px 10px;">
+              <div style="font-size:11px;font-weight:800;color:#22d3ee;">#5</div>
+              <div style="font-size:11px;color:var(--text-dim);">Merchant Detail</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">standard · in Nalu</div>
+            </div>
+          </div>
+          <div style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid rgba(6,182,212,0.25);background:var(--surface-2);">
+            <img src="card-crops/card-08-search-list.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 8"/>
+            <div style="padding:8px 10px;">
+              <div style="font-size:11px;font-weight:800;color:#22d3ee;">#8</div>
+              <div style="font-size:11px;color:var(--text-dim);">Compact Offer Row</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">dense · badge</div>
+            </div>
+          </div>
+          <div style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid rgba(6,182,212,0.25);background:var(--surface-2);">
+            <img src="card-crops/card-09-filter.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 9"/>
+            <div style="padding:8px 10px;">
+              <div style="font-size:11px;font-weight:800;color:#22d3ee;">#9</div>
+              <div style="font-size:11px;color:var(--text-dim);">Search Result Row</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">compact · S&N</div>
+            </div>
+          </div>
+          <div style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid rgba(6,182,212,0.25);background:var(--surface-2);">
+            <img src="card-crops/card-13-product.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 13"/>
+            <div style="padding:8px 10px;">
+              <div style="font-size:11px;font-weight:800;color:#22d3ee;">#13</div>
+              <div style="font-size:11px;color:var(--text-dim);">Text Offer</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">text-only · no image</div>
+            </div>
+          </div>
+        </div>
+        <div class="insight" style="margin-top:16px;margin-bottom:0;background:linear-gradient(135deg,rgba(6,182,212,0.08),transparent);border-color:rgba(6,182,212,0.3);">
+          <div class="insight-label" style="color:var(--cyan);">What varies</div>
+          <p style="font-size:13px;">Density (compact → standard → dense), <code style="font-family:monospace;font-size:11px;color:#22d3ee;">captionSection</code> optional (text-only mode), tag/badge presence. <strong>Card 5 already exists in Nalu as HorizontalBaseCard.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PromoCard -->
+    <div class="component-block pc" style="margin-bottom:24px;">
+      <div class="component-header">
+        <div>
+          <h3 style="margin:0;">PromoCard</h3>
+          <div style="font-size:13px;color:var(--text-dim);margin-top:4px;">Image IS the card surface. Text overlaid on image — no separate content area.</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="action-badge action-new">New</span>
+          <span style="font-size:28px;font-weight:900;color:#fb923c;">2</span>
+          <span style="font-size:12px;color:var(--text-dim);">cards</span>
+        </div>
+      </div>
+      <div style="padding:16px 24px 24px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">
+          <div style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid rgba(249,115,22,0.25);background:var(--surface-2);">
+            <img src="card-crops/card-01-hero.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 1"/>
+            <div style="padding:8px 10px;">
+              <div style="font-size:11px;font-weight:800;color:#fb923c;">#1</div>
+              <div style="font-size:11px;color:var(--text-dim);">Hero Carousel</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">hero layout · carousel · countdown</div>
+            </div>
+          </div>
+          <div style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid rgba(249,115,22,0.25);background:var(--surface-2);">
+            <img src="card-crops/card-11-grid.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 11"/>
+            <div style="padding:8px 10px;">
+              <div style="font-size:11px;font-weight:800;color:#fb923c;">#11</div>
+              <div style="font-size:11px;color:var(--text-dim);">Brand Promo</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">portrait · image-dominant</div>
+            </div>
+          </div>
+        </div>
+        <div class="insight" style="margin-top:16px;margin-bottom:0;background:linear-gradient(135deg,rgba(249,115,22,0.08),transparent);border-color:rgba(249,115,22,0.3);">
+          <div class="insight-label" style="color:var(--orange);">The dividing line</div>
+          <p style="font-size:13px;">If the image IS the card surface (text overlaid) → <strong>PromoCard</strong>. If structured content sits below the image → <strong>VerticalCard</strong>. This is the only genuinely new component to build.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Non-cards -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+        <div style="font-size:15px;font-weight:700;color:var(--text-muted);">Not Cards</div>
+        <span style="font-size:12px;color:var(--text-muted);">3 patterns excluded</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-dim);line-height:1.65;">Filter/Facet Panel (input control), Checkout/Balance Summary (page section), Empty State (already in Nalu). See Composition section for detailed rationale.</div>
+    </div>
+
+  </section>
+
   <!-- Nalu Audit -->
   <section id="nalu">
-    <div class="section-label">Section 03</div>
+    <div class="section-label">Section 04</div>
     <h2>Nalu Audit</h2>
     <p class="section-desc">Current state of <code style="font-family:monospace;font-size:13px;color:var(--cyan);">@atolls/nalu-react</code>. 5 card components, 64 total components scanned. Only 1 of 13 iGraal card types is fully covered today.</p>
 
@@ -861,7 +1052,7 @@
 
   <!-- Migration -->
   <section id="migration">
-    <div class="section-label">Section 04</div>
+    <div class="section-label">Section 05</div>
     <h2>Migration Surface</h2>
     <p class="section-desc">64 components audited. 18.75% compliant. Prioritized in 3 tiers — wild-west first (they fake compliance), legacy second, reclassify the rest.</p>
 
