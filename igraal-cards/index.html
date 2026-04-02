@@ -1333,6 +1333,22 @@
     <h2>Next Steps</h2>
     <p class="section-desc">Ordered by dependency. Design specs first, then build, then migration.</p>
 
+    <!-- Open Questions / Warnings -->
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px;">
+      <div style="padding:16px 20px;background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.25);border-left:4px solid var(--rose);border-radius:var(--radius-sm);">
+        <div style="font-size:13px;font-weight:700;color:var(--rose);margin-bottom:6px;">⚠️ No Mobile or Tablet Screens</div>
+        <div style="font-size:14px;color:var(--text-dim);line-height:1.6;">This audit covers desktop only. We have no mobile or tablet screenshots. Card behavior on smaller screens (stacking, truncation, touch targets, carousel behavior) is entirely unspecified. This is a blind spot — mobile may surface different card patterns or layout needs not visible in the desktop PDF.</div>
+      </div>
+      <div style="padding:16px 20px;background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.25);border-left:4px solid var(--rose);border-radius:var(--radius-sm);">
+        <div style="font-size:13px;font-weight:700;color:var(--rose);margin-bottom:6px;">⚠️ Wild-West Components — No Visuals Yet</div>
+        <div style="font-size:14px;color:var(--text-dim);line-height:1.6;">The 20 wild-west components in the migration tier are listed from a code audit PDF — names only. We have no screenshots or visual reference for what they actually look like. The next research iteration needs to capture visuals for each to validate their migration targets.</div>
+      </div>
+      <div style="padding:16px 20px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-left:4px solid var(--amber);border-radius:var(--radius-sm);">
+        <div style="font-size:13px;font-weight:700;color:var(--amber);margin-bottom:6px;">🔮 Future Scope: Multi-Brand Card System</div>
+        <div style="font-size:14px;color:var(--text-dim);line-height:1.6;">This audit covers iGraal only. Nalu serves multiple brands — the card components need to work across all of them. How cards adapt to different brand tokens (colors, typography, spacing, border radius) will show the real complexity of the system we're building. This is the next layer of architecture work after the base components are solid.</div>
+      </div>
+    </div>
+
     <div class="next-item">
       <span class="next-owner owner-marcin">Marcin</span>
       <div class="next-text"><strong>Confirm full team names</strong> — CO / S&amp;N / GC / CCE abbreviations confirmed, full names to be verified with Iza's team</div>
