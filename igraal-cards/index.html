@@ -103,6 +103,7 @@
   .tag-cce { background: rgba(249,115,22,0.12); color: #fb923c; border: 1px solid rgba(249,115,22,0.3); }
   .tag-sn { background: rgba(6,182,212,0.12); color: #22d3ee; border: 1px solid rgba(6,182,212,0.3); }
   .tag-gc { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+  .tag-vo { background: rgba(20,184,166,0.12); color: #2dd4bf; border: 1px solid rgba(20,184,166,0.3); }
   .tag-none { background: var(--surface-3); color: var(--text-muted); border: 1px solid var(--border); }
 
   /* Card inventory */
@@ -282,6 +283,7 @@
       <span class="tag tag-cce">CCE — Commercial Content Experience</span>
       <span class="tag tag-sn">S&amp;N — Search &amp; Navigation</span>
       <span class="tag tag-gc">GC — Gift Card (Alternative Offers)</span>
+      <span class="tag tag-vo">VO — Voucher Team</span>
     </div>
 
     <!-- Reference overview -->
@@ -298,7 +300,7 @@
       <div style="margin-bottom:20px;">
         <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text-muted);margin-bottom:8px;">The Core Argument</div>
         <h3 style="font-size:22px;margin-bottom:8px;">Cross-team usage = system-level component</h3>
-        <p style="font-size:14px;color:var(--text-dim);max-width:680px;line-height:1.65;">The designer comments (from Iza) flagged cards where multiple teams use the same pattern. That's not a coincidence — it's evidence. When CO and CCE both build a hero banner independently, you don't have two different components. You have one component built twice, with drift. The fix is one shared component in Nalu.</p>
+        <p style="font-size:14px;color:var(--text-dim);max-width:680px;line-height:1.65;">The designer comments (from Iza Castañeda) flagged cards where multiple teams use the same pattern. That's not a coincidence — it's evidence. Card 1 (Hero Carousel) is used by both CO and VO. When two teams build the same card independently, you don't have two different components — you have one component built twice, with drift. The fix is one shared component in Nalu. Note: cards 2, 3, 5, 6 were originally attributed to CO — Iza confirmed they are all Voucher Team (VO). Card 8 is fully deprecated on the live site, replaced by VerticalBaseCard.</p>
       </div>
 
       <!-- Per-card ownership matrix -->
@@ -312,19 +314,19 @@
         <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
           <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">1</div>
           <div style="padding:8px 16px;font-size:13px;">Hero Carousel</div>
-          <div style="padding:8px;text-align:center;"><span class="tag tag-co" style="font-size:9px;">CO</span></div>
+          <div style="padding:8px;text-align:center;display:flex;flex-direction:column;gap:3px;align-items:center;"><span class="tag tag-co" style="font-size:9px;">CO</span><span class="tag tag-vo" style="font-size:9px;">VO</span></div>
           <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#fb923c;">PromoCard</div>
         </div>
         <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
           <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">2</div>
           <div style="padding:8px 16px;font-size:13px;">Sponsored Offer Card</div>
-          <div style="padding:8px;text-align:center;"><span class="tag tag-co" style="font-size:9px;">CO</span></div>
+          <div style="padding:8px;text-align:center;"><span class="tag tag-vo" style="font-size:9px;">VO</span></div>
           <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#22d3ee;">HorizontalCard</div>
         </div>
         <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
           <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">3</div>
           <div style="padding:8px 16px;font-size:13px;">Cashback Offer Card</div>
-          <div style="padding:8px;text-align:center;"><span class="tag tag-co" style="font-size:9px;">CO</span></div>
+          <div style="padding:8px;text-align:center;"><span class="tag tag-vo" style="font-size:9px;">VO</span></div>
           <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#818cf8;">VerticalCard</div>
         </div>
         <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
@@ -336,13 +338,13 @@
         <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
           <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">5</div>
           <div style="padding:8px 16px;font-size:13px;">Merchant Detail Card</div>
-          <div style="padding:8px;text-align:center;"><span class="tag tag-co" style="font-size:9px;">CO</span></div>
+          <div style="padding:8px;text-align:center;"><span class="tag tag-vo" style="font-size:9px;">VO</span></div>
           <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#22d3ee;">HorizontalCard</div>
         </div>
         <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
           <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">6</div>
           <div style="padding:8px 16px;font-size:13px;">Boosted Merchant Card</div>
-          <div style="padding:8px;text-align:center;"><span class="tag tag-co" style="font-size:9px;">CO</span></div>
+          <div style="padding:8px;text-align:center;"><span class="tag tag-vo" style="font-size:9px;">VO</span></div>
           <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#818cf8;">VerticalCard</div>
         </div>
         <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
@@ -353,9 +355,9 @@
         </div>
         <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
           <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">8</div>
-          <div style="padding:8px 16px;font-size:13px;">Compact Offer Row</div>
-          <div style="padding:8px;text-align:center;"><span class="tag tag-co" style="font-size:9px;">CO</span></div>
-          <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:#22d3ee;">HorizontalCard</div>
+          <div style="padding:8px 16px;font-size:13px;color:var(--text-muted);text-decoration:line-through;">Compact Offer Row <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(85,85,112,0.2);color:var(--text-muted);text-decoration:none;">DEPRECATED</span></div>
+          <div style="padding:8px;text-align:center;"><span class="tag-none tag" style="font-size:9px;">Nalu</span></div>
+          <div style="padding:8px;text-align:center;font-size:10px;font-weight:700;color:var(--text-muted);">→ VerticalCard</div>
         </div>
         <div style="display:grid;grid-template-columns:40px 1fr 80px 120px;border-bottom:1px solid var(--border);">
           <div style="padding:8px;text-align:center;font-weight:800;font-size:13px;color:var(--text-muted);">9</div>
@@ -390,11 +392,16 @@
       </div>
 
       <!-- Summary: team card counts -->
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px;">
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;">
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-align:center;">
           <span class="tag tag-co" style="font-size:10px;margin-bottom:8px;display:inline-block;">CO</span>
-          <div style="font-size:24px;font-weight:900;color:var(--text);">6</div>
-          <div style="font-size:11px;color:var(--text-muted);">cards (1,2,3,5,6,8)</div>
+          <div style="font-size:24px;font-weight:900;color:var(--text);">1</div>
+          <div style="font-size:11px;color:var(--text-muted);">card (1, shared)</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-align:center;">
+          <span class="tag tag-vo" style="font-size:10px;margin-bottom:8px;display:inline-block;">VO</span>
+          <div style="font-size:24px;font-weight:900;color:var(--text);">5</div>
+          <div style="font-size:11px;color:var(--text-muted);">cards (1,2,3,5,6)</div>
         </div>
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-align:center;">
           <span class="tag tag-cce" style="font-size:10px;margin-bottom:8px;display:inline-block;">CCE</span>
@@ -425,6 +432,7 @@
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">1</span>
               <span class="tag tag-co" style="font-size:9px;">CO</span>
+              <span class="tag tag-vo" style="font-size:9px;">VO</span>
             </div>
             <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Hero Carousel</div>
             <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Full-width promotional carousel. Large image with offer text and CTA overlaid.</div>
@@ -439,7 +447,7 @@
           <div style="padding:14px 18px;display:flex;flex-direction:column;justify-content:center;">
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">2</span>
-              <span class="tag tag-co" style="font-size:9px;">CO</span>
+              <span class="tag tag-vo" style="font-size:9px;">VO</span>
             </div>
             <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Sponsored Offer Card</div>
             <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Compact merchant card. Logo + cashback amount. Sponsored label.</div>
@@ -454,7 +462,7 @@
           <div style="padding:14px 18px;display:flex;flex-direction:column;justify-content:center;">
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">3</span>
-              <span class="tag tag-co" style="font-size:9px;">CO</span> <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(34,197,94,0.15);color:#4ade80;margin-left:6px;">IN NALU</span>
+              <span class="tag tag-vo" style="font-size:9px;">VO</span> <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(34,197,94,0.15);color:#4ade80;margin-left:6px;">IN NALU</span>
             </div>
             <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Cashback Offer Card</div>
             <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Vertical card with brand image, cashback amount, CTA, and expiry date.</div>
@@ -484,7 +492,7 @@
           <div style="padding:14px 18px;display:flex;flex-direction:column;justify-content:center;">
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">5</span>
-              <span class="tag tag-co" style="font-size:9px;">CO</span> <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(34,197,94,0.15);color:#4ade80;margin-left:6px;">IN NALU</span>
+              <span class="tag tag-vo" style="font-size:9px;">VO</span> <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(34,197,94,0.15);color:#4ade80;margin-left:6px;">IN NALU</span>
             </div>
             <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Merchant Detail Card</div>
             <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Merchant page header. Logo + large cashback %, conditions text, CTA, expiry.</div>
@@ -499,7 +507,7 @@
           <div style="padding:14px 18px;display:flex;flex-direction:column;justify-content:center;">
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">6</span>
-              <span class="tag tag-co" style="font-size:9px;">CO</span>
+              <span class="tag tag-vo" style="font-size:9px;">VO</span>
             </div>
             <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Boosted Merchant Card</div>
             <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Featured merchant card with "⚡ BOOST DU JOUR" badge, large brand logo, cashback amount.</div>
@@ -529,11 +537,12 @@
           <div style="padding:14px 18px;display:flex;flex-direction:column;justify-content:center;">
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">8</span>
-              <span class="tag tag-co" style="font-size:9px;">CO</span>
+              <span class="tag-none tag" style="font-size:9px;">Nalu</span>
+              <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:rgba(85,85,112,0.2);color:var(--text-muted);">DEPRECATED</span>
             </div>
-            <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Compact Offer Row</div>
-            <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Compact horizontal offer row. Brand logo, "EN HAUSSE" badge, cashback %, CTA button.</div>
-            <div style="display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;background:rgba(34,211,238,0.12);color:#22d3ee;align-self:flex-start;">→ HorizontalCard (dense)</div>
+            <div style="font-weight:700;font-size:16px;margin-bottom:4px;color:var(--text-muted);text-decoration:line-through;">Compact Offer Row</div>
+            <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Deprecated on live site. Replaced by VerticalBaseCard — confirmed by Iza. See live: <a href="https://igraal.pl/wszystkie-kategorie/elektronika/komputery-i-tablety" style="color:#22d3ee;" target="_blank">igraal.pl/elektronika</a></div>
+            <div style="display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;background:rgba(85,85,112,0.15);color:var(--text-muted);align-self:flex-start;">No build needed — already replaced</div>
           </div>
         </div>
 
@@ -818,9 +827,9 @@
           <div style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid rgba(6,182,212,0.25);background:var(--surface-2);">
             <img src="card-crops/card-08-search-list.png" style="width:100%;display:block;border-bottom:1px solid var(--border);" alt="Card 8"/>
             <div style="padding:8px 10px;">
-              <div style="font-size:11px;font-weight:800;color:#22d3ee;">#8</div>
-              <div style="font-size:11px;color:var(--text-dim);">Compact Offer Row</div>
-              <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">dense · badge</div>
+              <div style="font-size:11px;font-weight:800;color:var(--text-muted);">#8</div>
+              <div style="font-size:11px;color:var(--text-muted);text-decoration:line-through;">Compact Offer Row</div>
+              <div style="font-size:10px;color:var(--rose);margin-top:2px;">⚠ DEPRECATED — see card detail</div>
             </div>
           </div>
           <div style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid rgba(6,182,212,0.25);background:var(--surface-2);">
@@ -1003,10 +1012,10 @@
         <div class="audit-note">VBC needs configurable ratio + tag overlay → VerticalCard</div>
       </div>
       <div class="audit-row">
-        <div><span style="font-weight:700;">#8</span> Compact Offer Row</div>
-        <div class="audit-desc">Compact horizontal, logo + badge + cashback + CTA</div>
-        <div><span class="coverage-dot gap">🔴 Gap</span></div>
-        <div class="audit-note">Nothing this compact exists → HorizontalCard (dense)</div>
+        <div><span style="font-weight:700;color:var(--text-muted);">#8</span> <span style="text-decoration:line-through;color:var(--text-muted);">Compact Offer Row</span> <span style="font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;background:rgba(85,85,112,0.2);color:var(--text-muted);">DEPRECATED</span></div>
+        <div class="audit-desc">Deprecated on live site — replaced by VerticalBaseCard (confirmed by Iza)</div>
+        <div><span class="coverage-dot na">— N/A</span></div>
+        <div class="audit-note">No build needed. Already replaced in production.</div>
       </div>
       <div class="audit-row">
         <div><span style="font-weight:700;">#9</span> Search Result Row</div>
