@@ -41,6 +41,7 @@
     background: var(--bg);
     color: var(--text);
     line-height: 1.7;
+    font-size: 16px;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -88,7 +89,7 @@
   .section-label { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 12px; }
   h2 { font-size: 30px; font-weight: 800; margin-bottom: 8px; line-height: 1.2; }
   h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
-  .section-desc { color: var(--text-dim); font-size: 15px; margin-bottom: 32px; max-width: 720px; line-height: 1.65; }
+  .section-desc { color: var(--text-dim); font-size: 16px; margin-bottom: 32px; max-width: 720px; line-height: 1.65; }
 
   /* Cards */
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 16px; }
@@ -154,7 +155,7 @@
   .prop-low::before { content: '●'; color: var(--green); margin-right: 4px; font-size: 8px; }
 
   /* Nalu audit */
-  .audit-row { display: grid; grid-template-columns: 200px 1fr 80px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); align-items: start; font-size: 13px; }
+  .audit-row { display: grid; grid-template-columns: 200px 1fr 80px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); align-items: start; font-size: 14px; }
   .audit-row.header { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); padding-bottom: 10px; }
   .audit-row:last-child { border-bottom: none; }
   .audit-name { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--cyan); }
@@ -193,7 +194,8 @@
   .next-text strong { color: var(--text); }
 
   /* Code block */
-  pre { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px 24px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.7; color: #a0a8c0; overflow-x: auto; margin-top: 16px; }
+  pre { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px 24px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.7;
+    font-size: 16px; color: #a0a8c0; overflow-x: auto; margin-top: 16px; }
   pre .kw { color: #818cf8; }
   pre .str { color: #4ade80; }
   pre .cm { color: #555570; font-style: italic; }
@@ -424,9 +426,9 @@
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">1</span>
               <span class="tag tag-co" style="font-size:9px;">CO</span>
             </div>
-            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Hero Carousel</div>
-            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Full-width promotional carousel. Large image with offer text and CTA overlaid.</div>
-            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(251,146,60,0.12);color:#fb923c;align-self:flex-start;">→ PromoCard (hero)</div>
+            <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Hero Carousel</div>
+            <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Full-width promotional carousel. Large image with offer text and CTA overlaid.</div>
+            <div style="display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;background:rgba(251,146,60,0.12);color:#fb923c;align-self:flex-start;">→ PromoCard (hero)</div>
           </div>
         </div>
 
@@ -439,9 +441,9 @@
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">2</span>
               <span class="tag tag-co" style="font-size:9px;">CO</span>
             </div>
-            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Sponsored Offer Card</div>
-            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Compact merchant card. Logo + cashback amount. Sponsored label.</div>
-            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(34,211,238,0.12);color:#22d3ee;align-self:flex-start;">→ HorizontalCard (compact)</div>
+            <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Sponsored Offer Card</div>
+            <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Compact merchant card. Logo + cashback amount. Sponsored label.</div>
+            <div style="display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;background:rgba(34,211,238,0.12);color:#22d3ee;align-self:flex-start;">→ HorizontalCard (compact)</div>
           </div>
         </div>
 
@@ -454,9 +456,9 @@
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">3</span>
               <span class="tag tag-co" style="font-size:9px;">CO</span> <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(34,197,94,0.15);color:#4ade80;margin-left:6px;">IN NALU</span>
             </div>
-            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Cashback Offer Card</div>
-            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Vertical card with brand image, cashback amount, CTA, and expiry date.</div>
-            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(129,140,248,0.12);color:#818cf8;align-self:flex-start;">→ VerticalCard (standard)</div>
+            <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Cashback Offer Card</div>
+            <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Vertical card with brand image, cashback amount, CTA, and expiry date.</div>
+            <div style="display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;background:rgba(129,140,248,0.12);color:#818cf8;align-self:flex-start;">→ VerticalCard (standard)</div>
           </div>
         </div>
 
@@ -469,9 +471,9 @@
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">4</span>
               <span class="tag tag-gc" style="font-size:9px;">GC</span> <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(34,197,94,0.15);color:#4ade80;margin-left:6px;">IN NALU</span>
             </div>
-            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Gift Card Tile</div>
-            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Brand logo tile inside a gift card grid. Logo centered, brand name below.</div>
-            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(129,140,248,0.12);color:#818cf8;align-self:flex-start;">→ VerticalCard (tile)</div>
+            <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Gift Card Tile</div>
+            <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Brand logo tile inside a gift card grid. Logo centered, brand name below.</div>
+            <div style="display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;background:rgba(129,140,248,0.12);color:#818cf8;align-self:flex-start;">→ VerticalCard (tile)</div>
           </div>
         </div>
 
@@ -484,9 +486,9 @@
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">5</span>
               <span class="tag tag-co" style="font-size:9px;">CO</span> <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(34,197,94,0.15);color:#4ade80;margin-left:6px;">IN NALU</span>
             </div>
-            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Merchant Detail Card</div>
-            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Merchant page header. Logo + large cashback %, conditions text, CTA, expiry.</div>
-            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(34,211,238,0.12);color:#22d3ee;align-self:flex-start;">→ HorizontalCard (standard)</div>
+            <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Merchant Detail Card</div>
+            <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Merchant page header. Logo + large cashback %, conditions text, CTA, expiry.</div>
+            <div style="display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;background:rgba(34,211,238,0.12);color:#22d3ee;align-self:flex-start;">→ HorizontalCard (standard)</div>
           </div>
         </div>
 
@@ -499,9 +501,9 @@
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">6</span>
               <span class="tag tag-co" style="font-size:9px;">CO</span>
             </div>
-            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Boosted Merchant Card</div>
-            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Featured merchant card with "⚡ BOOST DU JOUR" badge, large brand logo, cashback amount.</div>
-            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(129,140,248,0.12);color:#818cf8;align-self:flex-start;">→ VerticalCard (featured)</div>
+            <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Boosted Merchant Card</div>
+            <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Featured merchant card with "⚡ BOOST DU JOUR" badge, large brand logo, cashback amount.</div>
+            <div style="display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;background:rgba(129,140,248,0.12);color:#818cf8;align-self:flex-start;">→ VerticalCard (featured)</div>
           </div>
         </div>
 
@@ -514,9 +516,9 @@
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">7</span>
               <span class="tag tag-sn" style="font-size:9px;">S&amp;N</span>
             </div>
-            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Sponsored Product Promo</div>
-            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Image-dominant vertical card with cashback badge overlay on product image, brand logo, product description.</div>
-            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(129,140,248,0.12);color:#818cf8;align-self:flex-start;">→ VerticalCard (image-dominant)</div>
+            <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Sponsored Product Promo</div>
+            <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Image-dominant vertical card with cashback badge overlay on product image, brand logo, product description.</div>
+            <div style="display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;background:rgba(129,140,248,0.12);color:#818cf8;align-self:flex-start;">→ VerticalCard (image-dominant)</div>
           </div>
         </div>
 
@@ -529,9 +531,9 @@
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">8</span>
               <span class="tag tag-co" style="font-size:9px;">CO</span>
             </div>
-            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Compact Offer Row</div>
-            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Compact horizontal offer row. Brand logo, "EN HAUSSE" badge, cashback %, CTA button.</div>
-            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(34,211,238,0.12);color:#22d3ee;align-self:flex-start;">→ HorizontalCard (dense)</div>
+            <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Compact Offer Row</div>
+            <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Compact horizontal offer row. Brand logo, "EN HAUSSE" badge, cashback %, CTA button.</div>
+            <div style="display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;background:rgba(34,211,238,0.12);color:#22d3ee;align-self:flex-start;">→ HorizontalCard (dense)</div>
           </div>
         </div>
 
@@ -544,9 +546,9 @@
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">9</span>
               <span class="tag tag-sn" style="font-size:9px;">S&amp;N</span>
             </div>
-            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Search Result Row</div>
-            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Compact horizontal row. Brand logo left, name + cashback % + coupon count right.</div>
-            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(34,211,238,0.12);color:#22d3ee;align-self:flex-start;">→ HorizontalCard (compact)</div>
+            <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Search Result Row</div>
+            <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Compact horizontal row. Brand logo left, name + cashback % + coupon count right.</div>
+            <div style="display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;background:rgba(34,211,238,0.12);color:#22d3ee;align-self:flex-start;">→ HorizontalCard (compact)</div>
           </div>
         </div>
 
@@ -559,9 +561,9 @@
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">10</span>
               <span class="tag tag-cce" style="font-size:9px;">CCE</span>
             </div>
-            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Product Deal Card</div>
-            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Product card in carousel. Fashion photo, price discount, cashback percentage.</div>
-            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(129,140,248,0.12);color:#818cf8;align-self:flex-start;">→ VerticalCard (tile)</div>
+            <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Product Deal Card</div>
+            <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Product card in carousel. Fashion photo, price discount, cashback percentage.</div>
+            <div style="display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;background:rgba(129,140,248,0.12);color:#818cf8;align-self:flex-start;">→ VerticalCard (tile)</div>
           </div>
         </div>
 
@@ -574,9 +576,9 @@
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">11</span>
               <span class="tag tag-cce" style="font-size:9px;">CCE</span>
             </div>
-            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Brand Promo Card</div>
-            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Image-dominant brand card. Full model photo with discount + cashback text overlay.</div>
-            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(251,146,60,0.12);color:#fb923c;align-self:flex-start;">→ PromoCard (hero)</div>
+            <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Brand Promo Card</div>
+            <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Image-dominant brand card. Full model photo with discount + cashback text overlay.</div>
+            <div style="display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;background:rgba(251,146,60,0.12);color:#fb923c;align-self:flex-start;">→ PromoCard (hero)</div>
           </div>
         </div>
 
@@ -589,9 +591,9 @@
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">12</span>
               <span class="tag tag-cce" style="font-size:9px;">CCE</span>
             </div>
-            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Brand Deal Card</div>
-            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Single card with brand logo, discount + cashback text, "Last Chance" urgency label.</div>
-            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(129,140,248,0.12);color:#818cf8;align-self:flex-start;">→ VerticalCard (text-focused)</div>
+            <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Brand Deal Card</div>
+            <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Single card with brand logo, discount + cashback text, "Last Chance" urgency label.</div>
+            <div style="display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;background:rgba(129,140,248,0.12);color:#818cf8;align-self:flex-start;">→ VerticalCard (text-focused)</div>
           </div>
         </div>
 
@@ -604,9 +606,9 @@
               <span style="font-size:18px;font-weight:900;color:var(--text-muted);">13</span>
               <span class="tag tag-cce" style="font-size:9px;">CCE</span>
             </div>
-            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Text Offer Card</div>
-            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Text-only offer card. Discount + cashback text, product description. No image.</div>
-            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(34,211,238,0.12);color:#22d3ee;align-self:flex-start;">→ HorizontalCard (text-only)</div>
+            <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Text Offer Card</div>
+            <div style="font-size:14px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Text-only offer card. Discount + cashback text, product description. No image.</div>
+            <div style="display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;background:rgba(34,211,238,0.12);color:#22d3ee;align-self:flex-start;">→ HorizontalCard (text-only)</div>
           </div>
         </div>
       </div>
@@ -628,22 +630,22 @@
     <h3 style="margin-bottom:16px;">Slot Inventory</h3>
     <div class="card-grid" style="margin-bottom:32px;">
       <div class="card" style="border-top:3px solid var(--accent);">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:12px;">Fixed Slots (always present)</div>
+        <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:12px;">Fixed Slots (always present)</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <div style="display:flex;align-items:center;gap:10px;"><span class="slot fixed">Image</span><span style="font-size:13px;color:var(--text-dim);">Varies in ratio/position — 16:9, 1:1, 2:3, 3:2</span></div>
-          <div style="display:flex;align-items:center;gap:10px;"><span class="slot fixed">Title</span><span style="font-size:13px;color:var(--text-dim);">1–2 lines, always visible</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot fixed" style="font-size:12px;">Image</span><span style="font-size:14px;color:var(--text-dim);">Varies in ratio/position — 16:9, 1:1, 2:3, 3:2</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot fixed" style="font-size:12px;">Title</span><span style="font-size:14px;color:var(--text-dim);">1–2 lines, always visible</span></div>
         </div>
       </div>
       <div class="card" style="border-top:3px solid var(--text-muted);">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Variable Slots (optional, composable)</div>
+        <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Variable Slots (optional, composable)</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt">Description</span><span style="font-size:13px;color:var(--text-dim);">0–3 lines</span></div>
-          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt">Meta</span><span style="font-size:13px;color:var(--text-dim);">Rating, date, location, category — repeatable</span></div>
-          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt">Price</span><span style="font-size:13px;color:var(--text-dim);">Commerce contexts — activates the commerce mode</span></div>
-          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt">Badge / Pill</span><span style="font-size:13px;color:var(--text-dim);">Discount %, "new", "sponsored" — overlay or inline</span></div>
-          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt">CTA</span><span style="font-size:13px;color:var(--text-dim);">Button or link — optional, size varies by family</span></div>
-          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt">Action Icons</span><span style="font-size:13px;color:var(--text-dim);">Heart, save, compare — 0 to many</span></div>
-          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt">Brand Chips</span><span style="font-size:13px;color:var(--text-dim);">Merchant logo row — hero cards only</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt" style="font-size:12px;">Description</span><span style="font-size:14px;color:var(--text-dim);">0–3 lines</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt" style="font-size:12px;">Meta</span><span style="font-size:14px;color:var(--text-dim);">Rating, date, location, category — repeatable</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt" style="font-size:12px;">Price</span><span style="font-size:14px;color:var(--text-dim);">Commerce contexts — activates the commerce mode</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt" style="font-size:12px;">Badge / Pill</span><span style="font-size:14px;color:var(--text-dim);">Discount %, "new", "sponsored" — overlay or inline</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt" style="font-size:12px;">CTA</span><span style="font-size:14px;color:var(--text-dim);">Button or link — optional, size varies by family</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt" style="font-size:12px;">Action Icons</span><span style="font-size:14px;color:var(--text-dim);">Heart, save, compare — 0 to many</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span class="slot opt" style="font-size:12px;">Brand Chips</span><span style="font-size:14px;color:var(--text-dim);">Merchant logo row — hero cards only</span></div>
         </div>
       </div>
     </div>
@@ -706,7 +708,7 @@
       <div class="component-header">
         <div>
           <h3 style="margin:0;">VerticalCard</h3>
-          <div style="font-size:13px;color:var(--text-dim);margin-top:4px;">Image on top, structured content below. Configurable ratio + optional slots.</div>
+          <div style="font-size:14px;color:var(--text-dim);margin-top:4px;">Image on top, structured content below. Configurable ratio + optional slots.</div>
         </div>
         <div style="display:flex;align-items:center;gap:8px;">
           <span class="action-badge action-merge">Merge</span>
@@ -777,7 +779,7 @@
       <div class="component-header">
         <div>
           <h3 style="margin:0;">HorizontalCard</h3>
-          <div style="font-size:13px;color:var(--text-dim);margin-top:4px;">Logo/image left, content right. Compact, standard, and text-only modes.</div>
+          <div style="font-size:14px;color:var(--text-dim);margin-top:4px;">Logo/image left, content right. Compact, standard, and text-only modes.</div>
         </div>
         <div style="display:flex;align-items:center;gap:8px;">
           <span class="action-badge action-evolve">Evolve</span>
@@ -840,7 +842,7 @@
       <div class="component-header">
         <div>
           <h3 style="margin:0;">PromoCard</h3>
-          <div style="font-size:13px;color:var(--text-dim);margin-top:4px;">Image IS the card surface. Text overlaid on image — no separate content area.</div>
+          <div style="font-size:14px;color:var(--text-dim);margin-top:4px;">Image IS the card surface. Text overlaid on image — no separate content area.</div>
         </div>
         <div style="display:flex;align-items:center;gap:8px;">
           <span class="action-badge action-new">New</span>
@@ -880,7 +882,7 @@
         <div style="font-size:15px;font-weight:700;color:var(--text-muted);">Not Cards</div>
         <span style="font-size:12px;color:var(--text-muted);">3 patterns excluded</span>
       </div>
-      <div style="font-size:13px;color:var(--text-dim);line-height:1.65;">Filter/Facet Panel (input control), Checkout/Balance Summary (page section), Empty State (already in Nalu). See Composition section for detailed rationale.</div>
+      <div style="font-size:14px;color:var(--text-dim);line-height:1.65;">Filter/Facet Panel (input control), Checkout/Balance Summary (page section), Empty State (already in Nalu). See Composition section for detailed rationale.</div>
     </div>
 
   </section>
@@ -894,15 +896,15 @@
     <div class="card-grid" style="margin-bottom:32px;">
       <div class="card" style="border-top:3px solid var(--green);">
         <div style="font-size:32px;font-weight:900;color:var(--green);">18.75%</div>
-        <div style="font-size:13px;color:var(--text-dim);margin-top:4px;">of 64 components properly use Nova BaseCard wrappers</div>
+        <div style="font-size:14px;color:var(--text-dim);margin-top:4px;">of 64 components properly use Nova BaseCard wrappers</div>
       </div>
       <div class="card" style="border-top:3px solid var(--amber);">
         <div style="font-size:32px;font-weight:900;color:var(--amber);">20</div>
-        <div style="font-size:13px;color:var(--text-dim);margin-top:4px;">"Wild-west" — use Nova primitives but skip BaseCard wrapper</div>
+        <div style="font-size:14px;color:var(--text-dim);margin-top:4px;">"Wild-west" — use Nova primitives but skip BaseCard wrapper</div>
       </div>
       <div class="card" style="border-top:3px solid var(--rose);">
         <div style="font-size:32px;font-weight:900;color:var(--rose);">31</div>
-        <div style="font-size:13px;color:var(--text-dim);margin-top:4px;">Legacy / non-Nova — full rewrite required</div>
+        <div style="font-size:14px;color:var(--text-dim);margin-top:4px;">Legacy / non-Nova — full rewrite required</div>
       </div>
     </div>
 
@@ -1040,9 +1042,9 @@
         <span class="tier-badge tier-1">Tier 1 — Now</span>
         <div>
           <div style="font-size:15px;font-weight:700;">20 wild-west components</div>
-          <div style="font-size:13px;color:var(--text-dim);">Use Nova primitives but skip BaseCard wrapper. Highest risk — they look compliant but aren't.</div>
+          <div style="font-size:14px;color:var(--text-dim);">Use Nova primitives but skip BaseCard wrapper. Highest risk — they look compliant but aren't.</div>
         </div>
-        <div style="margin-left:auto;font-size:13px;color:var(--text-dim);">Effort: <strong style="color:var(--text);">High</strong></div>
+        <div style="margin-left:auto;font-size:14px;color:var(--text-dim);">Effort: <strong style="color:var(--text);">High</strong></div>
       </div>
       <div class="tier-body">
         <div class="migration-items">
@@ -1065,9 +1067,9 @@
         <span class="tier-badge tier-2">Tier 2 — Soon</span>
         <div>
           <div style="font-size:15px;font-weight:700;">31 legacy / non-Nova components</div>
-          <div style="font-size:13px;color:var(--text-dim);">No Nova usage at all. Full rewrites. Prioritize by page traffic.</div>
+          <div style="font-size:14px;color:var(--text-dim);">No Nova usage at all. Full rewrites. Prioritize by page traffic.</div>
         </div>
-        <div style="margin-left:auto;font-size:13px;color:var(--text-dim);">Effort: <strong style="color:var(--text);">Very High</strong></div>
+        <div style="margin-left:auto;font-size:14px;color:var(--text-dim);">Effort: <strong style="color:var(--text);">Very High</strong></div>
       </div>
       <div class="tier-body">
         <div class="migration-items">
@@ -1086,9 +1088,9 @@
         <span class="tier-badge tier-3">Tier 3 — Reclassify</span>
         <div>
           <div style="font-size:15px;font-weight:700;">~6 components that aren't cards</div>
-          <div style="font-size:13px;color:var(--text-dim);">Dialogs, carousel wrappers, layout containers. Remove from card migration scope.</div>
+          <div style="font-size:14px;color:var(--text-dim);">Dialogs, carousel wrappers, layout containers. Remove from card migration scope.</div>
         </div>
-        <div style="margin-left:auto;font-size:13px;color:var(--text-dim);">Effort: <strong style="color:var(--text);">Low</strong></div>
+        <div style="margin-left:auto;font-size:14px;color:var(--text-dim);">Effort: <strong style="color:var(--text);">Low</strong></div>
       </div>
       <div class="tier-body">
         <div class="migration-items">
@@ -1119,7 +1121,7 @@
               <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);">VerticalCard</span>
             </div>
             <h3 style="font-size:20px;margin-bottom:4px;">VerticalCard — Merge + Configurable Ratio</h3>
-            <div style="font-size:13px;color:var(--text-dim);">Merge VerticalBaseCard + VerticalBaseCardLite into one component. The 2.42:1 hardlock is the #1 blocker — kill it first.</div>
+            <div style="font-size:14px;color:var(--text-dim);">Merge VerticalBaseCard + VerticalBaseCardLite into one component. The 2.42:1 hardlock is the #1 blocker — kill it first.</div>
           </div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;">
             <div style="font-size:11px;color:var(--text-muted);">Covers cards</div>
@@ -1136,7 +1138,7 @@
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border-bottom:1px solid var(--border);">
           <div style="padding:20px 24px;border-right:1px solid var(--border);">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">What to build</div>
+            <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">What to build</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
               <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--rose);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#818cf8;">bannerRatio</code> — configurable prop replacing hardcoded 2.42:1. Values: <code style="font-family:monospace;font-size:11px;">1:1 | 4:3 | 4:5 | 16:9 | 2.42:1</code> (default)</span></li>
               <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--rose);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#818cf8;">cta</code> — make optional (required in VBC, absent in VBCLite)</span></li>
@@ -1147,7 +1149,7 @@
             </ul>
           </div>
           <div style="padding:20px 24px;">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Acceptance criteria</div>
+            <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Acceptance criteria</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
               <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>All 6 card types render correctly using VerticalCard with different props</span></li>
               <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>bannerRatio="1:1" renders square, "16:9" renders wide — no layout breakage</span></li>
@@ -1174,7 +1176,7 @@
               <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cyan);">HorizontalCard</span>
             </div>
             <h3 style="font-size:20px;margin-bottom:4px;">HorizontalCard — Evolve + Modes</h3>
-            <div style="font-size:13px;color:var(--text-dim);">Rename HorizontalBaseCard, kill OfferBaseCard (already deprecated), add compact + text-only modes. Lowest risk P0 — mostly additive changes.</div>
+            <div style="font-size:14px;color:var(--text-dim);">Rename HorizontalBaseCard, kill OfferBaseCard (already deprecated), add compact + text-only modes. Lowest risk P0 — mostly additive changes.</div>
           </div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;">
             <div style="font-size:11px;color:var(--text-muted);">Covers cards</div>
@@ -1190,7 +1192,7 @@
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border-bottom:1px solid var(--border);">
           <div style="padding:20px 24px;border-right:1px solid var(--border);">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">What to build</div>
+            <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">What to build</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
               <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--rose);flex-shrink:0;">●</span><span>Rename HorizontalBaseCard → <code style="font-family:monospace;font-size:11px;color:#22d3ee;">HorizontalCard</code></span></li>
               <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--rose);flex-shrink:0;">●</span><span>Kill OfferBaseCard — migrate its 4 consumers (RlpCard, RlpGiftCard, VoucherOfferCard, FavoriteRetailerCardNalu)</span></li>
@@ -1200,7 +1202,7 @@
             </ul>
           </div>
           <div style="padding:20px 24px;">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Acceptance criteria</div>
+            <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Acceptance criteria</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
               <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>Cards 2, 8, 13 render correctly using HorizontalCard with different density props</span></li>
               <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>density="dense" renders compact single-line version (card #8)</span></li>
@@ -1229,7 +1231,7 @@
               <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;background:rgba(34,197,94,0.1);color:var(--green);">🆕 New component</span>
             </div>
             <h3 style="font-size:20px;margin-bottom:4px;">PromoCard — New Build</h3>
-            <div style="font-size:13px;color:var(--text-dim);">The only genuinely new component. Covers full-width hero banners and image-dominant brand promo cards. Nalu has zero answer for background-image cards today.</div>
+            <div style="font-size:14px;color:var(--text-dim);">The only genuinely new component. Covers full-width hero banners and image-dominant brand promo cards. Nalu has zero answer for background-image cards today.</div>
           </div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;">
             <div style="font-size:11px;color:var(--text-muted);">Covers cards</div>
@@ -1242,7 +1244,7 @@
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border-bottom:1px solid var(--border);">
           <div style="padding:20px 24px;border-right:1px solid var(--border);">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">What to build</div>
+            <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">What to build</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
               <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--rose);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#fb923c;">layout</code> — <code style="font-family:monospace;font-size:11px;">"hero" | "portrait"</code> — hero is full-width landscape, portrait is image-dominant vertical</span></li>
               <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--rose);flex-shrink:0;">●</span><span><code style="font-family:monospace;font-size:11px;color:#fb923c;">backgroundImage</code> — URL, rendered as card background</span></li>
@@ -1254,7 +1256,7 @@
             </ul>
           </div>
           <div style="padding:20px 24px;">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Acceptance criteria</div>
+            <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Acceptance criteria</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
               <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>layout="hero" renders full-width landscape (card #1 — hero carousel)</span></li>
               <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>layout="portrait" renders image-dominant vertical card (card #11 — H&M brand promo)</span></li>
@@ -1282,7 +1284,7 @@
               <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);">Migration</span>
             </div>
             <h3 style="font-size:20px;margin-bottom:4px;">Tier 1 Migration — Wild-west Components</h3>
-            <div style="font-size:13px;color:var(--text-dim);">20 components that use Nova primitives but skip BaseCard wrapper. They look compliant but aren't — highest inconsistency risk. Migrate to the three new components.</div>
+            <div style="font-size:14px;color:var(--text-dim);">20 components that use Nova primitives but skip BaseCard wrapper. They look compliant but aren't — highest inconsistency risk. Migrate to the three new components.</div>
           </div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;">
             <div style="font-size:11px;color:var(--text-muted);">Components</div>
@@ -1292,7 +1294,7 @@
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border-bottom:1px solid var(--border);">
           <div style="padding:20px 24px;border-right:1px solid var(--border);">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Priority targets</div>
+            <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Priority targets</div>
             <div style="display:flex;flex-direction:column;gap:7px;">
               <div style="display:flex;align-items:center;gap:8px;font-size:12px;"><span style="font-family:monospace;font-size:11px;color:var(--text-dim);background:var(--surface-3);padding:1px 7px;border-radius:4px;">SponsoredCard</span><span style="color:var(--accent);">→ VerticalCard</span></div>
               <div style="display:flex;align-items:center;gap:8px;font-size:12px;"><span style="font-family:monospace;font-size:11px;color:var(--text-dim);background:var(--surface-3);padding:1px 7px;border-radius:4px;">CashbackOfferPanel</span><span style="color:var(--cyan);">→ HorizontalCard</span></div>
@@ -1304,7 +1306,7 @@
             </div>
           </div>
           <div style="padding:20px 24px;">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Acceptance criteria</div>
+            <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">Acceptance criteria</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
               <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>All 20 components migrated to VerticalCard / HorizontalCard / PromoCard</span></li>
               <li style="display:flex;gap:8px;font-size:13px;"><span style="color:var(--green);flex-shrink:0;">✓</span><span>No direct Nova primitive usage in migrated components — only via base components</span></li>
