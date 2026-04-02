@@ -236,7 +236,7 @@
   <div class="hero">
     <div class="badge">Deep Research Report</div>
     <h1>From Silos to System</h1>
-    <p class="subtitle">Four teams. Thirteen patterns. Nine real cards — built independently, drifting apart every sprint. This report maps the duplication, proves the overlap, and proposes 3 shared base components that replace them all. The cost of doing nothing: every sprint compounds visual inconsistency, duplicated maintenance, and slower feature delivery across all brands.</p>
+    <p class="subtitle">Four teams. Thirteen patterns. Ten real cards — built independently, drifting apart every sprint. This report maps the duplication, proves the overlap, and proposes 3 shared base components that replace them all. The cost of doing nothing: every sprint compounds visual inconsistency, duplicated maintenance, and slower feature delivery across all brands.</p>
     <div class="meta">
       <span>📅 2026-04-01</span>
       <span>👥 Sprint Lead · UX Designer · Design Engineer · Scout</span>
@@ -251,7 +251,7 @@
       <div class="label">Patterns found</div>
     </div>
     <div class="stat accent">
-      <div class="num">9</div>
+      <div class="num">10</div>
       <div class="label">Are actual cards</div>
     </div>
     <div class="stat cyan">
@@ -335,10 +335,10 @@
         <!-- Compact Offer Row -->
         <div style="display:grid;grid-template-columns:200px repeat(4,1fr);border-bottom:1px solid var(--border);background:rgba(6,182,212,0.04);">
           <div style="padding:12px 16px;">
-            <div style="font-size:13px;font-weight:700;">Compact Offer Row</div>
-            <div style="font-size:11px;color:var(--text-muted);">Cards 2, 8, 13</div>
+            <div style="font-size:13px;font-weight:700;">Horizontal / Offer Row</div>
+            <div style="font-size:11px;color:var(--text-muted);">Cards 2, 5, 8, 13</div>
           </div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="CO owns cards 2, 8">✅</div>
+          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="CO owns cards 2, 5, 8">✅</div>
           <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="CCE owns card 13">✅</div>
           <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
           <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
@@ -356,17 +356,7 @@
           <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;" title="GC owns this">✅</div>
         </div>
 
-        <!-- Page Section (not a card) -->
-        <div style="display:grid;grid-template-columns:200px repeat(4,1fr);">
-          <div style="padding:12px 16px;">
-            <div style="font-size:13px;font-weight:700;color:var(--text-muted);">Page Section</div>
-            <div style="font-size:11px;color:var(--text-muted);">Card 5</div>
-          </div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">✅</div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
-          <div style="padding:12px 8px;text-align:center;border-left:1px solid var(--border);font-size:18px;">—</div>
-        </div>
+
 
       </div>
       <div style="margin-top:12px;padding:14px 18px;background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.2);border-radius:var(--radius-sm);font-size:13px;color:var(--text-dim);line-height:1.6;">
@@ -441,9 +431,9 @@
               <span style="font-size:20px;font-weight:900;color:var(--text-muted);">5</span>
               <span class="tag tag-co">CO</span>
             </div>
-            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Merchant Detail Section</div>
-            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Full-width detail section. Large cashback %, conditions text, CTA, expiry. Page-level pattern, not a list card.</div>
-            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:var(--surface-3);color:var(--text-muted);">⚠️ Page section, not a card</div>
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Merchant Detail Card</div>
+            <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;line-height:1.5;">Merchant page header. Logo + large cashback %, conditions text, CTA, expiry. Already exists in Nalu as HorizontalBaseCard.</div>
+            <div style="display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(6,182,212,0.10);color:#22d3ee;">→ HorizontalCard (standard)</div>
           </div>
         </div>
 
@@ -813,10 +803,10 @@
         <div class="audit-note">VBCLite close but wrong ratio + no badge slot → VerticalCard</div>
       </div>
       <div class="audit-row">
-        <div><span style="font-weight:700;">#5</span> Merchant Detail</div>
-        <div class="audit-desc">Full-width detail section, cashback %, conditions, CTA</div>
-        <div><span class="coverage-dot na">⚪ N/A</span></div>
-        <div class="audit-note">Page section, not a card — separate pattern</div>
+        <div><span style="font-weight:700;">#5</span> Merchant Detail Card</div>
+        <div class="audit-desc">Merchant page header, logo + cashback %, conditions, CTA, expiry</div>
+        <div><span class="coverage-dot partial">🟡 Partial</span></div>
+        <div class="audit-note">Already exists as HorizontalBaseCard → evolve into HorizontalCard</div>
       </div>
       <div class="audit-row">
         <div><span style="font-weight:700;">#6</span> Boosted Merchant Card</div>
@@ -1020,6 +1010,7 @@
             <div style="font-size:11px;color:var(--text-muted);">Covers cards</div>
             <div style="display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;">
               <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#2</span>
+              <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#5</span>
               <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#8</span>
               <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);">#13</span>
             </div>
